@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/models/story/phone.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/core/InteractTrigger.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/props/Phone.gd" type="Script" id=3]
 [ext_resource path="res://assets/models/story/phone_glass.material" type="Material" id=4]
+[ext_resource path="res://assets/sounds/ring-tone.ogg" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.2, 0.2, 0.2 )
@@ -35,9 +36,22 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 0.0303271, 0.0126197, 0.119994, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Ring:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "ringing"
+length = 2.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("phone:mesh:surface_2/material")
@@ -58,10 +72,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.0303271, 0.0126197, 0.119994, 1 ), Color( 0.584314, 0.933333, 0.341176, 1 ), Color( 0.0303271, 0.0126197, 0.119994, 1 ) ]
+"values": [ Color( 0.0303271, 0.0126197, 0.119994, 1 ), Color( 0.584314, 0.933333, 0.341176, 1 ), Color( 0.0303271, 0.0126197, 0.119994, 1 ), Color( 0.584314, 0.933333, 0.341176, 1 ), Color( 0.0303271, 0.0126197, 0.119994, 1 ), Color( 0.584314, 0.933333, 0.341176, 1 ), Color( 0.0303271, 0.0126197, 0.119994, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Ring:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [node name="Phone" instance=ExtResource( 1 )]
@@ -74,13 +100,18 @@ hover_key = "pickup_phone"
 shape = SubResource( 1 )
 
 [node name="Ring" type="AudioStreamPlayer3D" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.109642, 0 )
+stream = ExtResource( 5 )
+unit_size = 5.0
+max_distance = 10.0
 bus = "sound"
 
 [node name="Message" type="AudioStreamPlayer2D" parent="." index="3"]
 bus = "phone"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
-autoplay = "ringing"
+autoplay = "off"
 anims/off = SubResource( 2 )
 anims/ringing = SubResource( 3 )
 [connection signal="interacted_with" from="InteractTrigger" to="." method="_on_InteractTrigger_interacted_with"]
+[connection signal="finished" from="Message" to="." method="_on_Message_finished"]

@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/models/bar.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/props/bar/Stool.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 3.81625, 0.1, 6.22255 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1.4261, 1, 2.36438 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.952766, 0.166168, 1.57619 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.654262, 0.166168, 0.497103 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.389693, 0.166168, 0.511044 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.272507, 0.824312, 0.264126 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 3.62839, 1.69314, 0.139555 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.207983, 1.71308, 6.32894 )
+
+[node name="Bar" instance=ExtResource( 1 )]
+
+[node name="Props" type="Spatial" parent="." index="1"]
+
+[node name="Stool" parent="Props" index="0" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53459, 0, -0.940039 )
+
+[node name="Stool2" parent="Props" index="1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2475, 0, -0.940039 )
+
+[node name="Stool3" parent="Props" index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.92369, 0, -0.940039 )
+
+[node name="Stool4" parent="Props" index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561928, 0, -1.79857 )
+
+[node name="Stool5" parent="Props" index="4" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561928, 0, -2.83289 )
+
+[node name="Stool6" parent="Props" index="5" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561928, 0, -3.75697 )
+
+[node name="Stool7" parent="Props" index="6" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561928, 0, -4.67636 )
+
+[node name="StaticBody" type="StaticBody" parent="." index="2"]
+
+[node name="Floor" type="CollisionShape" parent="StaticBody" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
+shape = SubResource( 1 )
+
+[node name="Bar" type="CollisionShape" parent="StaticBody" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2087, 0.981058, -3.66122 )
+shape = SubResource( 2 )
+
+[node name="Stage" type="CollisionShape" parent="StaticBody" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.50165, 0.184856, 4.40356 )
+shape = SubResource( 3 )
+
+[node name="StageRamp" type="CollisionShape" parent="StaticBody" index="3"]
+transform = Transform( 1, 0, 0, 0, 0.933374, 0.358906, 0, -0.358906, 0.933374, 2.85602, 0.0228473, 2.43246 )
+shape = SubResource( 4 )
+
+[node name="StageRamp2" type="CollisionShape" parent="StaticBody" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93691, 0.17907, 2.43246 )
+shape = SubResource( 5 )
+
+[node name="Amp" type="CollisionShape" parent="StaticBody" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.04693, 1.61904, 5.55373 )
+shape = SubResource( 6 )
+
+[node name="Wall" type="CollisionShape" parent="StaticBody" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49259, -6.0715 )
+shape = SubResource( 7 )
+
+[node name="Wall2" type="CollisionShape" parent="StaticBody" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.70917, 1.48724, 0 )
+shape = SubResource( 8 )
+
+[node name="PoolTable" parent="." index="3" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71885, 0, -3.12784 )

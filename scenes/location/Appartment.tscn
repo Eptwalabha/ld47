@@ -66,7 +66,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.21093, 0.416402, -1.9034 )
 shape = SubResource( 6 )
 
 [node name="Counter" type="CollisionShape" parent="StaticBody" index="7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.786368, 0.470442, -0.555517 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.970294, 0.470442, -0.555517 )
 shape = SubResource( 7 )
 
 [node name="WallFrontKitchen" type="CollisionShape" parent="StaticBody" index="8"]

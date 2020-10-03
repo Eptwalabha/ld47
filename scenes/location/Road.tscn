@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/models/road/road.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/location/Road.gd" type="Script" id=2]
+
+[node name="Road" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="road" parent="." index="0"]
+transform = Transform( -2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0, 0 )
+
+[node name="Line1" type="Spatial" parent="." index="1"]
+
+[node name="Line2" type="Spatial" parent="." index="2"]

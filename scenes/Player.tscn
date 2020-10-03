@@ -34,3 +34,5 @@ cast_to = Vector3( 0, -1.5, 0 )
 collision_mask = 14
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -5,6 +5,8 @@ onready var ui := $UI as UI
 onready var appartment := $Appartment as Appartment
 onready var street := $StreetLevel as Spatial
 onready var player := $Player as Player
+onready var road := $Road
+
 var lvl = -1
 
 func _ready() -> void:
@@ -45,13 +47,17 @@ func reset_game() -> void:
 	lvl = 0
 	appartment.set_level(lvl)
 	street.translation = Vector3(0, 2.5 * lvl, 0)
+	$Phone.ring()
 
 func _check_triggers():
 	if player.ray.is_colliding():
 		var collider = player.ray.get_collider()
-		if collider is InteractTrigger:
-			ui.show_context(tr(collider.hover_key))
+		if Input.is_action_just_pressed("ui_action"):
+			pass
 		else:
-			ui.hide_context()
+			if collider is InteractTrigger:
+				ui.show_context(tr(collider.hover_key))
+			else:
+				ui.hide_context()
 	else:
 		ui.hide_context()
