@@ -24,16 +24,28 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/core/InteractTrigger.gd"
 }, {
+"base": "Spatial",
+"class": "Phone",
+"language": "GDScript",
+"path": "res://scenes/props/Phone.gd"
+}, {
 "base": "KinematicBody",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/Player.gd"
+}, {
+"base": "Control",
+"class": "UI",
+"language": "GDScript",
+"path": "res://scenes/ui/UI.gd"
 } ]
 _global_script_class_icons={
 "Appartment": "",
 "Game": "",
 "InteractTrigger": "",
-"Player": ""
+"Phone": "",
+"Player": "",
+"UI": ""
 }
 
 [application]

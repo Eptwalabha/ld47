@@ -1,6 +1,7 @@
 class_name Game
 extends Spatial
 
+onready var ui := $UI as UI
 onready var appartment := $Appartment as Appartment
 onready var street := $StreetLevel as Spatial
 onready var player := $Player as Player
@@ -49,6 +50,8 @@ func _check_triggers():
 	if player.ray.is_colliding():
 		var collider = player.ray.get_collider()
 		if collider is InteractTrigger:
-			print(collider.hover_key)
+			ui.show_context(tr(collider.hover_key))
+		else:
+			ui.hide_context()
 	else:
-		pass
+		ui.hide_context()

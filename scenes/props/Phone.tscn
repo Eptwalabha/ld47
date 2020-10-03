@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/models/story/phone.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/core/InteractTrigger.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/props/Phone.gd" type="Script" id=3]
+[ext_resource path="res://assets/models/story/phone_glass.material" type="Material" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "off"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("phone:mesh:surface_2/material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("phone:mesh:surface_2/material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.0303271, 0.0126197, 0.119994, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "ringing"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("phone:mesh:surface_2/material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("phone:mesh:surface_2/material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.0303271, 0.0126197, 0.119994, 1 ), Color( 0.584314, 0.933333, 0.341176, 1 ), Color( 0.0303271, 0.0126197, 0.119994, 1 ) ]
+}
+
+[node name="Phone" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="InteractTrigger" parent="." index="1" instance=ExtResource( 2 )]
+hover_key = "pickup_phone"
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractTrigger" index="0"]
+shape = SubResource( 1 )
+
+[node name="Ring" type="AudioStreamPlayer3D" parent="." index="2"]
+
+[node name="Message" type="AudioStreamPlayer2D" parent="." index="3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+autoplay = "ringing"
+anims/off = SubResource( 2 )
+anims/ringing = SubResource( 3 )
+[connection signal="interacted_with" from="InteractTrigger" to="." method="_on_InteractTrigger_interacted_with"]
