@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/models/back-street-building.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/core/InteractTrigger.tscn" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.646406, 0.64712, 0.104571 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.646406, 0.64712, 0.104571 )
+
+[node name="BackStreetBuilding" instance=ExtResource( 1 )]
+
+[node name="StreetTrigger" parent="." index="1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.449943, 1.34395, -3.29854 )
+hover_key = "action_exit_by_window"
+
+[node name="CollisionShape" type="CollisionShape" parent="StreetTrigger" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0732627, 0 )
+shape = SubResource( 1 )
+
+[node name="BarTrigger" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.449943, -3.66889, -3.29854 )
+hover_key = "action_exit_by_window"
+
+[node name="CollisionShape" type="CollisionShape" parent="BarTrigger" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0732627, 0 )
+shape = SubResource( 2 )
