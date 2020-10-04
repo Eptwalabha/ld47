@@ -8,7 +8,7 @@ signal move_player_from_to(from, to)
 # warning-ignore:unused_signal
 signal chapter_ready
 # warning-ignore:unused_signal
-signal end_of_chapter(name)
+signal chapter_ended
 
 func start() -> void:
 	pass
@@ -23,4 +23,4 @@ func input(_event: InputEvent) -> void:
 	pass
 
 func end() -> void:
-	pass
+	hide()

@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://scenes/location/BackStreetBuilding.gd"
 }, {
 "base": "Spatial",
+"class": "Bar",
+"language": "GDScript",
+"path": "res://scenes/location/Bar.gd"
+}, {
+"base": "Spatial",
 "class": "Car",
 "language": "GDScript",
 "path": "res://scenes/props/road/Car.gd"
@@ -30,9 +35,14 @@ _global_script_classes=[ {
 "path": "res://scenes/chapters/Chapter.gd"
 }, {
 "base": "Chapter",
-"class": "Chapter01",
+"class": "ChapterBar",
 "language": "GDScript",
-"path": "res://scenes/chapters/Chapter01.gd"
+"path": "res://scenes/chapters/ChapterBar.gd"
+}, {
+"base": "Chapter",
+"class": "ChapterHome",
+"language": "GDScript",
+"path": "res://scenes/chapters/ChapterHome.gd"
 }, {
 "base": "InteractTrigger",
 "class": "DialogTrigger",
@@ -43,6 +53,11 @@ _global_script_classes=[ {
 "class": "Game",
 "language": "GDScript",
 "path": "res://scenes/Game.gd"
+}, {
+"base": "Spatial",
+"class": "Glass",
+"language": "GDScript",
+"path": "res://scenes/props/bar/Glass.gd"
 }, {
 "base": "Area",
 "class": "InteractTrigger",
@@ -77,11 +92,14 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Appartment": "",
 "BackStreetBuilding": "",
+"Bar": "",
 "Car": "",
 "Chapter": "",
-"Chapter01": "",
+"ChapterBar": "",
+"ChapterHome": "",
 "DialogTrigger": "",
 "Game": "",
+"Glass": "",
 "InteractTrigger": "",
 "LightTrigger": "",
 "Phone": "",

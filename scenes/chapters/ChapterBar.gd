@@ -1,15 +1,11 @@
-class_name Chapter01
+class_name ChapterBar
 extends Chapter
 
-onready var appartment := $Appartment as Appartment
+onready var bar := $Bar as Bar
 onready var player := $Player as Player
-onready var street := $Street as Spatial
-onready var tween_move_player := $Appartment/Tween as Tween
 onready var ui := $UI as UI
 
-var lvl = -2
-var player_is_inside := true
-var current_state = ""
+var current_state = "move"
 var states = {
 	'move': MobileState.new(),
 	'dialog': DialogState.new(),
@@ -28,23 +24,15 @@ func _ready() -> void:
 			state.connect("state_ended", self, "_on_State_ended", [state_name])
 	_change_state('move')
 
-	for trigger in get_tree().get_nodes_in_group("dialog_trigger"):
-		if trigger is DialogTrigger:
-			trigger.connect("dialog_start", self, "_on_Dialog_start")
-
 func start() -> void:
 	show()
-	lvl = 1
-#	lvl = -2
 	player.reset()
+	current_state = "move"
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
 
 	player.global_transform = reset_player_transform
-	player_is_inside = true
-	appartment.set_level(lvl)
-	street.translation = Vector3(0, 2.5 * lvl, 0)
 
 func process(delta: float) -> void:
 	states[current_state].process(delta)
@@ -55,52 +43,6 @@ func physics_process(delta: float) -> void:
 func input(event: InputEvent) -> void:
 	states[current_state].input(event)
 
-func _move_player_from_to(_from: Spatial, to: Spatial) -> void:
-	player.can_control(false)
-	player.move_through_window()
-# warning-ignore:return_value_discarded
-	tween_move_player.interpolate_property(
-		player,
-		"translation",
-		player.global_transform.origin,
-		to.global_transform.origin,
-		.8,
-		Tween.TRANS_QUAD,
-		Tween.EASE_IN)
-# warning-ignore:return_value_discarded
-	tween_move_player.start()
-
-func _on_TPTop_body_entered(body: Node) -> void:
-	if body is Player:
-		_update_back_building(1)
-		player.force_move(Vector3(0, -2.5, 0))
-
-func _on_TPBottom_body_entered(body: Node) -> void:
-	if body is Player:
-		_update_back_building(-1)
-		player.force_move(Vector3(0, 2.5, 0))
-
-func _on_Tween_tween_all_completed() -> void:
-	player.can_control(true)
-
-func _update_back_building(amount: int) -> void:
-		var next_lvl = clamp(lvl + amount, -4, 2)
-		if lvl != next_lvl:
-			street.translate(Vector3(0, 2.5, 0) * amount)
-		lvl = next_lvl
-		appartment.set_level(lvl)
-
-func _on_BackStreetBuilding_go_to(_place: String) -> void:
-	if player_is_inside:
-		player_is_inside = false
-		_move_player_from_to($Appartment/In, $Appartment/Out)
-	else:
-		player_is_inside = true
-		_move_player_from_to($Appartment/Out, $Appartment/In)
-
-func _on_Dialog_start(dialog: DialogTrigger) -> void:
-	states['dialog'].set_dialog(dialog)
-	_change_state('dialog')
 
 func _change_state(new_state: String) -> void:
 	if current_state != new_state and states.has(new_state):
@@ -108,10 +50,6 @@ func _change_state(new_state: String) -> void:
 			states[current_state].exit()
 		current_state = new_state
 		states[current_state].enter()
-
-func _on_State_ended(_state_name: String) -> void:
-	current_state = 'move'
-
 
 class GameState:
 # warning-ignore:unused_signal
@@ -191,5 +129,6 @@ class MobileState extends GameState:
 		else:
 			ui.hide_context()
 
-func _on_BackStreetBuilding_end_of_chapter_one() -> void:
-	emit_signal("end_of_chapter", "home")
+
+func _on_Bar_end_of_chapter() -> void:
+	emit_signal("chapter_ended")

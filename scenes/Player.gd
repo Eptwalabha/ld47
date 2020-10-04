@@ -24,6 +24,7 @@ func reset() -> void:
 	head.rotation = Vector3.ZERO
 	camera.rotation = Vector3.ZERO
 	camera_angle = 0
+	camera.make_current()
 
 func input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
