@@ -14,7 +14,10 @@ func hide_context() -> void:
 func display_dialog(who: String, what: String) -> void:
 	hide_context()
 	$VBoxContainer/Dialog.show()
-	$VBoxContainer/Dialog/Center/Label.text = "%s: '%s'" % [tr(who), tr(what)]
+	if who == '':
+		$VBoxContainer/Dialog/Center/Label.text = tr(what)
+	else:
+		$VBoxContainer/Dialog/Center/Label.text = "%s: '%s'" % [tr(who), tr(what)]
 
 func hide_dialog() -> void:
 	$VBoxContainer/Dialog.hide()

@@ -4,6 +4,7 @@ extends Spatial
 onready var chapter_home := $ChapterHome as ChapterHome
 onready var chapter_bar := $ChapterBar as ChapterBar
 onready var chapter_road := $ChapterRoad as ChapterRoad
+onready var chapter_hospital := $ChapterHospital as ChapterHospital
 
 onready var env := $WorldEnvironment as WorldEnvironment
 
@@ -16,7 +17,7 @@ func _ready() -> void:
 		chapter_home,
 		chapter_bar,
 		chapter_road,
-#		'hospital': chapter_01,
+		chapter_hospital,
 	]
 
 	for chapter in get_tree().get_nodes_in_group('chapter'):

@@ -1,0 +1,156 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/chapters/ChapterHospital.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sounds/bip-cardio.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/models/hospital/hospital-corridor.glb" type="PackedScene" id=4]
+[ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Animation" id=2]
+resource_name = "final"
+length = 20.0
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1, 3, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CardiacBip:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 6.9, 10.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, -20.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CardiacBip:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 7, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Control/ColorRect:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.9, 1.7, 2.2, 3, 4.6, 5, 6.2, 8.6, 9.2, 9.7, 10.4, 11.8, 12.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0.52549 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0.509804 ), Color( 0, 0, 0, 0.45098 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0.298039 ), Color( 0, 0, 0, 0.298039 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("hospital-corridor:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 7.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -12 ), Vector3( 0, 0, 8 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Spatial/Doctor1:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 3.9, 4.4, 4.9, 5.4, 5.9, 6.4, 6.9, 7.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ), Vector3( 1.10082, -0.904563, -0.735463 ), Vector3( 1.10082, -0.931601, -0.735463 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spatial/Doctor2:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.2, 0.7, 1.2, 1.7, 2.2, 2.7, 3.2, 3.7, 4.1, 4.6, 5.1, 5.6, 6.1, 6.6, 7.1, 7.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ) ]
+}
+
+[node name="ChapterHospital" type="Spatial" groups=[
+"chapter",
+]]
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" parent="." instance=ExtResource( 2 )]
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.219, 0 )
+
+[node name="Camera" type="Camera" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 0.573576, -0.819152, 0, 0.819152, 0.573576, 0, 0, 0 )
+fov = 90.0
+
+[node name="Doctor1" parent="Spatial" instance=ExtResource( 5 )]
+transform = Transform( 0.170049, -0.194161, -0.966118, 0.0611929, 0.980586, -0.186297, 0.983534, -0.0274398, 0.178629, 1.10082, -0.904563, -0.735463 )
+default = "bartender"
+
+[node name="Doctor2" parent="Spatial" instance=ExtResource( 5 )]
+transform = Transform( 0.0903022, 0.180443, 0.979431, 0.0611929, 0.980586, -0.186297, -0.994033, 0.0767573, 0.0775073, -0.812983, -0.904563, -0.430745 )
+default = "bartender"
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CutScene" type="AnimationPlayer" parent="."]
+anims/final = SubResource( 2 )
+
+[node name="CardiacBip" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -49.1429
+pitch_scale = 0.6
+bus = "sound"
+
+[node name="hospital-corridor" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="CutScene" to="." method="_on_CutScene_animation_finished"]

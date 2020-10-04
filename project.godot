@@ -60,6 +60,11 @@ _global_script_classes=[ {
 "path": "res://scenes/chapters/ChapterHome.gd"
 }, {
 "base": "Chapter",
+"class": "ChapterHospital",
+"language": "GDScript",
+"path": "res://scenes/chapters/ChapterHospital.gd"
+}, {
+"base": "Chapter",
 "class": "ChapterRoad",
 "language": "GDScript",
 "path": "res://scenes/chapters/ChapterRoad.gd"
@@ -135,6 +140,7 @@ _global_script_class_icons={
 "Chapter": "",
 "ChapterBar": "",
 "ChapterHome": "",
+"ChapterHospital": "",
 "ChapterRoad": "",
 "DialogTrigger": "",
 "Game": "",

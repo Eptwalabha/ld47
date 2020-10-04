@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bip-cardio.ogg-5e8edd00c238d41c6d5c995fe7260526.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/bip-cardio.ogg"
+dest_files=[ "res://.import/bip-cardio.ogg-5e8edd00c238d41c6d5c995fe7260526.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
