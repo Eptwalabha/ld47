@@ -8,7 +8,3 @@ script = ExtResource( 2 )
 
 [node name="road" parent="." index="0"]
 transform = Transform( -3.27835e-08, 0, 0.75, 0, 0.75, 0, -0.75, 0, -3.27835e-08, 0, 0, 0 )
-
-[node name="Line1" type="Spatial" parent="." index="1"]
-
-[node name="Line2" type="Spatial" parent="." index="2"]

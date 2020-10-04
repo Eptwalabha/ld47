@@ -9,6 +9,8 @@ signal move_player_from_to(from, to)
 signal chapter_ready
 # warning-ignore:unused_signal
 signal chapter_ended
+# warning-ignore:unused_signal
+signal night_environment(night)
 
 func start() -> void:
 	pass

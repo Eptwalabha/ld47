@@ -1,6 +1,7 @@
 class_name UI
 extends Control
 
+# warning-ignore:unused_signal
 signal blink
 
 func show_context(text: String) -> void:
@@ -20,3 +21,12 @@ func hide_dialog() -> void:
 
 func blink() -> void:
 	$AnimationPlayer.play("blink")
+
+func fade(fade_in: bool) -> void:
+	if fade_in:
+		$AnimationPlayer.play("fade-in")
+	else:
+		$AnimationPlayer.play("fade-out")
+
+func black() -> void:
+	$ColorRect.color.a = 1.0

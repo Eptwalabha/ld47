@@ -4,6 +4,7 @@ extends Chapter
 onready var appartment := $Appartment as Appartment
 onready var player := $Player as Player
 onready var street := $Street as Spatial
+onready var phone := $Phone as Phone
 onready var tween_move_player := $Appartment/Tween as Tween
 onready var ui := $UI as UI
 
@@ -11,6 +12,7 @@ var lvl = -2
 var player_is_inside := true
 var current_state = ""
 var states = {
+	'intro': IntroState.new(),
 	'move': MobileState.new(),
 	'dialog': DialogState.new(),
 }
@@ -26,17 +28,26 @@ func _ready() -> void:
 			state.player = player
 			state.ui = ui
 			state.connect("state_ended", self, "_on_State_ended", [state_name])
-	_change_state('move')
+	states.intro.phone = phone
+	_change_state('intro')
 
 	for trigger in get_tree().get_nodes_in_group("dialog_trigger"):
 		if trigger is DialogTrigger:
 			trigger.connect("dialog_start", self, "_on_Dialog_start")
 
+func end() -> void:
+	hide()
+	ui.hide()
+
 func start() -> void:
 	show()
 	lvl = -2
 	player.reset()
-	current_state = "move"
+	ui.black()
+	emit_signal("night_environment", false)
+	player.reset()
+	phone.reset()
+	current_state = "intro"
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
@@ -193,3 +204,23 @@ class MobileState extends GameState:
 
 func _on_BackStreetBuilding_end_of_chapter_one() -> void:
 	emit_signal("chapter_ended")
+
+class IntroState extends GameState:
+	
+	var timeout : float
+	var phone : Phone
+	var ring : bool
+	
+	func enter() -> void:
+		timeout = 4.0
+		ring = false
+		player.can_control(true)
+
+	func process(delta) -> void:
+		timeout -= delta
+		if timeout <= 2.0 and not ring:
+			ring = true
+			phone.ring()
+		elif timeout <= 0.0:
+			emit_signal("state_ended")
+			ui.fade(true)

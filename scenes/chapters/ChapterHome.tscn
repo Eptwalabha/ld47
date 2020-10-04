@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterHome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/location/Appartment.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/core/DialogTrigger.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/props/appart/Door.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=12]
 
 [node name="ChapterHome" type="Spatial"]
 script = ExtResource( 1 )
@@ -23,6 +25,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.667265, 0, -2.62075 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.667265, 0, -3.76491 )
 
 [node name="Tween" type="Tween" parent="Appartment"]
+
+[node name="Door" parent="Appartment" instance=ExtResource( 11 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.57786, 0, 0.699133 )
 
 [node name="Corridor" parent="." instance=ExtResource( 4 )]
 
@@ -55,6 +60,11 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.65646
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31211, 0 )
 dialogs = [ "hello", "how are you?" ]
 who = "friend_a"
+
+[node name="Phone" parent="." groups=[
+"chapter",
+] instance=ExtResource( 12 )]
+transform = Transform( -0.464842, 0, 0.885394, 0, 1, 0, -0.885394, 0, -0.464842, -0.307874, 0.330675, 1.39267 )
 [connection signal="tween_all_completed" from="Appartment/Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="body_entered" from="Corridor/TP/TPTop" to="." method="_on_TPTop_body_entered"]
 [connection signal="body_entered" from="Corridor/TP/TPBottom" to="." method="_on_TPBottom_body_entered"]

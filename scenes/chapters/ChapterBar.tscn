@@ -1,20 +1,72 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/location/Bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/props/Key.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/props/Valve.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/props/appart/BarCorridor.tscn" type="PackedScene" id=10]
 
 [node name="ChapterBar" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Bar" parent="." instance=ExtResource( 3 )]
 
+[node name="Key" parent="Bar" instance=ExtResource( 5 )]
+transform = Transform( 0.678826, 0, -0.734299, 0, 1, 0, 0.734299, 0, 0.678826, -1.86252, 0.793589, -2.27001 )
+
+[node name="Valve" parent="Bar" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70648, 0.817848, -3.72262 )
+
+[node name="BarCorridor" parent="Bar" instance=ExtResource( 10 )]
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.809253, 0, -0.58746, 0, 1, 0, 0.58746, 0, 0.809253, -1.89024, 0, 3.75332 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.26021 )
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
 
 [node name="Drink" type="Spatial" parent="."]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.128837, 0, -2.33743 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.128837, 0, -3.29696 )
+
+[node name="Dancers" type="Spatial" parent="."]
+
+[node name="Dancer01" parent="Dancers" instance=ExtResource( 9 )]
+transform = Transform( 0.730162, 0, 0.683274, 0, 1, 0, -0.683274, 0, 0.730162, -3.03841, 0, -2.71964 )
+
+[node name="Dancer02" parent="Dancers" instance=ExtResource( 9 )]
+transform = Transform( 0.444448, 0, 0.895805, 0, 1, 0, -0.895805, 0, 0.444448, -2.39316, 0, 1.25075 )
+
+[node name="Dancer03" parent="Dancers" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.65865 )
+
+[node name="Dancer04" parent="Dancers" instance=ExtResource( 9 )]
+transform = Transform( -0.0288114, 0, -0.999585, 0, 1, 0, 0.999585, 0, -0.0288114, 2.19928, 0.416588, 3.45848 )
+
+[node name="Dancer05" parent="Dancers" instance=ExtResource( 9 )]
+transform = Transform( 0.549767, 0, -0.835318, 0, 1, 0, 0.835318, 0, 0.549767, 2.5025, 0.0166473, 0.870651 )
+
+[node name="Dancer06" parent="Dancers" instance=ExtResource( 9 )]
+transform = Transform( 0.549767, 0, -0.835318, 0, 1, 0, 0.835318, 0, 0.549767, -0.580353, 0.0166473, 0.126068 )
+
+[node name="Friend" parent="." instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.50651, -0.0542827, -0.896361 )
+default = "sleep"
+
+[node name="Bartender" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0, 0, -1, 0, 1, 0, 1, 0, 0, 1.85409, 0.228268, -3.26435 )
+
+[node name="Music" type="AudioStreamPlayer3D" parent="." groups=[
+"chapter",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01232, 1.70402, 5.50527 )
+attenuation_model = 3
+unit_size = 15.0
+bus = "music"
 [connection signal="end_of_chapter" from="Bar" to="." method="_on_Bar_end_of_chapter"]
+[connection signal="picked_up" from="Bar/Key" to="." method="_on_Key_picked_up"]
+[connection signal="picked_up" from="Bar/Valve" to="." method="_on_Valve_picked_up"]
+[connection signal="first_entrance" from="Bar/BarCorridor" to="." method="_on_BarCorridor_first_entrance"]

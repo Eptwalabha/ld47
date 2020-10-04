@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/core/InteractTrigger.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=2]
+[ext_resource path="res://scenes/props/Key.gd" type="Script" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.374465, 0.276885, 0.36624 )
+
+[node name="Key" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="key" parent="." index="0"]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
+
+[node name="InteractTrigger" parent="." index="1" instance=ExtResource( 1 )]
+hover_key = "action_pick_up_key"
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractTrigger" index="0"]
+shape = SubResource( 1 )
+[connection signal="interacted_with" from="InteractTrigger" to="." method="_on_InteractTrigger_interacted_with"]

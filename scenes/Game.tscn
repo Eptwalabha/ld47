@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/chapters/ChapterRoad.tscn" type="PackedScene" id=2]
+[ext_resource path="res://default_env.tres" type="Environment" id=3]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=4]
 [ext_resource path="res://scenes/chapters/ChapterHome.tscn" type="PackedScene" id=9]
 
@@ -14,4 +16,9 @@ script = ExtResource( 4 )
 [node name="ChapterBar" parent="." groups=[
 "chapter",
 ] instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9, 0, 5 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.6726, 0, 5 )
+
+[node name="ChapterRoad" parent="." instance=ExtResource( 2 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 3 )

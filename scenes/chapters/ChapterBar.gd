@@ -4,6 +4,10 @@ extends Chapter
 onready var bar := $Bar as Bar
 onready var player := $Player as Player
 onready var ui := $UI as UI
+onready var key := $Bar/Key as Key
+onready var valve := $Bar/Valve as Valve
+onready var corridor := $Bar/BarCorridor as BarCorridor
+onready var music := $Music as AudioStreamPlayer3D
 
 var current_state = "move"
 var states = {
@@ -13,9 +17,13 @@ var states = {
 }
 
 var reset_player_transform :Transform
+var key_picked_up := false
+var valve_picked_up := false
+var searching := true
 
 func _ready() -> void:
 	hide()
+	music.playing = false
 	reset_player_transform = player.global_transform
 	for state_name in states:
 		var state = states[state_name]
@@ -28,13 +36,30 @@ func _ready() -> void:
 	player.connect("drink_ended", self, "_on_player_drink_ended")
 	_change_state('move')
 
+func end() -> void:
+	hide()
+	ui.hide()
+
 func start() -> void:
 	show()
+	ui.show()
+	searching = true
+	key_picked_up = false
+	valve_picked_up = false
+	key.reset()
+	valve.reset()
 	player.reset()
+	corridor.reset()
 	current_state = "move"
+	$Dancers.show()
+	$Music.playing = true
+	$Bartender.show()
+	AudioServer.set_bus_effect_enabled(3, 0, true)
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
+	states['move'].searching = true
+	states['move'].timer = 10.0
 
 	player.global_transform = reset_player_transform
 
@@ -98,7 +123,8 @@ class DialogState extends GameState:
 		player.can_control(false)
 		ui.hide_context()
 		dialog.start()
-		var _a = _print_next_bit()
+# warning-ignore:return_value_discarded
+		_print_next_bit()
 
 	func process(_delta: float) -> void:
 		if Input.is_action_just_pressed("context_action"):
@@ -124,6 +150,7 @@ class DrinkState extends GameState:
 class MobileState extends GameState:
 
 	var timer : float = 3.0
+	var searching := true
 
 	func enter() -> void:
 		player.can_control(true)
@@ -136,7 +163,8 @@ class MobileState extends GameState:
 
 	func process(delta: float) -> void:
 		_check_triggers()
-		timer = timer - delta
+		if searching:
+			timer = timer - delta
 		if timer <= 0:
 			timer += 10.0
 			ui.blink()
@@ -159,3 +187,28 @@ class MobileState extends GameState:
 
 func _on_Bar_end_of_chapter() -> void:
 	emit_signal("chapter_ended")
+
+
+func _on_Key_picked_up() -> void:
+	key_picked_up = true
+	_check_if_player_found_all_items()
+
+func _on_Valve_picked_up() -> void:
+	valve_picked_up = true
+	_check_if_player_found_all_items()
+
+func _check_if_player_found_all_items() -> void:
+	if searching && key_picked_up && valve_picked_up:
+		searching = false
+		states['move'].searching = false
+		ui.blink()
+		yield(ui, "blink")
+		empty_bar()
+
+func empty_bar() -> void:
+	$Dancers.hide()
+	$Music.playing = false
+	$Bartender.hide()
+
+func _on_BarCorridor_first_entrance() -> void:
+	AudioServer.set_bus_effect_enabled(3, 0, false)

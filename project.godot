@@ -25,9 +25,19 @@ _global_script_classes=[ {
 "path": "res://scenes/location/Bar.gd"
 }, {
 "base": "Spatial",
+"class": "BarCorridor",
+"language": "GDScript",
+"path": "res://scenes/props/appart/BarCorridor.gd"
+}, {
+"base": "Spatial",
 "class": "Car",
 "language": "GDScript",
 "path": "res://scenes/props/road/Car.gd"
+}, {
+"base": "Spatial",
+"class": "CarInside",
+"language": "GDScript",
+"path": "res://scenes/props/road/CarInside.gd"
 }, {
 "base": "Spatial",
 "class": "Chapter",
@@ -43,6 +53,11 @@ _global_script_classes=[ {
 "class": "ChapterHome",
 "language": "GDScript",
 "path": "res://scenes/chapters/ChapterHome.gd"
+}, {
+"base": "Chapter",
+"class": "ChapterRoad",
+"language": "GDScript",
+"path": "res://scenes/chapters/ChapterRoad.gd"
 }, {
 "base": "InteractTrigger",
 "class": "DialogTrigger",
@@ -63,6 +78,11 @@ _global_script_classes=[ {
 "class": "InteractTrigger",
 "language": "GDScript",
 "path": "res://scenes/core/InteractTrigger.gd"
+}, {
+"base": "Spatial",
+"class": "Key",
+"language": "GDScript",
+"path": "res://scenes/props/Key.gd"
 }, {
 "base": "Area",
 "class": "LightTrigger",
@@ -88,24 +108,34 @@ _global_script_classes=[ {
 "class": "UI",
 "language": "GDScript",
 "path": "res://scenes/ui/UI.gd"
+}, {
+"base": "Spatial",
+"class": "Valve",
+"language": "GDScript",
+"path": "res://scenes/props/Valve.gd"
 } ]
 _global_script_class_icons={
 "Appartment": "",
 "BackStreetBuilding": "",
 "Bar": "",
+"BarCorridor": "",
 "Car": "",
+"CarInside": "",
 "Chapter": "",
 "ChapterBar": "",
 "ChapterHome": "",
+"ChapterRoad": "",
 "DialogTrigger": "",
 "Game": "",
 "Glass": "",
 "InteractTrigger": "",
+"Key": "",
 "LightTrigger": "",
 "Phone": "",
 "Player": "",
 "Road": "",
-"UI": ""
+"UI": "",
+"Valve": ""
 }
 
 [application]
