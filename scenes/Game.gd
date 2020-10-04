@@ -39,7 +39,7 @@ func _input(event: InputEvent) -> void:
 	chapters[current_chapter].input(event)
 
 func reset_game() -> void:
-	current_chapter = 2
+#	current_chapter = 2
 	chapters[current_chapter].start()
 
 func next_chapter() -> void:

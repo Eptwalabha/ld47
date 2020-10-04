@@ -31,7 +31,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="Friend" parent="." index="2" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 0.996273, 0.0862516, 0, -0.0862516, 0.996273, -0.523399, -0.0187144, 0.314293 )
+transform = Transform( 1, 0, 0, 0, 0.990831, -0.13511, 0, 0.13511, 0.990831, -0.523399, -0.23706, 0.0390788 )
+default = "sleep"
 
 [node name="Dancer" parent="." index="3" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.334008, 0, -0.846964 )

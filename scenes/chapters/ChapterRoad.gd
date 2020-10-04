@@ -24,6 +24,8 @@ func _ready() -> void:
 	for car in get_tree().get_nodes_in_group("cars"):
 		if car is Car:
 			car.connect("crash", self, "_on_Car_crash")
+	$CarEngine.stop()
+	$Crash.stop()
 
 func end() -> void:
 	hide()
@@ -32,6 +34,7 @@ func end() -> void:
 func start() -> void:
 	show()
 	emit_signal("night_environment", true)
+	$CarEngine.play()
 	nbr_car = 0
 	crashed = false
 	player.reset()
@@ -70,6 +73,7 @@ func _on_Car_crash() -> void:
 	crashed = true
 	ui.black()
 	$Crash.play()
+	$CarEngine.stop()
 	yield($Crash, "finished")
 	emit_signal("chapter_ended")
 
