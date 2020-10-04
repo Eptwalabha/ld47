@@ -1,6 +1,7 @@
 class_name UI
 extends Control
 
+signal blink
 
 func show_context(text: String) -> void:
 	$VBoxContainer/Context/Label.text = tr(text)
@@ -16,3 +17,6 @@ func display_dialog(who: String, what: String) -> void:
 
 func hide_dialog() -> void:
 	$VBoxContainer/Dialog.hide()
+
+func blink() -> void:
+	$AnimationPlayer.play("blink")

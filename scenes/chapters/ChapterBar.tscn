@@ -14,4 +14,7 @@ script = ExtResource( 1 )
 transform = Transform( 0.809253, 0, -0.58746, 0, 1, 0, 0.58746, 0, 0.809253, -1.89024, 0, 3.75332 )
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
+
+[node name="Drink" type="Spatial" parent="."]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.128837, 0, -2.33743 )
 [connection signal="end_of_chapter" from="Bar" to="." method="_on_Bar_end_of_chapter"]

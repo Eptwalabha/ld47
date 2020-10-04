@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/props/bar/Glass.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sounds/glup.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RayShape" id=1]
 length = 0.3
@@ -12,8 +13,7 @@ height = 0.858198
 
 [sub_resource type="Animation" id=3]
 resource_name = "drink"
-length = 3.5
-loop = true
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head:rotation_degrees")
 tracks/0/interp = 1
@@ -33,7 +33,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7, 1.3, 1.6, 2, 2.3, 3, 3.3 ),
+"times": PoolRealArray( 0, 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, -0.5, -0.1 ), Vector3( 0, -0.211342, -0.302963 ), Vector3( 0, -0.258699, -0.447292 ), Vector3( 0, -0.258699, -0.447292 ), Vector3( 0, -0.0985843, -0.244329 ), Vector3( 0, -0.258699, -0.447292 ), Vector3( 0, -0.445876, -0.325514 ), Vector3( 0, -0.5, -0.1 ) ]
@@ -45,7 +45,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 3.3 ),
+"times": PoolRealArray( 0, 3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -57,7 +57,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.7, 1.3, 1.6, 2, 2.3, 3, 3.3 ),
+"times": PoolRealArray( 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 119.796, 0, 0 ), Vector3( 33.994, 0, 0 ), Vector3( 13.508, 0, 0 ), Vector3( 0, 0, 0 ) ]
@@ -137,7 +137,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Glass" parent="Head/Camera" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
+transform = Transform( 1, 0, 0, 0, 0.972337, -0.233581, 0, 0.233581, 0.972337, 0, -0.445876, -0.325514 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
@@ -146,4 +146,5 @@ anims/idle = SubResource( 4 )
 anims/move_through_window = SubResource( 5 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
 bus = "sound"

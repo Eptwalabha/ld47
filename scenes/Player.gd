@@ -1,6 +1,8 @@
 class_name Player
 extends KinematicBody
 
+signal drink_ended
+
 onready var head := $Head as Spatial
 onready var camera := $Head/Camera as Camera
 onready var ray := $Head/Camera/RayCast as RayCast
@@ -72,7 +74,16 @@ func can_control(control: bool) -> void:
 func force_move(direction: Vector3) -> void:
 	translate(direction)
 
+func force_move_to(spatial: Spatial) -> void:
+	global_transform = spatial.global_transform
+	head.rotation = Vector3.ZERO
+	camera.rotation = Vector3.ZERO
+	camera_angle = 0
+
+func drink() -> void:
+	$AnimationPlayer.play("drink")
+	yield($AnimationPlayer, "animation_finished")
+	emit_signal("drink_ended")
+
 func move_through_window() -> void:
 	$AnimationPlayer.play("move_through_window")
-	yield($AnimationPlayer, "animation_finished")
-	$AnimationPlayer.play("idle")

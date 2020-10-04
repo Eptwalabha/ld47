@@ -9,6 +9,7 @@ var current_state = "move"
 var states = {
 	'move': MobileState.new(),
 	'dialog': DialogState.new(),
+	'drink': DrinkState.new(),
 }
 
 var reset_player_transform :Transform
@@ -22,6 +23,9 @@ func _ready() -> void:
 			state.player = player
 			state.ui = ui
 			state.connect("state_ended", self, "_on_State_ended", [state_name])
+			state.connect("drink", self, "drink")
+# warning-ignore:return_value_discarded
+	player.connect("drink_ended", self, "_on_player_drink_ended")
 	_change_state('move')
 
 func start() -> void:
@@ -43,6 +47,13 @@ func physics_process(delta: float) -> void:
 func input(event: InputEvent) -> void:
 	states[current_state].input(event)
 
+func drink() -> void:
+	player.force_move_to($Drink)
+	player.drink()
+	_change_state('drink')
+
+func _on_player_drink_ended() -> void:
+	_change_state('move')
 
 func _change_state(new_state: String) -> void:
 	if current_state != new_state and states.has(new_state):
@@ -54,6 +65,8 @@ func _change_state(new_state: String) -> void:
 class GameState:
 # warning-ignore:unused_signal
 	signal state_ended
+# warning-ignore:unused_signal
+	signal drink
 	
 	var player: Player = null
 	var ui : UI = null
@@ -102,7 +115,15 @@ class DialogState extends GameState:
 		return true
 
 
+class DrinkState extends GameState:
+
+	func enter() -> void:
+		player.velocity.y = 0.0
+		player.can_control(false)
+
 class MobileState extends GameState:
+
+	var timer : float = 3.0
 
 	func enter() -> void:
 		player.can_control(true)
@@ -113,8 +134,14 @@ class MobileState extends GameState:
 	func input(event: InputEvent) -> void:
 		player.input(event)
 
-	func process(_delta: float) -> void:
+	func process(delta: float) -> void:
 		_check_triggers()
+		timer = timer - delta
+		if timer <= 0:
+			timer += 10.0
+			ui.blink()
+			yield(ui, "blink")
+			emit_signal("drink")
 
 	func _check_triggers():
 		if player.ray.is_colliding():
