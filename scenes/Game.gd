@@ -6,8 +6,10 @@ onready var appartment := $Appartment as Appartment
 onready var street := $StreetLevel as Spatial
 onready var player := $Player as Player
 onready var road := $Road
+onready var tween_move_player := $Appartment/MovePlayer as Tween
 
 var lvl = -1
+var player_is_inside = true
 
 func _ready() -> void:
 	reset_game()
@@ -44,7 +46,9 @@ func _update_back_building(amount: int) -> void:
 		appartment.set_level(lvl)
 
 func reset_game() -> void:
-	lvl = -2
+	lvl = 0
+#	lvl = -2
+	player_is_inside = true
 	appartment.set_level(lvl)
 	street.translation = Vector3(0, 2.5 * lvl, 0)
 #	$Phone.ring()
@@ -52,12 +56,38 @@ func reset_game() -> void:
 func _check_triggers():
 	if player.ray.is_colliding():
 		var collider = player.ray.get_collider()
-		if Input.is_action_just_pressed("ui_action"):
-			pass
-		else:
-			if collider is InteractTrigger:
-				ui.show_context(tr(collider.hover_key))
+		if collider is InteractTrigger:
+			if Input.is_action_just_pressed("context_action"):
+				collider.interact()
 			else:
-				ui.hide_context()
+				ui.show_context(tr(collider.hover_key))
+		else:
+			ui.hide_context()
 	else:
 		ui.hide_context()
+
+
+func _on_BackStreetBuilding_go_to(place) -> void:
+	if player_is_inside:
+		player_is_inside = false
+		_move_player_from_to($Appartment/In, $Appartment/Out)
+	else:
+		player_is_inside = true
+		_move_player_from_to($Appartment/Out, $Appartment/In)
+
+func _move_player_from_to(from: Spatial, to: Spatial) -> void:
+	player.can_control(false)
+	player.move_through_window()
+	tween_move_player.interpolate_property(
+		player,
+		"translation",
+		player.global_transform.origin,
+		to.global_transform.origin,
+		.8,
+		Tween.TRANS_QUAD,
+		Tween.EASE_IN)
+	tween_move_player.start()
+
+
+func _on_MovePlayer_tween_completed(object: Object, key: NodePath) -> void:
+	player.can_control(true)

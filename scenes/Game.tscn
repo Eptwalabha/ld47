@@ -16,6 +16,14 @@ script = ExtResource( 4 )
 
 [node name="Appartment" parent="." instance=ExtResource( 1 )]
 
+[node name="In" type="Spatial" parent="Appartment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.675139, 0, -2.74636 )
+
+[node name="Out" type="Spatial" parent="Appartment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.675139, 0, -3.69069 )
+
+[node name="MovePlayer" type="Tween" parent="Appartment"]
+
 [node name="StreetLevel" type="Spatial" parent="."]
 
 [node name="BackStreetBuilding" parent="StreetLevel" instance=ExtResource( 6 )]
@@ -43,5 +51,7 @@ transform = Transform( 0.668923, 0, 0.743332, 0, 1, 0, -0.743332, 0, 0.668923, -
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
 [node name="CorridorTop" parent="." instance=ExtResource( 10 )]
+[connection signal="tween_completed" from="Appartment/MovePlayer" to="." method="_on_MovePlayer_tween_completed"]
+[connection signal="go_to" from="StreetLevel/BackStreetBuilding" to="." method="_on_BackStreetBuilding_go_to"]
 [connection signal="body_entered" from="TPDown" to="." method="_on_TPDown_body_entered"]
 [connection signal="body_entered" from="TPUp" to="." method="_on_TPUp_body_entered"]

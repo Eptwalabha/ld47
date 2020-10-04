@@ -9,6 +9,7 @@ export(float) var mouse_sensitivity := 0.3
 export(float) var speed := 3.0
 export(float) var acceleration := 10.0
 
+var has_control: bool = true
 var camera_angle: float = 0
 var velocity = Vector3()
 
@@ -32,14 +33,15 @@ func _physics_process(delta: float) -> void:
 	var direction := Vector3()
 	var aim = camera.get_global_transform().basis
 	
-	if Input.is_action_pressed("move_forward"):
-		direction -= aim.z
-	if Input.is_action_pressed("move_backward"):
-		direction += aim.z
-	if Input.is_action_pressed("move_left"):
-		direction -= aim.x
-	if Input.is_action_pressed("move_right"):
-		direction += aim.x
+	if has_control:
+		if Input.is_action_pressed("move_forward"):
+			direction -= aim.z
+		if Input.is_action_pressed("move_backward"):
+			direction += aim.z
+		if Input.is_action_pressed("move_left"):
+			direction -= aim.x
+		if Input.is_action_pressed("move_right"):
+			direction += aim.x
 
 	var dir = Vector2(direction.x, direction.z).normalized()
 	velocity.x = lerp(velocity.x, dir.x * speed, acceleration * delta)
@@ -58,5 +60,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = m.y
 
+func can_control(control: bool) -> void:
+	has_control = control
+
 func force_move(direction: Vector3) -> void:
 	translate(direction)
+
+func move_through_window() -> void:
+	$AnimationPlayer.play("move_through_window")
+	yield($AnimationPlayer, "animation_finished")
+	$AnimationPlayer.play("idle")

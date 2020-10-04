@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 
@@ -8,6 +8,25 @@ length = 0.3
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.4
 height = 0.858198
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+
+[sub_resource type="Animation" id=4]
+resource_name = "move_through_window"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.65284, 0 ), Vector3( 0, 1.4, 0 ), Vector3( 0, 1.65284, 0 ) ]
+}
 
 [node name="Player" type="KinematicBody"]
 collision_mask = 14
@@ -22,7 +41,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.94
 shape = SubResource( 2 )
 
 [node name="Head" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65284, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
 
 [node name="Camera" type="Camera" parent="Head"]
 
@@ -36,3 +55,6 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/idle = SubResource( 3 )
+anims/move_through_window = SubResource( 4 )
