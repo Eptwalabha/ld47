@@ -1,7 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/models/appartment.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/Appartment.gd" type="Script" id=2]
+[ext_resource path="res://scenes/props/appart/Couch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/props/appart/Plant.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/props/appart/TableSmall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/props/appart/TV.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/props/appart/Table.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.5, 0.1, 3 )
@@ -13,13 +18,7 @@ extents = Vector3( 0.2, 1.25, 3 )
 extents = Vector3( 1.5, 1.25, 0.1 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.559, 0.629094, 3 )
-
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.602851, 0.538435, 0.600542 )
-
-[sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.326556, 0.349978, 0.578692 )
+extents = Vector3( 0.369437, 0.629094, 1.16567 )
 
 [sub_resource type="BoxShape" id=7]
 extents = Vector3( 0.714821, 0.507087, 0.239964 )
@@ -33,7 +32,7 @@ extents = Vector3( 0.1, 1.25, 1.18443 )
 [node name="Appartment" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="StaticBody" type="StaticBody" parent="." index="6"]
+[node name="StaticBody" type="StaticBody" parent="." index="1"]
 collision_layer = 2
 collision_mask = 0
 
@@ -54,25 +53,32 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -3.09909 )
 shape = SubResource( 3 )
 
 [node name="KitchenAndCouch" type="CollisionShape" parent="StaticBody" index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32, 0.576, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04454, 0.576, -1.84699 )
 shape = SubResource( 4 )
 
-[node name="TV" type="CollisionShape" parent="StaticBody" index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82228, 0.512569, 1.65297 )
-shape = SubResource( 5 )
-
-[node name="KitchenTable" type="CollisionShape" parent="StaticBody" index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.21093, 0.416402, -1.9034 )
-shape = SubResource( 6 )
-
-[node name="Counter" type="CollisionShape" parent="StaticBody" index="7"]
+[node name="Counter" type="CollisionShape" parent="StaticBody" index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.970294, 0.470442, -0.555517 )
 shape = SubResource( 7 )
 
-[node name="WallFrontKitchen" type="CollisionShape" parent="StaticBody" index="8"]
+[node name="WallFrontKitchen" type="CollisionShape" parent="StaticBody" index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 1.25, -1.74564 )
 shape = SubResource( 8 )
 
-[node name="WallFrontTV" type="CollisionShape" parent="StaticBody" index="9"]
+[node name="WallFrontTV" type="CollisionShape" parent="StaticBody" index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 1.25, 1.74883 )
 shape = SubResource( 9 )
+
+[node name="Plant" parent="." index="2" instance=ExtResource( 4 )]
+transform = Transform( 0.840614, 0, 0.541635, 0, 1, 0, -0.541635, 0, 0.840614, 1.04927, 0, 0.213978 )
+
+[node name="Couch" parent="." index="3" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04927, 0, 1.71791 )
+
+[node name="TableSmall" parent="." index="4" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.676637, 0, 1.77105 )
+
+[node name="TV" parent="." index="5" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46524, 0, 1.77088 )
+
+[node name="Table" parent="." index="6" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18956, 0, -2.04797 )

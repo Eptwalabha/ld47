@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/location/Appartment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/location/Road.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/location/CorridorTop.tscn" type="PackedScene" id=10]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 4 )
@@ -20,17 +21,10 @@ script = ExtResource( 4 )
 [node name="BackStreetBuilding" parent="StreetLevel" instance=ExtResource( 6 )]
 
 [node name="Road" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193626, 0.0284829, -0.399723 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.288278, 0, 1.82129 )
-
-[node name="Corridor" parent="." instance=ExtResource( 3 )]
-
-[node name="CorridorTop" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-
-[node name="CorridorBottom" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
 [node name="TPDown" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.29531, 4.6 )
@@ -42,5 +36,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08055, 2.61297, 4.6 )
 transform = Transform( 0.668923, 0, 0.743332, 0, 1, 0, -0.743332, 0, 0.668923, -0.364942, 0.322887, 1.40038 )
 
 [node name="UI" parent="." instance=ExtResource( 8 )]
+
+[node name="Corridor" parent="." instance=ExtResource( 3 )]
+
+[node name="Corridor2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
+
+[node name="CorridorTop" parent="." instance=ExtResource( 10 )]
 [connection signal="body_entered" from="TPDown" to="." method="_on_TPDown_body_entered"]
 [connection signal="body_entered" from="TPUp" to="." method="_on_TPUp_body_entered"]

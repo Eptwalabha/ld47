@@ -44,10 +44,10 @@ func _update_back_building(amount: int) -> void:
 		appartment.set_level(lvl)
 
 func reset_game() -> void:
-	lvl = 0
+	lvl = -2
 	appartment.set_level(lvl)
 	street.translation = Vector3(0, 2.5 * lvl, 0)
-	$Phone.ring()
+#	$Phone.ring()
 
 func _check_triggers():
 	if player.ray.is_colliding():
