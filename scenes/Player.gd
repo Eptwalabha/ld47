@@ -20,6 +20,11 @@ const MAX_SLOP : float = deg2rad(45.0)
 func _ready() -> void:
 	mouse_sensitivity = mouse_sensitivity * -1
 
+func reset() -> void:
+	head.rotation = Vector3.ZERO
+	camera.rotation = Vector3.ZERO
+	camera_angle = 0
+
 func input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotate_y(deg2rad(event.relative.x * mouse_sensitivity))
