@@ -1,7 +1,7 @@
 extends Spatial
 
-export(String) var default := "sit-drink-loop"
+export(String, "sit-drink", "sit-idle", "idle", "bartender") var default := "sit-drink"
 
 
 func _ready() -> void:
-	$AnimationPlayer.play(default)
+	$AnimationPlayer.play(default + "-loop")

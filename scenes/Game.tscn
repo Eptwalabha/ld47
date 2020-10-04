@@ -28,6 +28,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.675139, 0, -3.69069 )
 
 [node name="Character" parent="Appartment" instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.586924, -1.19209e-07, 2.2239 )
+default = "sit-idle"
 
 [node name="DialogTrigger" parent="Appartment/Character" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15177, 0 )
@@ -62,6 +63,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
 [node name="CorridorTop" parent="." instance=ExtResource( 10 )]
 [connection signal="tween_completed" from="Appartment/MovePlayer" to="." method="_on_MovePlayer_tween_completed"]
+[connection signal="end_of_chapter_one" from="StreetLevel/BackStreetBuilding" to="." method="_on_end_of_chapter" binds= [ 0 ]]
 [connection signal="go_to" from="StreetLevel/BackStreetBuilding" to="." method="_on_BackStreetBuilding_go_to"]
 [connection signal="body_entered" from="TPDown" to="." method="_on_TPDown_body_entered"]
 [connection signal="body_entered" from="TPUp" to="." method="_on_TPUp_body_entered"]

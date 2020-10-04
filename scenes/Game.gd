@@ -70,7 +70,7 @@ func _update_back_building(amount: int) -> void:
 		appartment.set_level(lvl)
 
 func reset_game() -> void:
-	lvl = 0
+	lvl = 2
 #	lvl = -2
 	player_is_inside = true
 	appartment.set_level(lvl)
@@ -115,6 +115,9 @@ func _on_Dialog_start(dialog: DialogTrigger) -> void:
 
 func _on_State_ended(state_name: String) -> void:
 	current_state = 'move'
+
+func _on_end_of_chapter(chapter: int) -> void:
+	print("next %s" % chapter)
 
 class GameState:
 	signal state_ended
