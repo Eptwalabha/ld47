@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/location/Appartment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/location/Road.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/location/CorridorTop.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/core/DialogTrigger.tscn" type="PackedScene" id=12]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 4 )
@@ -27,6 +28,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.675139, 0, -3.69069 )
 
 [node name="Character" parent="Appartment" instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.586924, -1.19209e-07, 2.2239 )
+
+[node name="DialogTrigger" parent="Appartment/Character" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15177, 0 )
+dialogs = [ {
+"what": "dialog_fa_01",
+"who": "friend_a"
+}, {
+"what": "dialog_fa_02",
+"who": "friend_a (lol)"
+} ]
 
 [node name="StreetLevel" type="Spatial" parent="."]
 

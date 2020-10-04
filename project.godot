@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/props/road/Car.gd"
 }, {
+"base": "InteractTrigger",
+"class": "DialogTrigger",
+"language": "GDScript",
+"path": "res://scenes/core/DialogTrigger.gd"
+}, {
 "base": "Spatial",
 "class": "Game",
 "language": "GDScript",
@@ -63,6 +68,7 @@ _global_script_class_icons={
 "Appartment": "",
 "BackStreetBuilding": "",
 "Car": "",
+"DialogTrigger": "",
 "Game": "",
 "InteractTrigger": "",
 "LightTrigger": "",

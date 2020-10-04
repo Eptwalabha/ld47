@@ -10,16 +10,38 @@ onready var tween_move_player := $Appartment/MovePlayer as Tween
 
 var lvl = -1
 var player_is_inside = true
+var current_state = ""
+var states = {
+	'move': MobileState.new(),
+	'dialog': DialogState.new(),
+}
 
 func _ready() -> void:
 	reset_game()
+	for state_name in states:
+		var state = states[state_name]
+		if state is GameState:
+			state.player = player
+			state.ui = ui
+			state.connect("state_ended", self, "_on_State_ended", [state_name])
+
+	_change_state('move')
+
+	for trigger in get_tree().get_nodes_in_group("dialog_trigger"):
+		if trigger is DialogTrigger:
+			trigger.connect("dialog_start", self, "_on_Dialog_start")
+#			trigger.connect("dialog_end", self, "_on_Dialog_end")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(delta: float) -> void:
+	states[current_state].process(delta)
 	if Input.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().quit()
 	_check_triggers()
+
+func _input(event: InputEvent) -> void:
+	states[current_state].input(event)
 
 func _on_Area_body_entered(body: Node) -> void:
 	if body is KinematicBody:
@@ -56,7 +78,7 @@ func reset_game() -> void:
 func _check_triggers():
 	if player.ray.is_colliding():
 		var collider = player.ray.get_collider()
-		if collider is InteractTrigger:
+		if collider is InteractTrigger and collider.active:
 			if Input.is_action_just_pressed("context_action"):
 				collider.interact()
 			else:
@@ -88,6 +110,75 @@ func _move_player_from_to(from: Spatial, to: Spatial) -> void:
 		Tween.EASE_IN)
 	tween_move_player.start()
 
+func _change_state(new_state: String) -> void:
+	if current_state != new_state and states.has(new_state):
+		if current_state != '':
+			states[current_state].exit()
+		current_state = new_state
+		states[current_state].enter()
 
-func _on_MovePlayer_tween_completed(object: Object, key: NodePath) -> void:
+func _on_MovePlayer_tween_completed(_object: Object, _key: NodePath) -> void:
 	player.can_control(true)
+
+func _on_Dialog_start(dialog: DialogTrigger) -> void:
+	states['dialog'].set_dialog(dialog)
+	_change_state('dialog')
+	print("oops")
+#	player.can_control(false)
+#	ui.display_dialog(dialog.who, dialog.what)
+
+#func _on_Dialog_end(_dialog: DialogTrigger) -> void:
+#	player.can_control(true)
+#	ui.hide_dialog()
+
+func _on_State_ended(state_name: String) -> void:
+	current_state = 'move'
+
+class GameState:
+	signal state_ended
+	
+	var player: Player = null
+	var ui : UI = null
+
+	func enter() -> void:
+		pass
+
+	func process(_delta: float) -> void:
+		pass
+
+	func input(_event: InputEvent) -> void:
+		pass
+
+	func exit() -> void:
+		pass
+
+class DialogState extends GameState:
+
+	var dialog : DialogTrigger = null
+
+	func set_dialog(d: DialogTrigger) -> void:
+		dialog = d
+
+	func enter() -> void:
+		player.can_control(false)
+		dialog.start()
+		_print_next_bit()
+
+	func process(_delta: float) -> void:
+		if Input.is_action_just_pressed("context_action"):
+			if not _print_next_bit():
+				player.can_control(true)
+				ui.hide_dialog()
+				emit_signal("state_ended")
+	
+	func _print_next_bit() -> bool:
+		var d = dialog.next()
+		if not d.has('what'):
+			return false
+		ui.display_dialog(d.who, d.what)
+		return true
+
+class MobileState extends GameState:
+
+	func enter() -> void:
+		player.can_control(true)
