@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/props/road/CarInside.gd"
 }, {
+"base": "Area",
+"class": "CarInsideArea",
+"language": "GDScript",
+"path": "res://scenes/props/road/CarInsideArea.gd"
+}, {
 "base": "Spatial",
 "class": "Chapter",
 "language": "GDScript",
@@ -104,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/location/Road.gd"
 }, {
+"base": "Area",
+"class": "TurnTrigger",
+"language": "GDScript",
+"path": "res://scenes/props/road/TurnTrigger.gd"
+}, {
 "base": "Control",
 "class": "UI",
 "language": "GDScript",
@@ -121,6 +131,7 @@ _global_script_class_icons={
 "BarCorridor": "",
 "Car": "",
 "CarInside": "",
+"CarInsideArea": "",
 "Chapter": "",
 "ChapterBar": "",
 "ChapterHome": "",
@@ -134,6 +145,7 @@ _global_script_class_icons={
 "Phone": "",
 "Player": "",
 "Road": "",
+"TurnTrigger": "",
 "UI": "",
 "Valve": ""
 }

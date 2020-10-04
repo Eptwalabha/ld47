@@ -36,6 +36,9 @@ func start() -> void:
 	crashed = false
 	player.reset()
 	ui.fade(true)
+	for car in get_tree().get_nodes_in_group("cars"):
+		if car is Car:
+			car.reset()
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
