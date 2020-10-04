@@ -3,10 +3,12 @@ extends InteractTrigger
 
 signal dialog_start(trigger)
 
-export(Array, Dictionary) var dialogs := []
+export(Array, String) var dialogs := []
+export(String) var who := "someone"
+
 export(bool) var multiple := false
 
-var i = 0
+var line_index = 0
 
 func interact() -> void:
 	if not active:
@@ -15,12 +17,15 @@ func interact() -> void:
 	emit_signal("dialog_start", self)
 
 func start() -> void:
-	var i = 0
+	line_index = 0
 
 func next() -> Dictionary:
-	if len(dialogs) <= i:
+	if len(dialogs) <= line_index:
 		return {}
 	else:
-		i += 1
-		return dialogs[i - 1]
+		line_index += 1
+		return {
+			'who': who,
+			'what': dialogs[line_index - 1],
+		}
 

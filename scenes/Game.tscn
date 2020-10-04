@@ -31,13 +31,8 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.58692
 
 [node name="DialogTrigger" parent="Appartment/Character" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15177, 0 )
-dialogs = [ {
-"what": "dialog_fa_01",
-"who": "friend_a"
-}, {
-"what": "dialog_fa_02",
-"who": "friend_a (lol)"
-} ]
+dialogs = [ "dialog_fa_01", "dialog_fa_02" ]
+multiple = true
 
 [node name="StreetLevel" type="Spatial" parent="."]
 
