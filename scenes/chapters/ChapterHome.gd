@@ -49,7 +49,8 @@ func start() -> void:
 	show()
 	ui.reset()
 	ui.black()
-	lvl = -2
+#	lvl = -2
+	lvl = 0
 	player.reset()
 	emit_signal("night_environment", false)
 	player.reset()

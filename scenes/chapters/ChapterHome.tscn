@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterHome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/location/Appartment.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/core/DialogTrigger.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/props/appart/Door.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/models/appartment/buildings-bg.glb" type="PackedScene" id=13]
 
 [node name="ChapterHome" type="Spatial"]
 script = ExtResource( 1 )
@@ -48,6 +49,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
 [node name="BackStreetBuilding" parent="Street" instance=ExtResource( 5 )]
 
+[node name="DialogBouncer" parent="Street/BackStreetBuilding" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5904, 1.31211, -5.94848 )
+hover_key = "action_bouncer"
+dialogs = [ "dialog_1_bouncer_01", "dialog_1_bouncer_02", "dialog_1_bouncer_03" ]
+who = "bouncer"
+
 [node name="Player" parent="." instance=ExtResource( 6 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0976232, 0, 0.580367 )
 
@@ -66,6 +73,11 @@ who = "friend_a"
 "chapter",
 ] instance=ExtResource( 12 )]
 transform = Transform( -0.464842, 0, 0.885394, 0, 1, 0, -0.885394, 0, -0.464842, -0.307874, 0.330675, 1.39267 )
+
+[node name="buildings-bg" parent="." instance=ExtResource( 13 )]
+
+[node name="buildings-bg2" parent="." instance=ExtResource( 13 )]
+transform = Transform( 0.454535, 0, -0.890729, 0, 1, 0, 0.890729, 0, 0.454535, 0, 0, 0 )
 [connection signal="tween_all_completed" from="Appartment/Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="body_entered" from="Corridor/TP/TPTop" to="." method="_on_TPTop_body_entered"]
 [connection signal="body_entered" from="Corridor/TP/TPBottom" to="." method="_on_TPBottom_body_entered"]
