@@ -32,11 +32,6 @@ func _ready() -> void:
 	states.intro.phone = phone
 	_change_state('intro')
 
-	var phone_dialog = Dialog.new()
-	phone_dialog.push('', 'dialog_1_01')
-	phone_dialog.push('', 'dialog_1_02')
-	phone.dialog = phone_dialog
-
 	for trigger in get_tree().get_nodes_in_group("dialog-home"):
 		if trigger is DialogTrigger:
 			trigger.connect("dialog_start", self, "_on_Dialog_start")
@@ -49,12 +44,17 @@ func start() -> void:
 	show()
 	ui.reset()
 	ui.black()
-#	lvl = -2
-	lvl = 0
+	lvl = -2
 	player.reset()
 	emit_signal("night_environment", false)
 	player.reset()
 	phone.reset()
+	var phone_dialog = Dialog.new()
+	phone_dialog.push('voice_mail', 'dialog_1_phone_01')
+	phone_dialog.push('friend', 'dialog_1_phone_02')
+	if Data.first_time:
+		phone_dialog.push('friend', 'dialog_1_phone_03')
+	phone.dialog = phone_dialog
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()

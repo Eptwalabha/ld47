@@ -51,6 +51,7 @@ func display_next_dialog_line() -> void:
 func _on_CutScene_animation_finished(anim_name: String) -> void:
 	if anim_name == "final":
 		timer.stop()
+		Data.first_time = false
 		emit_signal("chapter_ended")
 
 func _on_Timer_timeout() -> void:

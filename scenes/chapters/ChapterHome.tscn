@@ -65,11 +65,12 @@ default = "idle"
 "dialog-home",
 ] instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31211, 0 )
-dialogs = [ "hello", "how are you?" ]
-who = "friend_a"
+hover_key = "action_hover_friend"
+dialogs = [ "dialog_1_friend_01", "dialog_1_friend_02" ]
+who = "friend"
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0976232, 0, 0.580367 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.277124, 0, 2.27767 )
 
 [node name="UI" parent="." instance=ExtResource( 8 )]
 visible = false

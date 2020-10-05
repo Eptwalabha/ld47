@@ -17,3 +17,16 @@ action_door_open	Open the door	Ouvrir la porte
 action_door_locked	Door’s locked	La porte est vérouillée
 action_pick_up_key	Pick up the key	Ramasser la clé
 action_pick_up_valve	Pick up the valve	Ramasser la manivelle
+dialog_1_friend_01	Oh ! You here	Ha ! T’es là ?
+dialog_1_friend_02	Let’s go	Allez ! 
+action_bouncer	Knock at door	Frapper à la porte
+dialog_1_bouncer_01	What is it ?	Ouais, c’est pour quoi ?
+dialog_1_bouncer_02	This is the back door of the bar	C’est la porte de secour du bar
+dialog_1_bouncer_03	Of course you cannot enter	Bien sûr que non tu ne rentres pas par là !
+action_pick_up_phone	Reply	Décrocher
+dialog_1_phone_01	You have 1 new message	Vous avez un nouveau message
+dialog_1_phone_02	Yo, it’s me. Yesterday you fell asleep like an idiot… and now I’m gone	Hey, c’est moi. Hier tu t’es endormi comme un gland… et maintenant je ne suis plus là
+dialog_1_phone_03	Meet me at the bar down your street	Rejoins moi au bar en bas de chez toi
+voice_mail	voice mail	messagerie
+bouncer	Bouncer	Videur
+action_hover_friend	Great your friend	Saluer votre ami

@@ -184,6 +184,10 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
+[autoload]
+
+Data="*res://autoload.gd"
+
 [input]
 
 move_forward={

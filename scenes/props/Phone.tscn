@@ -94,7 +94,7 @@ tracks/2/keys = {
 script = ExtResource( 3 )
 
 [node name="InteractTrigger" parent="." index="1" instance=ExtResource( 2 )]
-hover_key = "pickup_phone"
+hover_key = "action_pick_up_phone"
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractTrigger" index="0"]
 shape = SubResource( 1 )

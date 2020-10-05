@@ -146,7 +146,7 @@ func prepare_current_objective() -> void:
 			car.show()
 			active_dialog(5)
 		_:
-			print(current_objective)
+			pass
 
 func process(delta: float) -> void:
 	states[current_state].process(delta)
@@ -168,7 +168,6 @@ func _on_player_drink_ended() -> void:
 
 func _on_State_ended(state: String) -> void:
 	if state == 'dialog':
-		print(current_objective)
 		match current_objective:
 			OBJECTIVES.TALK_FRIEND_IDLE:
 				searching = true
