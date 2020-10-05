@@ -42,7 +42,7 @@ func end() -> void:
 
 func start() -> void:
 	show()
-	ui.show()
+	ui.reset()
 	searching = true
 	key_picked_up = false
 	valve_picked_up = false

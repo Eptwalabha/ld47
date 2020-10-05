@@ -52,6 +52,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0976232, 0, 0.580367 )
 
 [node name="UI" parent="." instance=ExtResource( 8 )]
+visible = false
 
 [node name="Character" parent="." instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.656464, 0, 2.07681 )
@@ -70,3 +71,4 @@ transform = Transform( -0.464842, 0, 0.885394, 0, 1, 0, -0.885394, 0, -0.464842,
 [connection signal="body_entered" from="Corridor/TP/TPBottom" to="." method="_on_TPBottom_body_entered"]
 [connection signal="end_of_chapter_one" from="Street/BackStreetBuilding" to="." method="_on_BackStreetBuilding_end_of_chapter_one"]
 [connection signal="go_to" from="Street/BackStreetBuilding" to="." method="_on_BackStreetBuilding_go_to"]
+[connection signal="picked_up" from="Phone" to="." method="_on_Phone_picked_up"]

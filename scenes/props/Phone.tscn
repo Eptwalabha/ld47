@@ -102,6 +102,7 @@ shape = SubResource( 1 )
 [node name="Ring" type="AudioStreamPlayer3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.109642, 0 )
 stream = ExtResource( 5 )
+unit_db = -15.0
 unit_size = 5.0
 max_distance = 10.0
 bus = "sound"

@@ -4,6 +4,9 @@ extends Control
 # warning-ignore:unused_signal
 signal blink
 
+func reset() -> void:
+	show()
+
 func show_context(text: String) -> void:
 	$VBoxContainer/Context/Label.text = tr(text)
 	$VBoxContainer/Context.show()

@@ -65,6 +65,7 @@ light_energy = 3.24
 spot_range = 22.4581
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="Crash" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )

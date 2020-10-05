@@ -33,12 +33,13 @@ func end() -> void:
 
 func start() -> void:
 	show()
+	ui.reset()
+	ui.fade(true)
 	emit_signal("night_environment", true)
 	$CarEngine.play()
 	nbr_car = 0
 	crashed = false
 	player.reset()
-	ui.fade(true)
 	for car in get_tree().get_nodes_in_group("cars"):
 		if car is Car:
 			car.reset()

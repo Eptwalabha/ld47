@@ -28,6 +28,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70648, 0.817848, -3.72262 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.26021 )
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="Drink" type="Spatial" parent="."]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.128837, 0, -3.29696 )

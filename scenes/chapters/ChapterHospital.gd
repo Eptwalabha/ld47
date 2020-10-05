@@ -28,8 +28,8 @@ func end() -> void:
 
 func start() -> void:
 	show()
+	ui.reset()
 	current_line = 0
-	ui.show()
 	$CutScene.play("final")
 	$Control.show()
 	camera.make_current()

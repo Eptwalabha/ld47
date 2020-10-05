@@ -15,6 +15,7 @@ var states = {
 	'intro': IntroState.new(),
 	'move': MobileState.new(),
 	'dialog': DialogState.new(),
+	'phone': OnPhoneState.new(),
 }
 
 var reset_player_transform :Transform
@@ -31,6 +32,11 @@ func _ready() -> void:
 	states.intro.phone = phone
 	_change_state('intro')
 
+	var phone_dialog = Dialog.new()
+	phone_dialog.push('', 'dialog_1_01')
+	phone_dialog.push('', 'dialog_1_02')
+	phone.dialog = phone_dialog
+
 	for trigger in get_tree().get_nodes_in_group("dialog_trigger"):
 		if trigger is DialogTrigger:
 			trigger.connect("dialog_start", self, "_on_Dialog_start")
@@ -41,13 +47,13 @@ func end() -> void:
 
 func start() -> void:
 	show()
+	ui.reset()
+	ui.black()
 	lvl = -2
 	player.reset()
-	ui.black()
 	emit_signal("night_environment", false)
 	player.reset()
 	phone.reset()
-	current_state = "intro"
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
@@ -56,6 +62,7 @@ func start() -> void:
 	player_is_inside = true
 	appartment.set_level(lvl)
 	street.translation = Vector3(0, 2.5 * lvl, 0)
+	_change_state('intro')
 
 func process(delta: float) -> void:
 	states[current_state].process(delta)
@@ -109,8 +116,8 @@ func _on_BackStreetBuilding_go_to(_place: String) -> void:
 		player_is_inside = true
 		_move_player_from_to($Appartment/Out, $Appartment/In)
 
-func _on_Dialog_start(dialog: DialogTrigger) -> void:
-	states['dialog'].set_dialog(dialog)
+func _on_Dialog_start(trigger: DialogTrigger) -> void:
+	states['dialog'].set_dialog(trigger.dialog)
 	_change_state('dialog')
 
 func _change_state(new_state: String) -> void:
@@ -149,9 +156,9 @@ class GameState:
 
 class DialogState extends GameState:
 
-	var dialog : DialogTrigger = null
+	var dialog : Dialog = null
 
-	func set_dialog(d: DialogTrigger) -> void:
+	func set_dialog(d: Dialog) -> void:
 		dialog = d
 
 	func enter() -> void:
@@ -174,6 +181,36 @@ class DialogState extends GameState:
 		ui.display_dialog(d.who, d.what)
 		return true
 
+class OnPhoneState extends GameState:
+
+	var dialog : Dialog = null
+
+	func set_dialog(d: Dialog) -> void:
+		dialog = d
+
+	func enter() -> void:
+		player.can_control(false)
+		ui.hide_context()
+		dialog.start()
+		var _a = _print_next_bit()
+
+	func input(event: InputEvent) -> void:
+		player.input(event)
+
+	func process(_delta: float) -> void:
+		if Input.is_action_just_pressed("context_action"):
+			if not _print_next_bit():
+				player.can_control(true)
+				player.hangup_phone()
+				ui.hide_dialog()
+				emit_signal("state_ended")
+	
+	func _print_next_bit() -> bool:
+		var d = dialog.next()
+		if not d.has('what'):
+			return false
+		ui.display_dialog(d.who, d.what)
+		return true
 
 class MobileState extends GameState:
 
@@ -187,6 +224,8 @@ class MobileState extends GameState:
 		player.input(event)
 
 	func process(_delta: float) -> void:
+		if player.on_phone:
+			player.hangup_phone()
 		_check_triggers()
 
 	func _check_triggers():
@@ -212,6 +251,7 @@ class IntroState extends GameState:
 	var ring : bool
 	
 	func enter() -> void:
+		ui.black()
 		timeout = 4.0
 		ring = false
 		player.can_control(true)
@@ -224,3 +264,10 @@ class IntroState extends GameState:
 		elif timeout <= 0.0:
 			emit_signal("state_ended")
 			ui.fade(true)
+
+
+func _on_Phone_picked_up() -> void:
+	phone.remove()
+	player.answer_phone()
+	states['phone'].set_dialog(phone.dialog)
+	_change_state('phone')

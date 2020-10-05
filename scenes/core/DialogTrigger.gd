@@ -10,22 +10,15 @@ export(bool) var multiple := false
 
 var line_index = 0
 
+var dialog : Dialog
+
+func _ready() -> void:
+	dialog = Dialog.new()
+	for line in dialogs:
+		dialog.push(who, line)
+
 func interact() -> void:
 	if not active:
 		return
 	active = multiple
 	emit_signal("dialog_start", self)
-
-func start() -> void:
-	line_index = 0
-
-func next() -> Dictionary:
-	if len(dialogs) <= line_index:
-		return {}
-	else:
-		line_index += 1
-		return {
-			'who': who,
-			'what': dialogs[line_index - 1],
-		}
-

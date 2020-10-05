@@ -29,9 +29,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	chapters[current_chapter].process(delta)
+	# debug remove
 	if Input.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().quit()
+	if Input.is_action_just_pressed("action_reset_chapter"):
+		chapters[current_chapter].end()
+		chapters[current_chapter].start()
 
 func _physics_process(delta: float) -> void:
 	chapters[current_chapter].physics_process(delta)
@@ -40,7 +44,7 @@ func _input(event: InputEvent) -> void:
 	chapters[current_chapter].input(event)
 
 func reset_game() -> void:
-#	current_chapter = 2
+	current_chapter = 2
 	chapters[current_chapter].start()
 
 func next_chapter() -> void:

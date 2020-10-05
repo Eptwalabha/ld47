@@ -12,13 +12,14 @@ func _ready() -> void:
 	reset_active = active
 
 func set_active(is_active: bool) -> void:
+	print("set active %s" % is_active)
 	active = is_active
 	for elem in get_children():
 		if elem is CollisionShape:
 			elem.disabled = not active
 
 func reset() -> void:
-	active = reset_active
+	set_active(reset_active)
 
 func interact() -> void:
 	if not active:
