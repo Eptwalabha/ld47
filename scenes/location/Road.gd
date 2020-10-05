@@ -4,5 +4,5 @@ extends Spatial
 func start() -> void:
 	pass
 
-func process(delta: float) -> void:
+func process(_delta: float) -> void:
 	pass

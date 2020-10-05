@@ -54,7 +54,7 @@ func next_chapter() -> void:
 	if old_id != current_chapter:
 		chapters[old_id].end()
 
-func _on_Chapter_Ended(chapter: Chapter) -> void:
+func _on_Chapter_Ended(_chapter: Chapter) -> void:
 	next_chapter()
 
 func _on_Environment_change(night: bool) -> void:

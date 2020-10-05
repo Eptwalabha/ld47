@@ -83,8 +83,8 @@ func _on_Car_crash() -> void:
 	yield($Crash, "finished")
 	emit_signal("chapter_ended")
 
-func _on_LeftSide_area_entered(area: Area) -> void:
+func _on_LeftSide_area_entered(_area: Area) -> void:
 	_on_Car_crash()
 
-func _on_RightSide_area_entered(area: Area) -> void:
+func _on_RightSide_area_entered(_area: Area) -> void:
 	_on_Car_crash()
