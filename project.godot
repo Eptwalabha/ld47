@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/chapters/ChapterRoad.gd"
 }, {
+"base": "Spatial",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scenes/characters/Character.gd"
+}, {
 "base": "Node",
 "class": "Dialog",
 "language": "GDScript",
@@ -147,6 +152,7 @@ _global_script_class_icons={
 "ChapterHome": "",
 "ChapterHospital": "",
 "ChapterRoad": "",
+"Character": "",
 "Dialog": "",
 "DialogTrigger": "",
 "Game": "",

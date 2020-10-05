@@ -55,19 +55,20 @@ hover_key = "action_bouncer"
 dialogs = [ "dialog_1_bouncer_01", "dialog_1_bouncer_02", "dialog_1_bouncer_03" ]
 who = "bouncer"
 
+[node name="Character" parent="Street/BackStreetBuilding" instance=ExtResource( 9 )]
+transform = Transform( 0.757736, 0, 0.652561, 0, 1, 0, -0.652561, 0, 0.757736, -0.96861, -5.0307, -5.41736 )
+default = "idle"
+
+[node name="DialogTrigger" parent="Street/BackStreetBuilding/Character" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31211, 0 )
+dialogs = [ "hello", "how are you?" ]
+who = "friend_a"
+
 [node name="Player" parent="." instance=ExtResource( 6 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0976232, 0, 0.580367 )
 
 [node name="UI" parent="." instance=ExtResource( 8 )]
 visible = false
-
-[node name="Character" parent="." instance=ExtResource( 9 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.656464, 0, 2.07681 )
-
-[node name="DialogTrigger" parent="Character" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31211, 0 )
-dialogs = [ "hello", "how are you?" ]
-who = "friend_a"
 
 [node name="Phone" parent="." groups=[
 "chapter",
