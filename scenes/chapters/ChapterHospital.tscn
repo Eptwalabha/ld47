@@ -8,7 +8,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "final"
-length = 20.0
+length = 27.0
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -16,9 +16,27 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 1, 3, 3.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 1, 3, 4.3, 10.2, 13, 14.7, 16, 18.9, 21.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
+"args": [  ],
+"method": "display_next_dialog_line"
+}, {
 "args": [  ],
 "method": "display_next_dialog_line"
 }, {
@@ -48,7 +66,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 7, 20 ),
+"times": PoolRealArray( 0, 7, 26 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -72,10 +90,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 7.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 7.3, 7.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, -12 ), Vector3( 0, 0, 8 ) ]
+"values": [ Vector3( 0, 0, -12 ), Vector3( 0, 0, 8 ), Vector3( -7.29342, 0, 0.192304 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Spatial/Doctor1:translation")
@@ -101,6 +119,114 @@ tracks/6/keys = {
 "update": 0,
 "values": [ Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ), Vector3( -0.812983, -0.904563, -0.430745 ), Vector3( -0.812983, -0.846517, -0.430745 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spatial/Camera:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 90, 0, 0 ), Vector3( 50, 0, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("hospital-corridor:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 7.3, 7.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -90, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Doctor3:translation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 6.8, 9.1, 9.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.198546, -0.846517, -1.89679 ), Vector3( -0.198546, -0.846517, -1.89679 ), Vector3( -0.198546, -0.846517, -1.19448 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Nurse:translation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 6.8, 11.6, 12.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 2.50966, -1.06552, 0.45494 ), Vector3( 2.50966, -1.06552, 0.45494 ), Vector3( 0.41823, -0.985395, -0.870394 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Nurse:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 8.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Doctor3:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 8.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Spatial/Doctor1:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Spatial/Doctor2:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Nurse:rotation_degrees")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 4.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -70.332, 0 ) ]
+}
 
 [node name="ChapterHospital" type="Spatial" groups=[
 "chapter",
@@ -118,7 +244,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0.5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -126,19 +252,29 @@ __meta__ = {
 [node name="UI" parent="." instance=ExtResource( 2 )]
 visible = false
 
+[node name="Doctor3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.994033, -0.0767573, -0.0775073, 0.0611929, 0.980586, -0.186297, 0.0903022, 0.180443, 0.979431, -0.198546, -0.846517, -1.19448 )
+default = "idle"
+
+[node name="Nurse" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.33657, 0, -0.941658, 0, 1, 0, 0.941659, 0, 0.336569, 0.41823, -0.985395, -0.870394 )
+default = "idle"
+
 [node name="Spatial" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.219, 0 )
 
 [node name="Camera" type="Camera" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 0.573576, -0.819152, 0, 0.819152, 0.573576, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.642788, -0.766044, 0, 0.766044, 0.642788, 0, 0, 0 )
 fov = 90.0
 
 [node name="Doctor1" parent="Spatial" instance=ExtResource( 5 )]
-transform = Transform( 0.170049, -0.194161, -0.966118, 0.0611929, 0.980586, -0.186297, 0.983534, -0.0274398, 0.178629, 1.10082, -0.904563, -0.735463 )
+transform = Transform( 0.170049, -0.194161, -0.966118, 0.0611929, 0.980586, -0.186297, 0.983534, -0.0274398, 0.178629, 1.10082, -0.931601, -0.735463 )
+visible = false
 default = "bartender"
 
 [node name="Doctor2" parent="Spatial" instance=ExtResource( 5 )]
-transform = Transform( 0.0903022, 0.180443, 0.979431, 0.0611929, 0.980586, -0.186297, -0.994033, 0.0767573, 0.0775073, -0.812983, -0.904563, -0.430745 )
+transform = Transform( 0.0903022, 0.180443, 0.979431, 0.0611929, 0.980586, -0.186297, -0.994033, 0.0767573, 0.0775073, -0.812983, -0.846517, -0.430745 )
+visible = false
 default = "bartender"
 
 [node name="Timer" type="Timer" parent="."]
@@ -148,11 +284,11 @@ anims/final = SubResource( 1 )
 
 [node name="CardiacBip" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = -49.1429
+volume_db = -20.0
 pitch_scale = 0.6
 bus = "sound"
 
 [node name="hospital-corridor" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.29342, 0, 0.192304 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CutScene" to="." method="_on_CutScene_animation_finished"]

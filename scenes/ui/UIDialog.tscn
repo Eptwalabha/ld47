@@ -23,7 +23,7 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
 margin_bottom = 80.0
-color = Color( 0.0627451, 0.0627451, 0.0627451, 0.380392 )
+color = Color( 0.0627451, 0.0627451, 0.0627451, 0.45098 )
 
 [node name="Center" type="CenterContainer" parent="."]
 margin_left = 20.0
