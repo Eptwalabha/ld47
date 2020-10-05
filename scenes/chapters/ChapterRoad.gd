@@ -7,20 +7,24 @@ onready var line_a := $Road/LineA as Spatial
 onready var line_b := $Road/LineB as Spatial
 onready var ui := $UI as UI
 
-
-
 export(float) var speed := .6
 export(float) var acceleration := 1
-var speed_lane := .2
 
+var speed_lane := .2
+var c_speed := 0.0
 var velocity_x := 0.0
-var reset_player_transform : Transform
 var nbr_car := 0
 var crashed := false
+
+var reset_player_transform : Transform
+var reset_line_a_transform : Transform
+var reset_line_b_transform : Transform
 
 func _ready() -> void:
 	hide()
 	reset_player_transform = player.global_transform
+	reset_line_a_transform = line_a.global_transform
+	reset_line_b_transform = line_b.global_transform
 	for car in get_tree().get_nodes_in_group("cars"):
 		if car is Car:
 			car.connect("crash", self, "_on_Car_crash")
@@ -39,6 +43,7 @@ func start() -> void:
 	$CarEngine.play()
 	nbr_car = 0
 	crashed = false
+	c_speed = 0.0
 	player.reset()
 	for car in get_tree().get_nodes_in_group("cars"):
 		if car is Car:
@@ -46,9 +51,9 @@ func start() -> void:
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
+	line_a.global_transform = reset_line_a_transform
+	line_b.global_transform = reset_line_b_transform
 	player.global_transform = reset_player_transform
-
-var c_speed := 0.0
 
 func process(delta: float) -> void:
 	if crashed:
