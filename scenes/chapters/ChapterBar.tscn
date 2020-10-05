@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/props/appart/BarCorridor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/core/DialogTrigger.tscn" type="PackedScene" id=11]
 
 [node name="ChapterBar" type="Spatial"]
 script = ExtResource( 1 )
@@ -54,8 +55,11 @@ transform = Transform( 0.549767, 0, -0.835318, 0, 1, 0, 0.835318, 0, 0.549767, 2
 transform = Transform( 0.549767, 0, -0.835318, 0, 1, 0, 0.835318, 0, 0.549767, -0.580353, 0.0166473, 0.126068 )
 
 [node name="Friend" parent="." instance=ExtResource( 7 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.50651, -0.0542827, -0.896361 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.50651, 0.00659486, -0.896361 )
 default = "sleep"
+
+[node name="DialogTrigger" parent="Friend" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15334, 0 )
 
 [node name="Bartender" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0, 0, -1, 0, 1, 0, 1, 0, 0, 1.85409, 0.228268, -3.26435 )

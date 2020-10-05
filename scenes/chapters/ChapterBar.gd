@@ -8,6 +8,7 @@ onready var key := $Bar/Key as Key
 onready var valve := $Bar/Valve as Valve
 onready var corridor := $Bar/BarCorridor as BarCorridor
 onready var music := $Music as AudioStreamPlayer3D
+onready var friend := $Friend as Character
 
 var current_state = "move"
 var states = {
@@ -43,13 +44,14 @@ func end() -> void:
 func start() -> void:
 	show()
 	ui.reset()
-	searching = true
+	searching = false
 	key_picked_up = false
 	valve_picked_up = false
 	key.reset()
 	valve.reset()
 	player.reset()
 	corridor.reset()
+	friend.sit_stool_drink()
 	current_state = "move"
 	$Dancers.show()
 	$Music.playing = true
@@ -58,7 +60,7 @@ func start() -> void:
 	for dialog in get_tree().get_nodes_in_group("dialog_trigger"):
 		if dialog is DialogTrigger:
 			dialog.reset()
-	states['move'].searching = true
+	states['move'].searching = searching
 	states['move'].timer = 10.0
 
 	player.global_transform = reset_player_transform
@@ -79,6 +81,9 @@ func drink() -> void:
 
 func _on_player_drink_ended() -> void:
 	_change_state('move')
+
+func _on_State_ended(_state: String) -> void:
+	pass
 
 func _change_state(new_state: String) -> void:
 	if current_state != new_state and states.has(new_state):

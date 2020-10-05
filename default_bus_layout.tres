@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=2]
+[gd_resource type="AudioBusLayout" load_steps=3 format=2]
 
 [sub_resource type="AudioEffectEQ6" id=1]
 resource_name = "EQ6"
@@ -6,6 +6,10 @@ band_db/32_hz = -60.0
 band_db/100_hz = -60.0
 band_db/320_hz = -60.0
 band_db/1000_hz = -60.0
+
+[sub_resource type="AudioEffectFilter" id=2]
+resource_name = "Filter"
+cutoff_hz = 750.0
 
 [resource]
 bus/1/name = "sound"
@@ -28,3 +32,5 @@ bus/3/mute = false
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
 bus/3/send = "Master"
+bus/3/effect/0/effect = SubResource( 2 )
+bus/3/effect/0/enabled = true
