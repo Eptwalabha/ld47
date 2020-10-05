@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/props/appart/Door.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=13]
 [ext_resource path="res://scenes/props/road/CarInside.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/sounds/club.ogg" type="AudioStream" id=15]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.156863, 0.717647, 0, 1 )
@@ -158,6 +159,7 @@ transform = Transform( 0, 0, -1, 0, 1, 0, 1, 0, 0, 1.85409, 0.228268, -3.26435 )
 "chapter",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01232, 1.70402, 5.50527 )
+stream = ExtResource( 15 )
 attenuation_model = 3
 unit_size = 15.0
 bus = "music"

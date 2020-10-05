@@ -244,7 +244,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.5 )
+color = Color( 0, 0, 0, 0.382353 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -254,27 +254,27 @@ visible = false
 
 [node name="Doctor3" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.994033, -0.0767573, -0.0775073, 0.0611929, 0.980586, -0.186297, 0.0903022, 0.180443, 0.979431, -0.198546, -0.846517, -1.19448 )
+visible = false
 default = "idle"
 
 [node name="Nurse" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.33657, 0, -0.941658, 0, 1, 0, 0.941659, 0, 0.336569, 0.41823, -0.985395, -0.870394 )
+transform = Transform( 0.336569, 0, -0.941658, 0, 1, 0, 0.941659, 0, 0.336569, 0.41823, -0.985395, -0.870394 )
+visible = false
 default = "idle"
 
 [node name="Spatial" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.219, 0 )
 
 [node name="Camera" type="Camera" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 0.642788, -0.766044, 0, 0.766044, 0.642788, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.435956, -0.899968, 0, 0.899968, 0.435956, 0, 0, 0 )
 fov = 90.0
 
 [node name="Doctor1" parent="Spatial" instance=ExtResource( 5 )]
-transform = Transform( 0.170049, -0.194161, -0.966118, 0.0611929, 0.980586, -0.186297, 0.983534, -0.0274398, 0.178629, 1.10082, -0.931601, -0.735463 )
-visible = false
+transform = Transform( 0.170049, -0.194161, -0.966118, 0.0611929, 0.980586, -0.186297, 0.983534, -0.0274398, 0.178629, 1.10082, -0.920786, -0.735463 )
 default = "bartender"
 
 [node name="Doctor2" parent="Spatial" instance=ExtResource( 5 )]
-transform = Transform( 0.0903022, 0.180443, 0.979431, 0.0611929, 0.980586, -0.186297, -0.994033, 0.0767573, 0.0775073, -0.812983, -0.846517, -0.430745 )
-visible = false
+transform = Transform( 0.0903022, 0.180443, 0.979431, 0.0611929, 0.980586, -0.186297, -0.994033, 0.0767573, 0.0775073, -0.812983, -0.892954, -0.430745 )
 default = "bartender"
 
 [node name="Timer" type="Timer" parent="."]
@@ -289,6 +289,6 @@ pitch_scale = 0.6
 bus = "sound"
 
 [node name="hospital-corridor" parent="." instance=ExtResource( 4 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.29342, 0, 0.192304 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.493151 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CutScene" to="." method="_on_CutScene_animation_finished"]

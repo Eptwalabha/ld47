@@ -10,11 +10,11 @@ var dialogs = [
 	{ "who": "doctor_2", "what": "dialog_4_02", "duration": 1 },
 	{ "who": "doctor_1", "what": "dialog_4_03", "duration": 1 },
 	{ "who": "doctor", "what": "dialog_4_04", "duration": 3 },
-	{ "who": "nurce", "what": "dialog_4_05", "duration": 3 },
+	{ "who": "nurse", "what": "dialog_4_05", "duration": 3 },
 	{ "who": "doctor", "what": "dialog_4_06", "duration": 3 },
-	{ "who": "nurce", "what": "dialog_4_07", "duration": 3 },
+	{ "who": "nurse", "what": "dialog_4_07", "duration": 3 },
 	{ "who": "doctor", "what": "dialog_4_08", "duration": 3 },
-	{ "who": "nurce", "what": "dialog_4_09", "duration": 3 },
+	{ "who": "nurse", "what": "dialog_4_09", "duration": 3 },
 ]
 
 var corridors = []

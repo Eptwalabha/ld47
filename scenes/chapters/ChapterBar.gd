@@ -253,7 +253,7 @@ class DriveState extends GameState:
 	func input(event: InputEvent) -> void:
 		player.input(event)
 	
-	func process(delta: float) -> void:
+	func process(_delta: float) -> void:
 		if player.ray.is_colliding():
 			var collider = player.ray.get_collider()
 			if collider is InteractTrigger and collider.active:

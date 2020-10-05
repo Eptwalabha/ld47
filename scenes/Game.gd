@@ -10,6 +10,7 @@ onready var env := $WorldEnvironment as WorldEnvironment
 
 var current_chapter := 0
 var chapters = []
+var mouse := false
 
 func _ready() -> void:
 
@@ -19,23 +20,22 @@ func _ready() -> void:
 		chapter_road,
 		chapter_hospital,
 	]
-
+	
 	for chapter in get_tree().get_nodes_in_group('chapter'):
 		if chapter is Chapter:
 			chapter.connect("chapter_ended", self, "_on_Chapter_Ended", [chapter])
 			chapter.connect("night_environment", self, "_on_Environment_change")
 	reset_game()
+	mouse = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(delta: float) -> void:
 	chapters[current_chapter].process(delta)
 	# debug remove
 	if Input.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().quit()
-	if Input.is_action_just_pressed("action_reset_chapter"):
-		chapters[current_chapter].end()
-		chapters[current_chapter].start()
+		if mouse:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		mouse = !mouse
 
 func _physics_process(delta: float) -> void:
 	chapters[current_chapter].physics_process(delta)
@@ -44,7 +44,7 @@ func _input(event: InputEvent) -> void:
 	chapters[current_chapter].input(event)
 
 func reset_game() -> void:
-	current_chapter = 3
+	current_chapter = 0
 	chapters[current_chapter].start()
 
 func next_chapter() -> void:
