@@ -30,7 +30,7 @@ func reset() -> void:
 func _on_InteractTrigger_interacted_with() -> void:
 	emit_signal("door_interacted_with")
 	if locked and closed:
-		$door/InteractTrigger.hover_key = 'door_locked'
+		$door/InteractTrigger.hover_key = 'action_door_locked'
 	else:
 		$door/InteractTrigger.active = false
 		$AnimationPlayer.play("open")

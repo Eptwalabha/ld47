@@ -1,0 +1,19 @@
+keys	en	fr
+test	hi	bonjour
+dialog_2_01	This bar is great! But the bartender is wierd…	Il est trop bien ce bar! Il y a que le barman qui est chelou…
+dialog_2_02	He keeps make me drink every 10 seconds	Il n’arrête pas de me servir toutes les 10 secondes
+dialog_bar_hover_friend	Talk to your friend	Parler à votre ami
+dialog_2_03	I don’t feel too well…	Je ne me sens pas super bien là…
+dialog_2_04	I wanna go home… burp	Je veux rentrer… burp
+dialog_bar_hover_bartender_key	Ask the bartender why the door is locked	Demander au barman pourquoi la porte est fermée
+dialog_bar_hover_bartender_valve	Ask the bartender where is the door’s handle	Demander au barman où est la poignée de la porte
+dialog_2_05	WAKE UP MORON !	RÉVEILLE-TOI DUCON !
+dialog_02_bartender_01	I just saw one of the customer playing the door’s keys	Je viens de voir un client jouer avec les clés de la porte
+dialog_02_bartender_02	You again ?	Encore toi ?
+dialog_02_bartender_03	I’ve got work to do… so buzz off !	J’ai pas mal de travail… alors casse toi !
+bartender	Bartender	Barman
+friend	Friend	Ami
+action_door_open	Open the door	Ouvrir la porte
+action_door_locked	Door’s locked	La porte est vérouillée
+action_pick_up_key	Pick up the key	Ramasser la clé
+action_pick_up_valve	Pick up the valve	Ramasser la manivelle

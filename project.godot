@@ -229,6 +229,11 @@ action_reset_chapter={
 3d_physics/layer_3="interactive_object"
 3d_physics/layer_4="interactive_trigger"
 
+[locale]
+
+translations=PoolStringArray( "res://assets/text/text.en.translation", "res://assets/text/text.fr.translation" )
+locale_filter=[ 1, [ "en", "fr" ] ]
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

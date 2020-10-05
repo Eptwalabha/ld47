@@ -106,11 +106,11 @@ func start() -> void:
 
 	player.global_transform = reset_player_transform
 
-func active_dialog(nbr: int, keep_active := false) -> void:
+func active_dialog(nbr: int, nbr2: int = -1) -> void:
 	for i in range(dialogs.get_child_count()):
 		var trigger = dialogs.get_child(i)
 		if trigger is DialogTrigger:
-			trigger.set_active(i == nbr || keep_active)
+			trigger.set_active(i == nbr || i == nbr2)
 
 func prepare_current_objective() -> void:
 	match current_objective:
@@ -126,14 +126,12 @@ func prepare_current_objective() -> void:
 			door.show()
 		OBJECTIVES.FIND_KEY:
 			key.display(true)
-			active_dialog(2)
-			active_dialog(3, true)
+			active_dialog(2, 3)
 		OBJECTIVES.PUT_KEY:
 			active_dialog(2)
 		OBJECTIVES.FIND_VALVE:
 			valve.display(true)
-			active_dialog(2)
-			active_dialog(4, true)
+			active_dialog(2, 4)
 		OBJECTIVES.PUT_VALVE:
 			active_dialog(2)
 			searching = false
@@ -142,6 +140,7 @@ func prepare_current_objective() -> void:
 			yield(ui, "blink")
 			empty_bar()
 		OBJECTIVES.WAKE_UP:
+			emit_signal("night_environment", true)
 			_change_state('car')
 			friend.hide()
 			car.show()
