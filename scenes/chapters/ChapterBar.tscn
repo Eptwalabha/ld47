@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,21 @@
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/props/appart/BarCorridor.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/core/DialogTrigger.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/props/appart/Door.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=13]
+[ext_resource path="res://scenes/props/road/CarInside.tscn" type="PackedScene" id=14]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.156863, 0.717647, 0, 1 )
+emission_enabled = true
+emission = Color( 0.156863, 0.717647, 0, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
+size = Vector3( 0.1, 0.1, 0.3 )
 
 [node name="ChapterBar" type="Spatial"]
 script = ExtResource( 1 )
@@ -24,6 +39,78 @@ transform = Transform( 0.678826, 0, -0.734299, 0, 1, 0, 0.734299, 0, 0.678826, -
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70648, 0.817848, -3.72262 )
 
 [node name="BarCorridor" parent="Bar" instance=ExtResource( 10 )]
+
+[node name="Trigger" type="Spatial" parent="Bar"]
+
+[node name="Door" parent="Bar/Trigger" instance=ExtResource( 12 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.52556, 0, 0 )
+locked = true
+
+[node name="key" parent="Bar/Trigger/Door" instance=ExtResource( 13 )]
+transform = Transform( -0.658125, 0.752909, -7.24789e-08, 0.752909, 0.658125, 3.29107e-08, 7.24789e-08, -3.29107e-08, -1, 0.660003, 0.720318, -0.172962 )
+
+[node name="CarInside" parent="Bar/Trigger/Door" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.619672, 0, -0.813649 )
+friend_sleep = false
+
+[node name="Position" type="Spatial" parent="Bar/Trigger/Door/CarInside"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.481436, -0.249828, 0 )
+
+[node name="ExitSign" type="MeshInstance" parent="Bar/Trigger/Door"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6, 2.2, -0.0495644 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Dialogs" type="Spatial" parent="Bar"]
+
+[node name="DialogFriend01" parent="Bar/Dialogs" groups=[
+"dialog-bar",
+] instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49304, 1.44674, -0.99473 )
+hover_key = "dialog_bar_hover_idle"
+active = false
+dialogs = [ "dialog_2_01", "dialog_2_02" ]
+who = "a_friend"
+
+[node name="DialogFriend02" parent="Bar/Dialogs" groups=[
+"dialog-bar",
+] instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49304, 1.44674, -0.99473 )
+hover_key = "dialog_bar_hover_drink"
+active = false
+who = "a_friend"
+
+[node name="DialogFriend03" parent="Bar/Dialogs" groups=[
+"dialog-bar",
+] instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49304, 1.44674, -0.99473 )
+hover_key = "dialog_bar_hover_sleep"
+active = false
+dialogs = [ "i_wanna_go_home" ]
+who = "a_friend"
+multiple = true
+
+[node name="DialogBartender01" parent="Bar/Dialogs" groups=[
+"dialog-bar",
+] instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51997, 1.73703, -3.1051 )
+active = false
+who = "bartender"
+
+[node name="DialogBartender02" parent="Bar/Dialogs" groups=[
+"dialog-bar",
+] instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51997, 1.73703, -3.1051 )
+active = false
+who = "bartender"
+
+[node name="DialogFriend04" parent="Bar/Dialogs" groups=[
+"dialog-bar",
+] instance=ExtResource( 11 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.9119, 1.24234, 0.152902 )
+active = false
+dialogs = [ "wake_up_moron" ]
+who = "a_friend"
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.26021 )
@@ -58,9 +145,6 @@ transform = Transform( 0.549767, 0, -0.835318, 0, 1, 0, 0.835318, 0, 0.549767, -
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.50651, 0.00659486, -0.896361 )
 default = "sleep"
 
-[node name="DialogTrigger" parent="Friend" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15334, 0 )
-
 [node name="Bartender" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0, 0, -1, 0, 1, 0, 1, 0, 0, 1.85409, 0.228268, -3.26435 )
 
@@ -75,3 +159,4 @@ bus = "music"
 [connection signal="picked_up" from="Bar/Key" to="." method="_on_Key_picked_up"]
 [connection signal="picked_up" from="Bar/Valve" to="." method="_on_Valve_picked_up"]
 [connection signal="first_entrance" from="Bar/BarCorridor" to="." method="_on_BarCorridor_first_entrance"]
+[connection signal="door_interacted_with" from="Bar/Trigger/Door" to="." method="_on_Door_door_interacted_with"]

@@ -37,7 +37,7 @@ func _ready() -> void:
 	phone_dialog.push('', 'dialog_1_02')
 	phone.dialog = phone_dialog
 
-	for trigger in get_tree().get_nodes_in_group("dialog_trigger"):
+	for trigger in get_tree().get_nodes_in_group("dialog-home"):
 		if trigger is DialogTrigger:
 			trigger.connect("dialog_start", self, "_on_Dialog_start")
 

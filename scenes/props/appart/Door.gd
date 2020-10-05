@@ -1,6 +1,8 @@
+class_name Door
 extends Spatial
 
 signal door_opened
+signal door_interacted_with
 
 export(bool) var locked := false
 export(bool) var closed := true
@@ -26,6 +28,7 @@ func reset() -> void:
 	$door/InteractTrigger.hover_key = initial_hint
 
 func _on_InteractTrigger_interacted_with() -> void:
+	emit_signal("door_interacted_with")
 	if locked and closed:
 		$door/InteractTrigger.hover_key = 'door_locked'
 	else:

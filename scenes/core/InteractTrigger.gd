@@ -12,7 +12,6 @@ func _ready() -> void:
 	reset_active = active
 
 func set_active(is_active: bool) -> void:
-	print("set active %s" % is_active)
 	active = is_active
 	for elem in get_children():
 		if elem is CollisionShape:

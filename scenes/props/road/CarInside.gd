@@ -4,7 +4,9 @@ extends Spatial
 onready var valve = $car_inside/valve
 onready var head = $car_inside/Head
 onready var camera = $car_inside/Head/Camera
+onready var friend = $Friend as Character
 
+export(bool) var friend_sleep := true
 export(float) var mouse_sensitivity := 0.3
 var camera_angle: float = 0
 
@@ -15,7 +17,11 @@ func reset() -> void:
 	head.rotation = Vector3.ZERO
 	camera.rotation = Vector3.ZERO
 	camera_angle = 0
-	camera.make_current()
+	if friend_sleep:
+		camera.make_current()
+		friend.play('sleep')
+	else:
+		friend.play('sit-stool-idle')
 
 func input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -28,3 +34,6 @@ func input(event: InputEvent) -> void:
 
 func steer(amount: float) -> void:
 	valve.rotate_object_local(Vector3.UP, 1.1 * amount)
+
+func set_current() -> void:
+	camera.make_current()

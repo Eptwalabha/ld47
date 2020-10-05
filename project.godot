@@ -85,6 +85,11 @@ _global_script_classes=[ {
 "path": "res://scenes/core/DialogTrigger.gd"
 }, {
 "base": "Spatial",
+"class": "Door",
+"language": "GDScript",
+"path": "res://scenes/props/appart/Door.gd"
+}, {
+"base": "Spatial",
 "class": "Game",
 "language": "GDScript",
 "path": "res://scenes/Game.gd"
@@ -155,6 +160,7 @@ _global_script_class_icons={
 "Character": "",
 "Dialog": "",
 "DialogTrigger": "",
+"Door": "",
 "Game": "",
 "Glass": "",
 "InteractTrigger": "",
@@ -172,7 +178,6 @@ _global_script_class_icons={
 
 config/name="ld47"
 run/main_scene="res://scenes/Game.tscn"
-run/disable_stdout=true
 run/disable_stderr=true
 boot_splash/image="res://assets/splash-screen/godot-logo-white.png"
 boot_splash/fullsize=false
