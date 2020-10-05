@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/ui/UIDialog.gd" type="Script" id=1]
+
+[node name="Dialog" type="MarginContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -54.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 80.0
+color = Color( 0.0627451, 0.0627451, 0.0627451, 0.380392 )
+
+[node name="Center" type="CenterContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Center"]
+margin_left = 492.0
+margin_top = 23.0
+margin_right = 492.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

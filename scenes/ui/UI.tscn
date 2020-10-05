@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/ui/UI.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/UIDialog.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/ui/UIContext.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "blink"
@@ -92,38 +94,16 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 
-[node name="Context" type="CenterContainer" parent="VBoxContainer"]
+[node name="Context" parent="VBoxContainer" instance=ExtResource( 3 )]
+
+[node name="Dialog" parent="VBoxContainer" instance=ExtResource( 2 )]
 visible = false
-margin_top = 586.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 500.0
 margin_right = 1024.0
 margin_bottom = 600.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Context"]
-margin_left = 512.0
-margin_right = 512.0
-margin_bottom = 14.0
-
-[node name="Dialog" type="MarginContainer" parent="VBoxContainer"]
-visible = false
-margin_top = 546.0
-margin_right = 1024.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-
-[node name="Center" type="CenterContainer" parent="VBoxContainer/Dialog"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 34.0
-
-[node name="Label" type="Label" parent="VBoxContainer/Dialog/Center"]
-margin_left = 492.0
-margin_right = 492.0
-margin_bottom = 14.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/blink = SubResource( 1 )

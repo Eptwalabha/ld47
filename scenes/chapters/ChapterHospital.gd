@@ -6,10 +6,10 @@ onready var camera := $Spatial/Camera as Camera
 onready var timer := $Timer as Timer
 
 var dialogs = [
-	{ "what": "dialog_4_01", "duration": 2 },
-	{ "what": "dialog_4_02", "duration": 1 },
-	{ "what": "dialog_4_03", "duration": 1 },
-	{ "what": "dialog_4_04", "duration": 3 },
+	{ "who": "doctor_1", "what": "dialog_4_01", "duration": 2 },
+	{ "who": "doctor_2", "what": "dialog_4_02", "duration": 1 },
+	{ "who": "doctor_1", "what": "dialog_4_03", "duration": 1 },
+	{ "who": "doctor_2", "what": "dialog_4_04", "duration": 3 },
 ]
 
 var corridors = []
@@ -46,7 +46,7 @@ func display_next_dialog_line() -> void:
 	var line = dialogs[current_line - 1]
 	if line.has("duration"):
 		timer.start(line.duration)
-	ui.display_dialog('', line.what)
+	ui.display_dialog(line.who, line.what)
 
 func _on_CutScene_animation_finished(anim_name: String) -> void:
 	if anim_name == "final":

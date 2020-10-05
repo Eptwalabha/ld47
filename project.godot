@@ -139,6 +139,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/ui/UI.gd"
 }, {
+"base": "MarginContainer",
+"class": "UIContext",
+"language": "GDScript",
+"path": "res://scenes/ui/UIContext.gd"
+}, {
+"base": "MarginContainer",
+"class": "UIDialog",
+"language": "GDScript",
+"path": "res://scenes/ui/UIDialog.gd"
+}, {
 "base": "Spatial",
 "class": "Valve",
 "language": "GDScript",
@@ -171,6 +181,8 @@ _global_script_class_icons={
 "Road": "",
 "TurnTrigger": "",
 "UI": "",
+"UIContext": "",
+"UIDialog": "",
 "Valve": ""
 }
 

@@ -4,26 +4,24 @@ extends Control
 # warning-ignore:unused_signal
 signal blink
 
+onready var dialog := $VBoxContainer/Dialog as UIDialog
+onready var context := $VBoxContainer/Context as UIContext
+
 func reset() -> void:
 	show()
 
-func show_context(text: String) -> void:
-	$VBoxContainer/Context/Label.text = tr(text)
-	$VBoxContainer/Context.show()
+func show_context(key: String) -> void:
+	context.display(key)
 
 func hide_context() -> void:
-	$VBoxContainer/Context.hide()
+	context.hide()
 
 func display_dialog(who: String, what: String) -> void:
 	hide_context()
-	$VBoxContainer/Dialog.show()
-	if who == '':
-		$VBoxContainer/Dialog/Center/Label.text = tr(what)
-	else:
-		$VBoxContainer/Dialog/Center/Label.text = "%s: '%s'" % [tr(who), tr(what)]
+	dialog.display(who, what)
 
 func hide_dialog() -> void:
-	$VBoxContainer/Dialog.hide()
+	dialog.hide()
 
 func blink() -> void:
 	$AnimationPlayer.play("blink")
