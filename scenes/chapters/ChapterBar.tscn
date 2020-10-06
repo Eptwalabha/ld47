@@ -155,13 +155,10 @@ default = "sleep"
 [node name="Bartender" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0, 0, -1, 0, 1, 0, 1, 0, 0, 1.85409, 0.228268, -3.26435 )
 
-[node name="Music" type="AudioStreamPlayer3D" parent="." groups=[
+[node name="Music" type="AudioStreamPlayer" parent="." groups=[
 "chapter",
 ]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01232, 1.70402, 5.50527 )
 stream = ExtResource( 15 )
-attenuation_model = 3
-unit_size = 15.0
 bus = "music"
 [connection signal="end_of_chapter" from="Bar" to="." method="_on_Bar_end_of_chapter"]
 [connection signal="picked_up" from="Bar/Key" to="." method="_on_Key_picked_up"]
