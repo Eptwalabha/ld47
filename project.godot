@@ -199,6 +199,12 @@ config/icon="res://icon.png"
 
 Data="*res://autoload.gd"
 
+[display]
+
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [input]
 
 ui_select={

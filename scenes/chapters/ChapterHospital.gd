@@ -33,6 +33,7 @@ func end() -> void:
 
 func start() -> void:
 	show()
+	emit_signal("dot", false)
 	ui.reset()
 	current_line = 0
 	$CutScene.play("final")

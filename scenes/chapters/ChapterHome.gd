@@ -42,6 +42,7 @@ func end() -> void:
 
 func start() -> void:
 	show()
+	emit_signal("dot", true)
 	ui.reset()
 	ui.black()
 	lvl = -2

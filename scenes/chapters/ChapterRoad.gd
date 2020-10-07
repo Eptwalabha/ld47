@@ -80,6 +80,7 @@ func _on_Car_crash() -> void:
 	ui.black()
 	$Crash.play()
 	$CarEngine.stop()
+	emit_signal("dot", false)
 	yield($Crash, "finished")
 	emit_signal("chapter_ended")
 
