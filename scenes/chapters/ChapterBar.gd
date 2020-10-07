@@ -253,6 +253,9 @@ class DriveState extends GameState:
 	func input(event: InputEvent) -> void:
 		player.input(event)
 	
+	func physics_process(delta: float) -> void:
+		player.input_controller()
+
 	func process(_delta: float) -> void:
 		if player.ray.is_colliding():
 			var collider = player.ray.get_collider()

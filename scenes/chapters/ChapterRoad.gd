@@ -71,6 +71,7 @@ func process(delta: float) -> void:
 	velocity_x = lerp(velocity_x, x * speed, acceleration * delta) * .95 + .005
 	player.steer(velocity_x)
 	player.translate(Vector3(velocity_x, 0, 0))
+	player.input_controller()
 
 func input(event: InputEvent) -> void:
 	player.input(event)

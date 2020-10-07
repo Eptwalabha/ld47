@@ -35,12 +35,24 @@ func reset() -> void:
 
 func input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
+		Data.using_controller = false
 		head.rotate_y(deg2rad(event.relative.x * mouse_sensitivity))
 
 		var change = event.relative.y * mouse_sensitivity
 		if change + camera_angle < 90 and change + camera_angle > -90:
 			camera.rotate_x(deg2rad(change))
 			camera_angle = camera_angle + change
+	if event is InputEventJoypadMotion or event is InputEventJoypadButton:
+		Data.using_controller = true
+
+func input_controller() -> void:
+	if Data.using_controller:
+		var y = (Input.get_action_strength("look_left") - Input.get_action_strength("look_right")) * acceleration
+		head.rotate_y(deg2rad(y))
+		var x = - (Input.get_action_strength("look_down") - Input.get_action_strength("look_up")) * acceleration
+		if x + camera_angle < 90 and x + camera_angle > -90:
+			camera.rotate_x(deg2rad(x))
+			camera_angle = camera_angle + x
 
 func physics_process(delta: float) -> void:
 	var direction := Vector3()
@@ -59,6 +71,8 @@ func physics_process(delta: float) -> void:
 	var dir = Vector2(direction.x, direction.z).normalized()
 	velocity.x = lerp(velocity.x, dir.x * speed, acceleration * delta)
 	velocity.z = lerp(velocity.z, dir.y * speed, acceleration * delta)
+	
+	input_controller()
 	
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
