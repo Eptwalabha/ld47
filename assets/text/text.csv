@@ -1,39 +1,31 @@
 keys	en	fr
-test	hi	bonjour
-dialog_2_01	This bar is great! But the bartender is wierd…	Il est trop bien ce bar! Il y a que le barman qui est chelou…
-dialog_2_02	He keeps make me drink every 10 seconds	Il n'arrête pas de me servir toutes les 10 secondes
-dialog_bar_hover_friend	Talk to your friend	Parler à votre ami
-dialog_2_03	I don't feel too well…	Je ne me sens pas super bien là…
-dialog_2_04	I wanna go home… burp	Je veux rentrer… burp
-dialog_bar_hover_bartender_key	Ask the bartender why the door is locked	Demander au barman pourquoi la porte est fermée
-dialog_bar_hover_bartender_valve	Ask the bartender where is the door's handle	Demander au barman où est la poignée de la porte
-dialog_2_05	WAKE UP MORON !	RÉVEILLE-TOI DUCON !
+action_bouncer	Knock at door	Frapper à la porte
+action_door_locked	Door's locked	La porte est vérouillée
+action_door_open	Open the door	Ouvrir la porte
+action_enter_bar	Enter the bar	Entrer dans le bar
+action_exit_by_window	Exit by the window	Sortir par la fenêtre
+action_hover_friend	Great your friend	Saluer votre ami
+action_pick_up_key	Pick up the key	Ramasser la clé
+action_pick_up_phone	Reply	Décrocher
+action_pick_up_valve	Pick up the valve	Ramasser la manivelle
+bartender	Bartender	Barman
+bouncer	Bouncer	Videur
 dialog_02_bartender_01	I just saw one of the customer playing the door's keys	Je viens de voir un client jouer avec les clés de la porte
 dialog_02_bartender_02	You again ?	Encore toi ?
 dialog_02_bartender_03	I've got work to do… so buzz off !	J'ai pas mal de travail… alors casse toi !
-bartender	Bartender	Barman
-friend	Friend	Ami
-action_door_open	Open the door	Ouvrir la porte
-action_door_locked	Door's locked	La porte est vérouillée
-action_pick_up_key	Pick up the key	Ramasser la clé
-action_pick_up_valve	Pick up the valve	Ramasser la manivelle
-dialog_1_friend_01	Oh ! You here	Ha ! T'es là ?
-dialog_1_friend_02	Let's go	Allez ! 
-action_bouncer	Knock at door	Frapper à la porte
 dialog_1_bouncer_01	What is it ?	Ouais, c'est pour quoi ?
 dialog_1_bouncer_02	This is the back door of the bar	C'est la porte de secour du bar
 dialog_1_bouncer_03	Of course you cannot enter	Bien sûr que non tu ne rentres pas par là !
-action_pick_up_phone	Reply	Décrocher
+dialog_1_friend_01	Oh ! You here	Ha ! T'es là ?
+dialog_1_friend_02	Let's go	Allez ! 
 dialog_1_phone_01	You have 1 new message	Vous avez un nouveau message
 dialog_1_phone_02	Yo, it's me. Yesterday you fell asleep like an idiot… and now I'm gone	Hey, c'est moi. Hier tu t'es endormi comme un gland… et maintenant je ne suis plus là
 dialog_1_phone_03	Meet me at the bar down your street	Rejoins moi au bar en bas de chez toi
-voice_mail	voice mail	messagerie
-bouncer	Bouncer	Videur
-action_hover_friend	Great your friend	Saluer votre ami
-doctor_1	doctor 1	docteur 1
-doctor_2	doctor 2	docteur 2
-doctor	doctor	docteur
-nurse	nurce	infirmier
+dialog_2_01	This bar is great! But the bartender is wierd…	Il est trop bien ce bar! Il y a que le barman qui est chelou…
+dialog_2_02	He keeps make me drink every 10 seconds	Il n'arrête pas de me servir toutes les 10 secondes
+dialog_2_03	I don't feel too well…	Je ne me sens pas super bien là…
+dialog_2_04	I wanna go home… burp	Je veux rentrer… burp
+dialog_2_05	WAKE UP MORON !	RÉVEILLE-TOI DUCON !
 dialog_4_01	We're loosing the patien !	C'est la merde
 dialog_4_02	Morphin 10 mg	10 mg de Morphine
 dialog_4_03	Make way ! make way !	Foutez le camp du passage !
@@ -43,4 +35,13 @@ dialog_4_06	Yes ?	Oui ?
 dialog_4_07	The passenger and the other driver... well...	Le passager et l'autre chauffeur... ils sont...
 dialog_4_08	I see	Je vois
 dialog_4_09	I'll call the families	Je vais contacter les familles
+dialog_bar_hover_bartender_key	Ask the bartender why the door is locked	Demander au barman pourquoi la porte est fermée
+dialog_bar_hover_bartender_valve	Ask the bartender where is the door's handle	Demander au barman où est la poignée de la porte
+dialog_bar_hover_friend	Talk to your friend	Parler à votre ami
+doctor	doctor	docteur
+doctor_1	doctor 1	docteur 1
+doctor_2	doctor 2	docteur 2
+friend	Friend	Ami
+nurse	nurce	infirmier
 ui_mouse_capture	Hide mouse	Cacher la souris
+voice_mail	voice mail	messagerie

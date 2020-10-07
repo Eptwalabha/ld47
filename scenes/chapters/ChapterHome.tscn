@@ -81,9 +81,10 @@ visible = false
 transform = Transform( -0.464842, 0, 0.885394, 0, 1, 0, -0.885394, 0, -0.464842, -0.307874, 0.330675, 1.39267 )
 
 [node name="buildings-bg" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.71749, 0 )
 
 [node name="buildings-bg2" parent="." instance=ExtResource( 13 )]
-transform = Transform( 0.454535, 0, -0.890729, 0, 1, 0, 0.890729, 0, 0.454535, 0, 0, 0 )
+transform = Transform( -0.504015, 0, -0.863695, 0, 1, 0, 0.863695, 0, -0.504015, 0.473095, 1.88262, -3.4365 )
 [connection signal="tween_all_completed" from="Appartment/Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="body_entered" from="Corridor/TP/TPTop" to="." method="_on_TPTop_body_entered"]
 [connection signal="body_entered" from="Corridor/TP/TPBottom" to="." method="_on_TPBottom_body_entered"]

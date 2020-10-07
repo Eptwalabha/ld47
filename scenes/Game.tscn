@@ -67,4 +67,8 @@ margin_right = 128.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 text = "ui_mouse_capture"
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.663561, 0.401087, 0.631519, -0.671384, -0.0531424, 0.739201, 0.330045, -0.914497, 0.23402, 3, 3.68907, 0 )
+light_energy = 0.48
 [connection signal="pressed" from="Margin/Center/Button" to="." method="_on_Button_pressed"]
