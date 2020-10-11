@@ -7,7 +7,6 @@ background_mode = 2
 background_sky = SubResource( 1 )
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 0, 0, 0, 1 )
-ssao_enabled = true
 ssao_radius = 0.3
 ssao_intensity = 0.3
 ssao_quality = 0

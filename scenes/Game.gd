@@ -61,9 +61,11 @@ func _on_Environment_change(night: bool) -> void:
 	if night:
 		env.environment.background_sky.sky_energy = .05
 		env.environment.background_sky.sky_top_color = Color.black
+		$DirectionalLight.hide()
 	else:
 		env.environment.background_sky.sky_energy = 1.0
 		env.environment.background_sky.sky_top_color = Color(0.65, .83, .94)
+		$DirectionalLight.show()
 
 func _on_Button_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

@@ -67,7 +67,8 @@ __meta__ = {
 
 [node name="Control2" type="CenterContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
+anchor_left = 0.00292969
+anchor_right = 1.00293
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false

@@ -253,6 +253,10 @@ class IntroState extends GameState:
 	var ring : bool
 	
 	func enter() -> void:
+		if Data.debug:
+			emit_signal("state_ended")
+			ui.fade(true)
+			return
 		ui.black()
 		timeout = 4.0
 		ring = false
