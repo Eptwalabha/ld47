@@ -5,6 +5,7 @@ onready var appartment := $Appartment as Appartment
 onready var player := $Player as Player
 onready var street := $Street as Spatial
 onready var phone := $Phone as Phone
+onready var door := $Appartment/Door as Door
 onready var tween_move_player := $Appartment/Tween as Tween
 onready var ui := $UI as UI
 
@@ -47,6 +48,7 @@ func start() -> void:
 	ui.black()
 	lvl = -2
 	player.reset()
+	door.reset()
 	emit_signal("night_environment", false)
 	player.reset()
 	phone.reset()

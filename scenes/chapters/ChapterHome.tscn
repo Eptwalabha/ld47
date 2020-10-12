@@ -28,7 +28,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.667265, 0, -3.76491 )
 [node name="Tween" type="Tween" parent="Appartment"]
 
 [node name="Door" parent="Appartment" instance=ExtResource( 11 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.57786, 0, 0.699133 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.49672, 0, 0.576357 )
 
 [node name="Corridor" parent="." instance=ExtResource( 4 )]
 
@@ -58,7 +58,7 @@ dialogs = [ "dialog_1_bouncer_01", "dialog_1_bouncer_02", "dialog_1_bouncer_03" 
 who = "bouncer"
 
 [node name="Character" parent="Street/BackStreetBuilding" instance=ExtResource( 9 )]
-transform = Transform( 0.757736, 0, 0.652561, 0, 1, 0, -0.652561, 0, 0.757736, -0.96861, -5.0307, -5.41736 )
+transform = Transform( 0.757736, 0, 0.652561, 0, 1, 0, -0.652561, 0, 0.757736, -0.969, -5, -5.417 )
 default = "idle"
 
 [node name="DialogTrigger" parent="Street/BackStreetBuilding/Character" groups=[

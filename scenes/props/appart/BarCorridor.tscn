@@ -37,10 +37,6 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44853, 1.25639, 16.6126 )
 shape = SubResource( 4 )
 
-[node name="CollisionShape5" type="CollisionShape" parent="StaticBody" index="4"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.29702, 1.25639, 15.1943 )
-shape = SubResource( 4 )
-
 [node name="Door" parent="." index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.850383, 0, 6.02602 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.744289, 0, 6.02602 )
 [connection signal="door_opened" from="Door" to="." method="_on_Door_door_opened"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=13]
 [ext_resource path="res://scenes/props/road/CarInside.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/sounds/club.ogg" type="AudioStream" id=15]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.241394, 1.2685, 2.23167 )
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.156863, 0.717647, 0, 1 )
@@ -41,26 +44,33 @@ transform = Transform( -0.143475, -0.974016, -0.175236, -0.989654, 0.141208, 0.0
 
 [node name="BarCorridor" parent="Bar" instance=ExtResource( 10 )]
 
+[node name="StaticBody2" type="StaticBody" parent="Bar/BarCorridor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.46656, 0, 14.4882 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bar/BarCorridor/StaticBody2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86323, 1.12383, 0 )
+shape = SubResource( 3 )
+
 [node name="Trigger" type="Spatial" parent="Bar"]
 
 [node name="Door" parent="Bar/Trigger" instance=ExtResource( 12 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.52556, 0, 0 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.42842, 0, 1.59189 )
 locked = true
 
 [node name="key" parent="Bar/Trigger/Door" instance=ExtResource( 13 )]
-transform = Transform( -0.658125, 0.752909, -7.24789e-08, 0.752909, 0.658125, 3.29107e-08, 7.24789e-08, -3.29107e-08, -1, 0.660003, 0.720318, -0.172962 )
-
-[node name="CarInside" parent="Bar/Trigger/Door" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.619672, 0, -0.813649 )
-friend_sleep = false
-
-[node name="Position" type="Spatial" parent="Bar/Trigger/Door/CarInside"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.481436, -0.249828, 0 )
+transform = Transform( 0.658125, -0.752909, 1.59902e-07, 0.752909, 0.658125, 3.29107e-08, -1.30014e-07, 9.87321e-08, 1, 0.933249, 0.720318, 0.0950179 )
 
 [node name="ExitSign" type="MeshInstance" parent="Bar/Trigger/Door"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6, 2.2, -0.0495644 )
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="CarInside" parent="Bar/Trigger/Door" instance=ExtResource( 14 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.972219, 0, 0.716514 )
+friend_sleep = false
+
+[node name="Position" type="Spatial" parent="Bar/Trigger/Door/CarInside"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.481436, -0.249828, 0 )
 
 [node name="Dialogs" type="Spatial" parent="Bar"]
 
