@@ -16,10 +16,10 @@
 [ext_resource path="res://scenes/props/road/CarInside.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/sounds/club.ogg" type="AudioStream" id=15]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.241394, 1.2685, 2.23167 )
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.156863, 0.717647, 0, 1 )
 emission_enabled = true
 emission = Color( 0.156863, 0.717647, 0, 1 )
@@ -27,8 +27,8 @@ emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="CubeMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="CubeMesh" id=3]
+material = SubResource( 2 )
 size = Vector3( 0.1, 0.1, 0.3 )
 
 [node name="ChapterBar" type="Spatial"]
@@ -49,12 +49,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.46656, 0, 14.4882 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bar/BarCorridor/StaticBody2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86323, 1.12383, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Trigger" type="Spatial" parent="Bar"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -16.709, 9.53674e-07, -5.91899 )
 
 [node name="Door" parent="Bar/Trigger" instance=ExtResource( 12 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.42842, 0, 1.59189 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 locked = true
 
 [node name="key" parent="Bar/Trigger/Door" instance=ExtResource( 13 )]
@@ -62,7 +63,7 @@ transform = Transform( 0.658125, -0.752909, 1.59902e-07, 0.752909, 0.658125, 3.2
 
 [node name="ExitSign" type="MeshInstance" parent="Bar/Trigger/Door"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6, 2.2, -0.0495644 )
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="CarInside" parent="Bar/Trigger/Door" instance=ExtResource( 14 )]
@@ -141,7 +142,7 @@ transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0.12883
 [node name="Dancers" type="Spatial" parent="."]
 
 [node name="Dancer01" parent="Dancers" instance=ExtResource( 9 )]
-transform = Transform( 0.730162, 0, 0.683274, 0, 1, 0, -0.683274, 0, 0.730162, -3.03841, 0, -2.71964 )
+transform = Transform( 0.730162, 0, 0.683274, 0, 1, 0, -0.683274, 0, 0.730162, -3.67232, 0, -2.71964 )
 
 [node name="Dancer02" parent="Dancers" instance=ExtResource( 9 )]
 transform = Transform( 0.444448, 0, 0.895805, 0, 1, 0, -0.895805, 0, 0.444448, -2.39316, 0, 1.25075 )
@@ -169,6 +170,7 @@ transform = Transform( 0, 0, -1, 0, 1, 0, 1, 0, 0, 1.85409, 0.228268, -3.26435 )
 "chapter",
 ]]
 stream = ExtResource( 15 )
+volume_db = -5.0
 bus = "music"
 [connection signal="end_of_chapter" from="Bar" to="." method="_on_Bar_end_of_chapter"]
 [connection signal="picked_up" from="Bar/Key" to="." method="_on_Key_picked_up"]

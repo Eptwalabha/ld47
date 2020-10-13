@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/models/bar.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/props/bar/Stool.tscn" type="PackedScene" id=2]
@@ -6,22 +6,40 @@
 [ext_resource path="res://scenes/location/Bar.gd" type="Script" id=5]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 3.81625, 0.1, 6.22255 )
+extents = Vector3( 12.5535, 0.1, 7.05927 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.161169, 1.10178, 2.86179 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 1.4261, 1, 2.36438 )
+extents = Vector3( 1.77637, 0.1, 2.69787 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.991515, 0.166168, 2.076 )
+extents = Vector3( 1.4261, 1, 2.36438 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.272507, 0.824312, 0.264126 )
+extents = Vector3( 0.991515, 0.166168, 2.076 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 3.62839, 1.69314, 0.139555 )
+extents = Vector3( 0.272507, 0.824312, 0.264126 )
 
 [sub_resource type="BoxShape" id=6]
+extents = Vector3( 10.4067, 1.69314, 0.139555 )
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 7.30736, 1.69314, 0.139555 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.207983, 1.71308, 2.54906 )
+
+[sub_resource type="BoxShape" id=8]
 extents = Vector3( 0.207983, 1.71308, 6.32894 )
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 5.51462, 3.17038, 0.139555 )
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 3.00474, 0.129533, 1.22551 )
 
 [node name="Bar" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
@@ -52,32 +70,74 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561928, 0, -4.67636 )
 [node name="StaticBody" type="StaticBody" parent="." index="2"]
 
 [node name="Floor" type="CollisionShape" parent="StaticBody" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.86362, -0.1, 0 )
 shape = SubResource( 1 )
 
-[node name="Bar" type="CollisionShape" parent="StaticBody" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2087, 0.981058, -3.66122 )
+[node name="Panel1" type="CollisionShape" parent="StaticBody" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.46702, 0.964847, -3.11468 )
+shape = SubResource( 11 )
+
+[node name="Panel2" type="CollisionShape" parent="StaticBody" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23551, 0.964847, -3.11468 )
+shape = SubResource( 11 )
+
+[node name="Panel3" type="CollisionShape" parent="StaticBody" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0405, 0.964847, -3.11468 )
+shape = SubResource( 11 )
+
+[node name="FloorTop" type="CollisionShape" parent="StaticBody" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7676, 2.9159, 1.47267 )
 shape = SubResource( 2 )
 
-[node name="Stage" type="CollisionShape" parent="StaticBody" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51287, 0.184856, 3.94338 )
+[node name="Bar" type="CollisionShape" parent="StaticBody" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2087, 0.981058, -3.66122 )
 shape = SubResource( 3 )
 
-[node name="Amp" type="CollisionShape" parent="StaticBody" index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.04693, 1.61904, 5.55373 )
+[node name="Stage" type="CollisionShape" parent="StaticBody" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51287, 0.184856, 3.94338 )
 shape = SubResource( 4 )
 
-[node name="Wall" type="CollisionShape" parent="StaticBody" index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49259, -6.0715 )
+[node name="Amp" type="CollisionShape" parent="StaticBody" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.04693, 1.61904, 5.55373 )
 shape = SubResource( 5 )
 
-[node name="Wall2" type="CollisionShape" parent="StaticBody" index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.70917, 1.48724, 0 )
+[node name="Wall" type="CollisionShape" parent="StaticBody" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93463, 1.49259, -6.0715 )
 shape = SubResource( 6 )
 
-[node name="Wall3" type="CollisionShape" parent="StaticBody" index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.59113, 1.48724, 0 )
-shape = SubResource( 6 )
+[node name="Wall8" type="CollisionShape" parent="StaticBody" index="9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1466, 1.49259, 5.9919 )
+shape = SubResource( 12 )
+
+[node name="Wall2" type="CollisionShape" parent="StaticBody" index="10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.70917, 1.48724, 3.35697 )
+shape = SubResource( 7 )
+
+[node name="Wall6" type="CollisionShape" parent="StaticBody" index="11"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7322, 4.525, -0.257585 )
+shape = SubResource( 7 )
+
+[node name="Wall3" type="CollisionShape" parent="StaticBody" index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4075, 1.48724, 0 )
+shape = SubResource( 8 )
+
+[node name="Wall4" type="CollisionShape" parent="StaticBody" index="13"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98791, 3.07537, -1.32317 )
+shape = SubResource( 9 )
+
+[node name="Wall5" type="CollisionShape" parent="StaticBody" index="14"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.01618, 3.07537, 0.979296 )
+shape = SubResource( 9 )
+
+[node name="Wall7" type="CollisionShape" parent="StaticBody" index="15"]
+transform = Transform( 0.859362, -0.511368, 0, 0.511368, 0.859362, 0, 0, 0, 1, 8.53835, 1.37183, -0.192004 )
+shape = SubResource( 10 )
 
 [node name="PoolTable" parent="." index="3" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71885, 0, -3.12784 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14742, 0, -3.12784 )
+
+[node name="PoolTable2" parent="." index="4" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.86069, 0, -3.12784 )
+
+[node name="PoolTable3" parent="." index="5" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6463, 0, -3.12784 )

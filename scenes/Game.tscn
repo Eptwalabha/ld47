@@ -17,7 +17,7 @@ script = ExtResource( 4 )
 [node name="ChapterBar" parent="." groups=[
 "chapter",
 ] instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.6726, 0, 5 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.6726, -11, 16.4323 )
 
 [node name="ChapterRoad" parent="." instance=ExtResource( 2 )]
 
@@ -71,9 +71,7 @@ text = "ui_mouse_capture"
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.663561, 0.401087, 0.631518, -0.671384, -0.0531428, 0.739202, 0.330045, -0.914497, 0.23402, 6.71863, 3.68907, 7.39318 )
-light_color = Color( 0.8, 0.764706, 0.627451, 1 )
-light_energy = 0.6
-shadow_bias = 0.0
-shadow_contact = 13.93
+light_color = Color( 0.835294, 0.831373, 0.670588, 1 )
+light_energy = 0.3
 shadow_reverse_cull_face = true
 [connection signal="pressed" from="Margin/Center/Button" to="." method="_on_Button_pressed"]
