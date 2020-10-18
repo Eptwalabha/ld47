@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/location/bar/RestroomLocation.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/location/bar/BarCounter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/location/bar/Bar.gd" type="Script" id=4]
+[ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=5]
+
+[node name="Bar" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="RestroomLocation" parent="." instance=ExtResource( 2 )]
+
+[node name="RestroomLocationReverse" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
+
+[node name="Pivot" type="Spatial" parent="."]
+
+[node name="BarLocation" parent="Pivot" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00181067, -0.000692844, 0.0122614 )
+
+[node name="BarCounter" parent="Pivot" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10.4 )
+
+[node name="PoolTable1" parent="Pivot" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.3495, 0, -11.1661 )
+
+[node name="PoolTable2" parent="Pivot" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.36732, 0, -6.34369 )

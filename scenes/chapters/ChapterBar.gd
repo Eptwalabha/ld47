@@ -6,10 +6,10 @@ onready var player := $Player as Player
 onready var ui := $UI as UI
 onready var key := $Bar/Key as Key
 onready var valve := $Bar/Valve as Valve
-onready var corridor := $Bar/BarCorridor as BarCorridor
+#onready var corridor := $Bar/BarCorridor as BarCorridor
 onready var music := $Music as AudioStreamPlayer
 onready var friend := $Friend as Character
-onready var dialogs := $Bar/Dialogs as Spatial
+onready var dialogs := $Dialogs as Spatial
 onready var door := $Bar/Trigger/Door as Door
 onready var key_door := $Bar/Trigger/Door/key
 onready var car := $Bar/Trigger/Door/CarInside
@@ -85,7 +85,7 @@ func start() -> void:
 	key.reset()
 	valve.reset()
 	player.reset()
-	corridor.reset()
+#	corridor.reset()
 	door.reset()
 	door.locked = true
 	door.hide()
@@ -312,10 +312,6 @@ class BarMobileState extends GameState:
 		else:
 			ui.hide_context()
 
-
-func _on_Bar_end_of_chapter() -> void:
-	emit_signal("chapter_ended")
-
 func next_objective() -> void:
 	current_objective += 1
 	ui.blink()
@@ -341,8 +337,8 @@ func empty_bar() -> void:
 	$Music.playing = false
 	$Bartender.hide()
 
-func _on_BarCorridor_first_entrance() -> void:
-	AudioServer.set_bus_effect_enabled(3, 0, false)
+#func _on_BarCorridor_first_entrance() -> void:
+#	AudioServer.set_bus_effect_enabled(3, 0, false)
 
 func _on_Door_door_interacted_with() -> void:
 	match current_objective:

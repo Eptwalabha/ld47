@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/models/bar-v2/urinal.glb" type="PackedScene" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.15579, 0.400027, 0.869149 )
+
+[node name="Urinal" instance=ExtResource( 1 )]
+
+[node name="StaticBody" type="StaticBody" parent="." index="1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.148445, 0.774035, 0.869463 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="StaticBody" index="1"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.06032, 0.774035, 0.148445 )
+shape = SubResource( 1 )

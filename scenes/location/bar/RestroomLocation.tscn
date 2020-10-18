@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/models/bar-v2/restroom.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/location/bar/RestroomLocation.gd" type="Script" id=2]
+[ext_resource path="res://scenes/props/bar/ToiletPanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/props/bar/Urinal.tscn" type="PackedScene" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 5.16249, 0.2, 1.90119 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.2, 1.5, 1.901 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.23942, 1.5, 1.20961 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.23942, 1.5, 0.241195 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 5.061, 1.5, 0.1 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.23942, 1.5, 0.06636 )
+
+[node name="RestroomLocation" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="RestRooms" index="0"]
+
+[node name="Floor" type="CollisionShape" parent="RestRooms/StaticBody" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00950336, -0.1, -1.91373 )
+shape = SubResource( 1 )
+
+[node name="Floor2" type="CollisionShape" parent="RestRooms/StaticBody" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1034, 1.5, -1.82701 )
+shape = SubResource( 2 )
+
+[node name="Floor3" type="CollisionShape" parent="RestRooms/StaticBody" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.11376, 1.5, -1.82701 )
+shape = SubResource( 2 )
+
+[node name="CorridorWall" type="CollisionShape" parent="RestRooms/StaticBody" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06863, 1.5, -2.7354 )
+shape = SubResource( 3 )
+
+[node name="CorridorWall2" type="CollisionShape" parent="RestRooms/StaticBody" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06359, 1.5, -2.7354 )
+shape = SubResource( 3 )
+
+[node name="CorridorWall3" type="CollisionShape" parent="RestRooms/StaticBody" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06863, 1.5, -0.260913 )
+shape = SubResource( 4 )
+
+[node name="CorridorWall4" type="CollisionShape" parent="RestRooms/StaticBody" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06359, 1.5, -0.260913 )
+shape = SubResource( 4 )
+
+[node name="MirrorsWall" type="CollisionShape" parent="RestRooms/StaticBody" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 1.5, -0.1 )
+shape = SubResource( 5 )
+
+[node name="Door1" type="CollisionShape" parent="RestRooms/StaticBody" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.731317, 1.5, -3.87937 )
+shape = SubResource( 6 )
+
+[node name="Door2" type="CollisionShape" parent="RestRooms/StaticBody" index="9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.750364, 1.5, -3.87937 )
+shape = SubResource( 6 )
+
+[node name="Props" type="Spatial" parent="." index="1"]
+
+[node name="ToiletLady1" parent="Props" index="0" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90731, 0.00357044, -3.57768 )
+
+[node name="ToiletLady2" parent="Props" index="1" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10342, 0.00357044, -3.57768 )
+
+[node name="ToiletLady3" parent="Props" index="2" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29954, 0.00357044, -3.57768 )
+
+[node name="ToiletMen" parent="Props" index="3" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30786, 0.00357044, -3.57768 )
+
+[node name="Urinal" parent="Props" index="4" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30799, 0, -3.54709 )

@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/models/bar-v2/bar-counter.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/props/bar/Stool.tscn" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 3.09888, 0.561042, 1.32257 )
+
+[node name="BarCounter" instance=ExtResource( 1 )]
+
+[node name="BarCounter" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="StaticBody" type="StaticBody" parent="." index="1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10689, 0.534, 1.325 )
+shape = SubResource( 1 )
+
+[node name="Stool" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41974, 0, 2.843 )
+
+[node name="Stool2" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.41974, 0, 2.843 )
+
+[node name="Stool3" parent="." index="4" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.419741, 0, 2.843 )
+
+[node name="Stool4" parent="." index="5" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.580259, 0, 2.843 )
+
+[node name="Stool5" parent="." index="6" instance=ExtResource( 2 )]
+transform = Transform( 0.999911, 0, -0.0133514, 0, 1, 0, 0.0133514, 0, 0.999911, 1.58026, 0, 2.843 )
+
+[node name="Stool6" parent="." index="7" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.58026, 0, 2.843 )
+
+[node name="Stool7" parent="." index="8" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.46114, 0, 2.32595 )
+
+[node name="Stool8" parent="." index="9" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.46067, 0, 1.3264 )
+
+[node name="Stool9" parent="." index="10" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.46067, 0, 0.3264 )
