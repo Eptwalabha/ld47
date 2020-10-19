@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/models/characters/blank.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/Dancer.gd" type="Script" id=2]
 [ext_resource path="res://assets/models/characters/snooker_black.material" type="Material" id=3]
+[ext_resource path="res://assets/models/prop/bar-glass.glb" type="PackedScene" id=4]
 
 [node name="Dancer" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -13,3 +14,10 @@ material/1 = ExtResource( 3 )
 material/2 = ExtResource( 3 )
 material/3 = ExtResource( 3 )
 material/4 = ExtResource( 3 )
+
+[node name="Hand" type="BoneAttachment" parent="Armature/Skeleton" index="1"]
+transform = Transform( -0.999834, 0.0182173, -0.00123779, -0.00683955, -0.310799, 0.950451, 0.01693, 0.950302, 0.310871, -0.196179, 1.11517, 0.362227 )
+bone_name = "lower_arm_r"
+
+[node name="Glass" parent="Armature/Skeleton/Hand" index="0" instance=ExtResource( 4 )]
+transform = Transform( 1, 1.86265e-09, 2.42144e-08, 2.23517e-08, -0.146963, -0.989142, 9.31323e-10, 0.989142, -0.146963, -0.058413, 0.275594, -0.0223426 )

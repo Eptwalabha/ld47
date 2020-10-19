@@ -1,6 +1,8 @@
 class_name Character
 extends Spatial
 
+onready var glass := $Armature/Skeleton/Hand/Glass
+
 export(String, "sit-drink", "sit-idle", "sit-stool-idle", "sit-stool-drink",
 			   "idle", "bartender", "danse", "sleep") var default := "sit-drink"
 
@@ -17,4 +19,5 @@ func sleep() -> void: play("sleep")
 
 func play(animation: String) -> void:
 	animation = animation + ("" if animation.ends_with("-loop") else "-loop")
+	glass.visible = (animation == "sit-stool-drink-loop")
 	$AnimationPlayer.play(animation)

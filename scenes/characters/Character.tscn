@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/models/characters/blank.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/Character.gd" type="Script" id=2]
+[ext_resource path="res://assets/models/prop/bar-glass.glb" type="PackedScene" id=3]
 
 [node name="Character" groups=[
 "character",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Hand" type="BoneAttachment" parent="Armature/Skeleton" index="1"]
+transform = Transform( -0.935178, -0.351076, 0.0467725, 0.0898234, -0.107352, 0.990155, -0.342599, 0.930173, 0.131928, -0.277655, 1.24841, 0.265126 )
+bone_name = "lower_arm_r"
+
+[node name="Glass" parent="Armature/Skeleton/Hand" index="0" instance=ExtResource( 3 )]
+transform = Transform( 0.999994, -0.00249971, -0.00237072, -0.00171155, 0.236727, -0.971575, 0.00298981, 0.971573, 0.236721, -0.0409895, 0.2605, -0.0660605 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "sit-stool-idle-loop"
