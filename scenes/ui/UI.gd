@@ -6,6 +6,7 @@ signal blink
 
 onready var dialog := $VBoxContainer/Dialog as UIDialog
 onready var context := $VBoxContainer/Context as UIContext
+onready var dot := $Dot as CenterContainer
 
 func reset() -> void:
 	show()
@@ -34,3 +35,6 @@ func fade(fade_in: bool) -> void:
 
 func black() -> void:
 	$ColorRect.color.a = 1.0
+
+func show_dot(is_dot_visible: bool) -> void:
+	dot.visible = is_dot_visible

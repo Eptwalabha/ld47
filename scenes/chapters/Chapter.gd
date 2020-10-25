@@ -11,8 +11,6 @@ signal chapter_ready
 signal chapter_ended
 # warning-ignore:unused_signal
 signal night_environment(night)
-# warning-ignore:unused_signal
-signal dot(visible)
 
 
 func start() -> void:

@@ -43,8 +43,8 @@ func end() -> void:
 
 func start() -> void:
 	show()
-	emit_signal("dot", true)
 	ui.reset()
+	ui.show_dot(true)
 	ui.black()
 	lvl = -2
 	player.reset()

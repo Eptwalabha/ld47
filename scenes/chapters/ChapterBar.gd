@@ -253,7 +253,7 @@ class DriveState extends GameState:
 	func input(event: InputEvent) -> void:
 		player.input(event)
 	
-	func physics_process(delta: float) -> void:
+	func physics_process(_delta: float) -> void:
 		player.input_controller()
 
 	func process(_delta: float) -> void:

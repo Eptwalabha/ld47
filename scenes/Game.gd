@@ -9,11 +9,13 @@ onready var display_capture := $Margin as MarginContainer
 
 onready var env := $WorldEnvironment as WorldEnvironment
 
+var bgs : ProceduralSky
+
 var current_chapter := 0
 var chapters = []
 
 func _ready() -> void:
-
+	bgs = env.environment.background_sky
 	chapters = [
 		chapter_home,
 		chapter_bar,
@@ -25,7 +27,6 @@ func _ready() -> void:
 		if chapter is Chapter:
 			chapter.connect("chapter_ended", self, "_on_Chapter_Ended", [chapter])
 			chapter.connect("night_environment", self, "_on_Environment_change")
-			chapter.connect("dot", self, "_on_Dot_changed")
 	reset_game()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -59,12 +60,12 @@ func _on_Chapter_Ended(_chapter: Chapter) -> void:
 
 func _on_Environment_change(night: bool) -> void:
 	if night:
-		env.environment.background_sky.sky_energy = .05
-		env.environment.background_sky.sky_top_color = Color.black
+		bgs.set_sky_energy(.05)
+		bgs.set_sky_top_color(Color.black)
 		$DirectionalLight.hide()
 	else:
-		env.environment.background_sky.sky_energy = 1.0
-		env.environment.background_sky.sky_top_color = Color(0.65, .83, .94)
+		bgs.set_sky_energy(1.0)
+		bgs.set_sky_top_color(Color(0.65, .83, .94))
 		$DirectionalLight.show()
 
 func _on_Button_pressed() -> void:
