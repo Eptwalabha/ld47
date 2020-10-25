@@ -353,3 +353,4 @@ locale_filter=[ 1, [ "en", "fr" ] ]
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
+quality/driver/driver_name.web="GLES2"
