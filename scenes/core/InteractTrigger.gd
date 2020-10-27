@@ -5,6 +5,7 @@ signal interacted_with()
 
 export(String) var hover_key := "action_hover"
 export(bool) var active := true
+export(String) var id := ""
 
 var reset_active : bool
 

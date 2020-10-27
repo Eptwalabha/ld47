@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/models/prop/door.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/props/flat/Door2.gd" type="Script" id=2]
+[ext_resource path="res://scenes/core/InteractTrigger.tscn" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.379499, 0.723369, 0.131 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.527713, 1.02801, 0.0981793 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "closing"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("StaticBody/Collision:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hinge/InteractTrigger/Trigger:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "opening"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("StaticBody/Collision:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hinge/InteractTrigger/Trigger:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Door2" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Hinge" type="Spatial" parent="."]
+
+[node name="door" parent="Hinge" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0527046 )
+
+[node name="InteractTrigger" parent="Hinge" instance=ExtResource( 3 )]
+
+[node name="Trigger" type="CollisionShape" parent="Hinge/InteractTrigger"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627218, 1, 0 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="Collision" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 1, 0 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/closing = SubResource( 4 )
+anims/opening = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="interacted_with" from="Hinge/InteractTrigger" to="." method="_on_InteractTrigger_interacted_with"]

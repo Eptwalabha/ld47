@@ -7,6 +7,7 @@ signal blink
 onready var dialog := $VBoxContainer/Dialog as UIDialog
 onready var context := $VBoxContainer/Context as UIContext
 onready var dot := $Dot as CenterContainer
+onready var mouse_capture := $MouseCapture as MarginContainer
 
 func reset() -> void:
 	show()
@@ -38,3 +39,11 @@ func black() -> void:
 
 func show_dot(is_dot_visible: bool) -> void:
 	dot.visible = is_dot_visible
+
+func show_mouse_capture() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	mouse_capture.visible = true
+
+func _on_Button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	mouse_capture.visible = Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED

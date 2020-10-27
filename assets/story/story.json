@@ -1,0 +1,24 @@
+{
+  "items": {},
+  "story": {
+    "intro": {
+      "on-start": {
+        "show": [
+          "intro_corridor",
+          "dancers",
+          "barman"
+        ],
+        "hide": [
+          "restrooms"
+        ],
+        "dialogs": [
+          {
+            "who": "friend",
+            "what": 0
+          }
+        ]
+      },
+      "next": "talk-to-friend"
+    }
+  }
+}
