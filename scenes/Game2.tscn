@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/CorridorTop.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/location/BackStreetBuilding.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/chapters/flat/Flat.gd" type="Script" id=8]
 [ext_resource path="res://scenes/props/flat/Door2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/core/TPTrigger.tscn" type="PackedScene" id=10]
 
 [node name="Game2" type="Spatial"]
 script = ExtResource( 3 )
@@ -23,6 +24,20 @@ script = ExtResource( 8 )
 [node name="Appartment" parent="Map/Appartment" instance=ExtResource( 4 )]
 
 [node name="Corridor" parent="Map/Appartment" instance=ExtResource( 5 )]
+
+[node name="TPUp" parent="Map/Appartment/Corridor" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.928878, -1.23663, 4.63905 )
+id = "flat/tp-up"
+
+[node name="To" parent="Map/Appartment/Corridor/TPUp" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+
+[node name="TPDown" parent="Map/Appartment/Corridor" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.21868, 4.63905 )
+id = "flat/tp-up"
+
+[node name="To" parent="Map/Appartment/Corridor/TPDown" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
 [node name="CorridorBottom" parent="Map/Appartment" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
@@ -43,4 +58,10 @@ max_angle = 90
 
 [node name="Player" parent="Player" instance=ExtResource( 6 )]
 [connection signal="door_interacted_with" from="Map/Appartment" to="." method="_on_Appartment_door_interacted_with"]
+[connection signal="tp_entered" from="Map/Appartment" to="." method="_on_Appartment_tp_entered"]
+[connection signal="tp_exited" from="Map/Appartment" to="." method="_on_Appartment_tp_exited"]
 [connection signal="interacted_with" from="Map/Appartment/Door" to="Map/Appartment" method="_on_Door_interacted_with"]
+
+[editable path="Map/Appartment/Corridor/TPUp"]
+
+[editable path="Map/Appartment/Corridor/TPDown"]

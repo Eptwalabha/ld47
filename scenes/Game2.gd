@@ -3,6 +3,7 @@ extends Spatial
 
 onready var current_player : Player = $Player/Player as Player
 onready var ui := $UI as UI
+var triggers := {}
 
 
 func _physics_process(delta: float) -> void:
@@ -12,10 +13,15 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		ui.show_mouse_capture()
 	_check_triggers()
+	for trigger_id in triggers:
+		var trigger = triggers[trigger_id]
+		if trigger.is_well_oriented(current_player.head.global_transform.basis):
+			current_player.force_move(trigger.destination_translation())
+			triggers = {}
+			break
 
 func _input(event: InputEvent) -> void:
 	current_player.input(event)
-
 
 func _on_Appartment_door_interacted_with(door: Door2) -> void:
 	
@@ -38,3 +44,15 @@ func _check_triggers():
 			ui.hide_context()
 	else:
 		ui.hide_context()
+
+
+func _on_Appartment_tp_entered(trigger: TPTrigger) -> void:
+	if trigger.is_well_oriented(current_player.head.global_transform.basis):
+		current_player.force_move(trigger.destination_translation())
+	else:
+		triggers[trigger.id] = trigger
+
+
+func _on_Appartment_tp_exited(trigger) -> void:
+	if triggers.has(trigger.id):
+		triggers.erase(trigger.id)

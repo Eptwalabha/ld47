@@ -9,7 +9,7 @@ enum LEVEL {
 
 var first_time : bool = true
 var using_controller : bool = false
-var debug : bool = false
+var debug : bool = true
 var first_level : int = LEVEL.BAR
 
 var phone_picked_up := false
