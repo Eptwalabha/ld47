@@ -25,20 +25,6 @@ script = ExtResource( 8 )
 
 [node name="Corridor" parent="Map/Appartment" instance=ExtResource( 5 )]
 
-[node name="TPUp" parent="Map/Appartment/Corridor" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.928878, -1.23663, 4.63905 )
-id = "flat/tp-up"
-
-[node name="To" parent="Map/Appartment/Corridor/TPUp" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-
-[node name="TPDown" parent="Map/Appartment/Corridor" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.21868, 4.63905 )
-id = "flat/tp-up"
-
-[node name="To" parent="Map/Appartment/Corridor/TPDown" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
-
 [node name="CorridorBottom" parent="Map/Appartment" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
@@ -52,6 +38,22 @@ id = "flat/door"
 opened = true
 max_angle = 90
 
+[node name="Triggers" type="Spatial" parent="Map/Appartment"]
+
+[node name="TPUp" parent="Map/Appartment/Triggers" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.928878, -1.23663, 4.63905 )
+id = "flat/tp-up"
+
+[node name="To" parent="Map/Appartment/Triggers/TPUp" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+
+[node name="TPDown" parent="Map/Appartment/Triggers" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.21868, 4.63905 )
+id = "flat/tp-down"
+
+[node name="To" parent="Map/Appartment/Triggers/TPDown" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
+
 [node name="Bar" type="Spatial" parent="Map"]
 
 [node name="Player" type="Spatial" parent="."]
@@ -62,6 +64,6 @@ max_angle = 90
 [connection signal="tp_exited" from="Map/Appartment" to="." method="_on_Appartment_tp_exited"]
 [connection signal="interacted_with" from="Map/Appartment/Door" to="Map/Appartment" method="_on_Door_interacted_with"]
 
-[editable path="Map/Appartment/Corridor/TPUp"]
+[editable path="Map/Appartment/Triggers/TPUp"]
 
-[editable path="Map/Appartment/Corridor/TPDown"]
+[editable path="Map/Appartment/Triggers/TPDown"]

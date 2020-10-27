@@ -5,12 +5,12 @@ signal player_entered
 signal player_exited
 
 export(bool) var oriented := false
-export(float, 0.2, 1.0) var orientation_angle := 0.8
+export(float, 0.2, 1.0) var orientation_angle := 0.5
 export(String) var id := ""
 
 func _ready() -> void:
 	if not Data.debug:
-		$Angle.queue_free()
+		$Forward.queue_free()
 
 func is_well_oriented(basis: Basis) -> bool:
 	return not oriented or _is_basis_aligned(basis)
@@ -18,7 +18,8 @@ func is_well_oriented(basis: Basis) -> bool:
 func _is_basis_aligned(basis: Basis) -> bool:
 	var q1 := basis.get_rotation_quat()
 	var q2 := global_transform.basis.get_rotation_quat()
-	return abs(q1.dot(q2)) >= orientation_angle
+	print(q1.dot(q2))
+	return abs(q1.dot(q2)) < orientation_angle
 
 func destination_translation() -> Vector3:
 	return $To.transform.origin
