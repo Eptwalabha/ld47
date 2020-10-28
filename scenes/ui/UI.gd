@@ -44,6 +44,9 @@ func show_mouse_capture() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_capture.visible = true
 
-func _on_Button_pressed() -> void:
+func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_capture.visible = Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED
+
+func _on_Button_pressed() -> void:
+	capture_mouse()

@@ -5,6 +5,8 @@ onready var current_player : Player = $Player/Player as Player
 onready var ui := $UI as UI
 var triggers := {}
 
+func _ready() -> void:
+	ui.capture_mouse()
 
 func _physics_process(delta: float) -> void:
 	current_player.physics_process(delta)
@@ -82,8 +84,21 @@ func _on_Appartment_tp_exited(trigger) -> void:
 		triggers.erase(trigger.id)
 
 func _on_Flat_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
-	print("request dialog %s" % dialog_trigger.id)
+	print("super")
 
+func _on_Bar_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
+	print("ici")
+	match dialog_trigger.id:
+		"bar/friend":
+			if not Data.friend_intro_bar:
+				Data.friend_intro_bar = true
+				$Map/Bar.show_restroom()
+			else:
+				print("request dialog with friend")
+		var dialog_id:
+			print("request dialog %s" % dialog_id)
 
 func _on_Bar_door_interacted_with(door) -> void:
 	door.toggle()
+
+

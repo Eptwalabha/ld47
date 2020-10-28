@@ -23,7 +23,3 @@ func set_level(level: int) -> void:
 
 func _on_Door_interacted_with() -> void:
 	emit_signal("door_interacted_with", $Door)
-
-
-func _on_Flat_visibility_changed() -> void:
-	print("flat visible %s" % visible)

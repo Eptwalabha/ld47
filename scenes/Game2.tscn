@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/CorridorTop.tscn" type="PackedScene" id=2]
@@ -15,6 +15,12 @@
 [ext_resource path="res://scenes/location/bar/BarStorageRoom.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/chapters/bar/Bar.gd" type="Script" id=15]
+[ext_resource path="res://scenes/location/bar/RestroomLocation.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/location/bar/BarCounter.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/models/bar-v2/restroom-sign.glb" type="PackedScene" id=20]
+[ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=22]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
@@ -88,32 +94,68 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06281, 1.06188, 0.230944 )
 id = "flat/dialog/plant"
 
 [node name="Bar" type="Spatial" parent="Map"]
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0 )
 script = ExtResource( 15 )
 
 [node name="BarStorageRoom" parent="Map/Bar" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.70981, -5.67547, 2.27918 )
 
 [node name="TP" type="Spatial" parent="Map/Bar/BarStorageRoom"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2 )
 
-[node name="Door" parent="Map/Bar/BarStorageRoom" instance=ExtResource( 9 )]
+[node name="RestroomLocation" parent="Map/Bar" instance=ExtResource( 16 )]
+
+[node name="RestroomLocationReverse" parent="Map/Bar" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
+
+[node name="Pivot" type="Spatial" parent="Map/Bar"]
+
+[node name="Door" parent="Map/Bar/Pivot" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3.9 )
 id = "bar/door/bar"
-max_angle = -90
+max_angle = -95
+
+[node name="BarLocation" parent="Map/Bar/Pivot" instance=ExtResource( 17 )]
+
+[node name="BarCounter" parent="Map/Bar/Pivot" instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10.35 )
+
+[node name="restroom-sign" parent="Map/Bar/Pivot" instance=ExtResource( 20 )]
+
+[node name="PoolTable1" parent="Map/Bar/Pivot" instance=ExtResource( 19 )]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -11.166 )
+
+[node name="PoolTable2" parent="Map/Bar/Pivot" instance=ExtResource( 19 )]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -6.344 )
+
+[node name="Bartender" parent="Map/Bar/Pivot" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 2.00415, 0.0873877, -8.91695 )
+
+[node name="Character" parent="Map/Bar/Pivot" instance=ExtResource( 14 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.56302, 0, -7.49336 )
+default = "sit-stool-idle"
+
+[node name="Triggers" type="Spatial" parent="Map/Bar/Pivot"]
+
+[node name="DialogFriend" parent="Map/Bar/Pivot/Triggers" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.56302, 1.36202, -7.49336 )
+id = "bar/friend"
+
+[node name="DialogBartender" parent="Map/Bar/Pivot/Triggers" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02339, 1.36202, -8.5514 )
+id = "bar/bartender"
 
 [node name="Player" type="Spatial" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.60343, -4.30777 )
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_Flat_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]
 [connection signal="tp_exited" from="Map/Flat" to="." method="_on_Appartment_tp_exited"]
-[connection signal="visibility_changed" from="Map/Flat" to="Map/Flat" method="_on_Flat_visibility_changed"]
 [connection signal="interacted_with" from="Map/Flat/Door" to="Map/Flat" method="_on_Door_interacted_with"]
+[connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_Bar_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
-[connection signal="visibility_changed" from="Map/Bar" to="Map/Bar" method="_on_Bar_visibility_changed"]
-[connection signal="interacted_with" from="Map/Bar/BarStorageRoom/Door" to="Map/Bar" method="_on_Door_interacted_with"]
+[connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
 
 [editable path="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger"]
 

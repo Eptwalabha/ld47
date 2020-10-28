@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/props/bar/Urinal.tscn" type="PackedScene" id=4]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 5.16249, 0.2, 1.90119 )
+extents = Vector3( 5.162, 0.1, 1.901 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.2, 1.5, 1.901 )
