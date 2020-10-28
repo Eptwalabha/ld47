@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterHome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/location/Appartment.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/props/appart/Door.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/models/appartment/buildings-bg.glb" type="PackedScene" id=13]
+[ext_resource path="res://scenes/props/appart/BarCorridor.tscn" type="PackedScene" id=14]
 
 [node name="ChapterHome" type="Spatial"]
 script = ExtResource( 1 )
@@ -68,6 +69,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31211, 0 )
 hover_key = "action_hover_friend"
 dialogs = [ "dialog_1_friend_01", "dialog_1_friend_02" ]
 who = "friend"
+
+[node name="BarCorridor" parent="Street/BackStreetBuilding" instance=ExtResource( 14 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.2, -5, -4.45309 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.277124, 0, 2.27767 )

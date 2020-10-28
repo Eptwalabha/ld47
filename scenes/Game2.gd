@@ -59,3 +59,7 @@ func _on_Appartment_tp_exited(trigger) -> void:
 
 func _on_Flat_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 	print("request dialog %s" % dialog_trigger.id)
+
+
+func _on_Bar_door_interacted_with(door) -> void:
+	door.toggle()

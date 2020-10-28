@@ -10,7 +10,7 @@ onready var trigger := $Hinge/InteractTrigger as InteractTrigger
 
 export(String) var id := ""
 export(bool) var opened := false
-export(int, 90, 150) var max_angle := 150
+export(int, -150, 150) var max_angle := 150
 
 func _ready() -> void:
 	set_state(opened)
