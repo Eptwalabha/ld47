@@ -16,7 +16,7 @@ func _process(_delta: float) -> void:
 	for trigger_id in triggers:
 		var trigger = triggers[trigger_id]
 		if trigger.is_well_oriented(current_player.head.global_transform.basis):
-			current_player.force_move(trigger.destination_translation())
+			active_tp(trigger)
 			triggers = {}
 			break
 
@@ -48,10 +48,15 @@ func _check_triggers():
 
 func _on_Appartment_tp_entered(trigger: TPTrigger) -> void:
 	if trigger.is_well_oriented(current_player.head.global_transform.basis):
-		current_player.force_move(trigger.destination_translation())
+		active_tp(trigger)
 	else:
 		triggers[trigger.id] = trigger
 
+func active_tp(trigger: TPTrigger) -> void:
+	current_player.force_move(trigger.destination_translation())
+	if trigger.id == "bar/tp":
+		$Map/Flat.hide()
+		print("tp to bar")
 
 func _on_Appartment_tp_exited(trigger) -> void:
 	if triggers.has(trigger.id):
