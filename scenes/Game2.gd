@@ -9,7 +9,7 @@ var triggers := {}
 func _physics_process(delta: float) -> void:
 	current_player.physics_process(delta)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		ui.show_mouse_capture()
 	_check_triggers()
@@ -56,3 +56,6 @@ func _on_Appartment_tp_entered(trigger: TPTrigger) -> void:
 func _on_Appartment_tp_exited(trigger) -> void:
 	if triggers.has(trigger.id):
 		triggers.erase(trigger.id)
+
+func _on_Flat_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
+	print("request dialog %s" % dialog_trigger.id)

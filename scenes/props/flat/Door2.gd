@@ -13,9 +13,7 @@ export(bool) var opened := false
 export(int, 90, 150) var max_angle := 150
 
 func _ready() -> void:
-	hinge.rotation_degrees.y = max_angle if opened else 0
-	$Hinge/InteractTrigger/Trigger.disabled = false
-	$StaticBody/Collision.disabled = opened
+	set_state(opened)
 	trigger.id = id
 
 func toggle() -> void:
@@ -23,6 +21,14 @@ func toggle() -> void:
 		close()
 	else:
 		open()
+
+func set_state(is_open: bool) -> void:
+	opened = is_open
+	tween.stop_all()
+	animation.stop(true)
+	hinge.rotation_degrees.y = max_angle if opened else 0
+	$Hinge/InteractTrigger/Trigger.disabled = false
+	$StaticBody/Collision.disabled = opened
 
 func close() -> void:
 	if opened:

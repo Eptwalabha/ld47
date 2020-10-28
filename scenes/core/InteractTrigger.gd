@@ -4,7 +4,7 @@ extends Area
 signal interacted_with()
 
 export(String) var hover_key := "action_hover"
-export(bool) var active := true
+export(bool) var active := true setget set_active
 export(String) var id := ""
 
 var reset_active : bool

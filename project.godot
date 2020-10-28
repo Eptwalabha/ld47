@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/core/DialogTrigger.gd"
 }, {
+"base": "InteractTrigger",
+"class": "DialogTriggerArea",
+"language": "GDScript",
+"path": "res://scenes/core/DialogTriggerArea.gd"
+}, {
 "base": "Spatial",
 "class": "Door",
 "language": "GDScript",
@@ -206,6 +211,7 @@ _global_script_class_icons={
 "Character": "",
 "Dialog": "",
 "DialogTrigger": "",
+"DialogTriggerArea": "",
 "Door": "",
 "Door2": "",
 "Flat": "",

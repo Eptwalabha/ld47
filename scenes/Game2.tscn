@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/CorridorTop.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/chapters/flat/Flat.gd" type="Script" id=8]
 [ext_resource path="res://scenes/props/flat/Door2.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/core/TPTrigger.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/core/DialogTriggerArea.tscn" type="PackedScene" id=11]
 
 [node name="Game2" type="Spatial"]
 script = ExtResource( 3 )
@@ -18,52 +19,57 @@ script = ExtResource( 3 )
 
 [node name="Map" type="Spatial" parent="."]
 
-[node name="Appartment" type="Spatial" parent="Map"]
+[node name="Flat" type="Spatial" parent="Map"]
 script = ExtResource( 8 )
 
-[node name="Appartment" parent="Map/Appartment" instance=ExtResource( 4 )]
+[node name="Appartment" parent="Map/Flat" instance=ExtResource( 4 )]
 
-[node name="Corridor" parent="Map/Appartment" instance=ExtResource( 5 )]
+[node name="Corridor" parent="Map/Flat" instance=ExtResource( 5 )]
 
-[node name="CorridorBottom" parent="Map/Appartment" instance=ExtResource( 5 )]
+[node name="CorridorBottom" parent="Map/Flat" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
-[node name="CorridorTop" parent="Map/Appartment" instance=ExtResource( 2 )]
+[node name="CorridorTop" parent="Map/Flat" instance=ExtResource( 2 )]
 
-[node name="BackStreetBuilding" parent="Map/Appartment" instance=ExtResource( 7 )]
+[node name="BackStreetBuilding" parent="Map/Flat" instance=ExtResource( 7 )]
 
-[node name="Door" parent="Map/Appartment" instance=ExtResource( 9 )]
+[node name="Door" parent="Map/Flat" instance=ExtResource( 9 )]
 transform = Transform( 4.37114e-08, 0, 1, 0, 1, 0, 1, 0, -4.37114e-08, -1.55734, 0, -0.449963 )
 id = "flat/door"
 opened = true
 max_angle = 90
 
-[node name="Triggers" type="Spatial" parent="Map/Appartment"]
+[node name="Triggers" type="Spatial" parent="Map/Flat"]
 
-[node name="TPUp" parent="Map/Appartment/Triggers" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.928878, -1.23663, 4.63905 )
+[node name="TPUp" parent="Map/Flat/Triggers" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.908103, -0.841917, 4.63905 )
 id = "flat/tp-up"
 
-[node name="To" parent="Map/Appartment/Triggers/TPUp" index="0"]
+[node name="To" parent="Map/Flat/Triggers/TPUp" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 
-[node name="TPDown" parent="Map/Appartment/Triggers" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.21868, 4.63905 )
+[node name="TPDown" parent="Map/Flat/Triggers" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.50952, 4.63905 )
 id = "flat/tp-down"
 
-[node name="To" parent="Map/Appartment/Triggers/TPDown" index="0"]
+[node name="To" parent="Map/Flat/Triggers/TPDown" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
+
+[node name="DialogPlant" parent="Map/Flat/Triggers" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06281, 1.06188, 0.230944 )
+id = "flat/dialog/plant"
 
 [node name="Bar" type="Spatial" parent="Map"]
 
 [node name="Player" type="Spatial" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource( 6 )]
-[connection signal="door_interacted_with" from="Map/Appartment" to="." method="_on_Appartment_door_interacted_with"]
-[connection signal="tp_entered" from="Map/Appartment" to="." method="_on_Appartment_tp_entered"]
-[connection signal="tp_exited" from="Map/Appartment" to="." method="_on_Appartment_tp_exited"]
-[connection signal="interacted_with" from="Map/Appartment/Door" to="Map/Appartment" method="_on_Door_interacted_with"]
+[connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_Flat_dialog_triggered"]
+[connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
+[connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]
+[connection signal="tp_exited" from="Map/Flat" to="." method="_on_Appartment_tp_exited"]
+[connection signal="interacted_with" from="Map/Flat/Door" to="Map/Flat" method="_on_Door_interacted_with"]
 
-[editable path="Map/Appartment/Triggers/TPUp"]
+[editable path="Map/Flat/Triggers/TPUp"]
 
-[editable path="Map/Appartment/Triggers/TPDown"]
+[editable path="Map/Flat/Triggers/TPDown"]
