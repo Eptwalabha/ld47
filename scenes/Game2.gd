@@ -53,10 +53,29 @@ func _on_Appartment_tp_entered(trigger: TPTrigger) -> void:
 		triggers[trigger.id] = trigger
 
 func active_tp(trigger: TPTrigger) -> void:
+	_before_tp(trigger)
 	current_player.force_move(trigger.destination_translation())
-	if trigger.id == "bar/tp":
-		$Map/Flat.hide()
-		print("tp to bar")
+	_after_tp(trigger)
+
+func _before_tp(trigger: TPTrigger) -> void:
+	match trigger.id:
+		"bar/tp":
+			$Map/Bar.show()
+		"flat/stairs-up":
+			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
+			$Map/Flat.set_level(Data.flat_level)
+			print("up")
+		"flat/stairs-down":
+			Data.flat_level = int(clamp(Data.flat_level - 1, -4, 2))
+			$Map/Flat.set_level(Data.flat_level)
+			print("down")
+		_ : pass
+
+func _after_tp(trigger: TPTrigger) -> void:
+	match trigger.id:
+		"bar/tp":
+			$Map/Flat.hide()
+		_: pass
 
 func _on_Appartment_tp_exited(trigger) -> void:
 	if triggers.has(trigger.id):

@@ -12,6 +12,7 @@ var using_controller : bool = false
 var debug : bool = true
 var first_level : int = LEVEL.BAR
 
+var flat_level := 0
 var phone_picked_up := false
 var friend_intro_bar := false
 var friend_wants_to_go_home := false
@@ -25,6 +26,7 @@ func reset_game(level: String) -> void:
 	match level:
 		'flat':
 			phone_picked_up = false
+			flat_level = 0
 		'bar':
 			friend_intro_bar = false
 			friend_wants_to_go_home = false

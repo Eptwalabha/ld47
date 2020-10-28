@@ -17,5 +17,13 @@ func _ready() -> void:
 	bar_trigger.connect("player_entered", self, "emit_signal", ["tp_entered", bar_trigger])
 	bar_trigger.connect("player_exited", self, "emit_signal", ["tp_exited", bar_trigger])
 
+func set_level(level: int) -> void:
+	var delta_elevation : float = level * 2.5 - $BackStreetBuilding.global_transform.origin.y
+	$BackStreetBuilding.translate(Vector3(0, delta_elevation, 0))
+
 func _on_Door_interacted_with() -> void:
 	emit_signal("door_interacted_with", $Door)
+
+
+func _on_Flat_visibility_changed() -> void:
+	print("flat visible %s" % visible)
