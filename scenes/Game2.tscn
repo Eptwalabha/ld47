@@ -49,7 +49,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 [node name="BarCorridor" parent="Map/Flat/BackStreetBuilding" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.422163, -5, -6.13642 )
 
-[node name="TPTrigger" parent="Map/Flat/BackStreetBuilding/BarCorridor" instance=ExtResource( 10 )]
+[node name="TPTrigger" parent="Map/Flat/BackStreetBuilding/BarCorridor" groups=[
+"flat-tp-trigger",
+] instance=ExtResource( 10 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 1, -2 )
 oriented = true
 id = "bar/tp"
@@ -67,6 +69,12 @@ id = "flat/door/bar"
 transform = Transform( 0.882373, 0, 0.47055, 0, 1, 0, -0.47055, 0, 0.882373, -0.495693, 0, -0.23423 )
 default = "idle"
 
+[node name="DialogBouncer" parent="Map/Flat/BackStreetBuilding" groups=[
+"flat-dialog",
+] instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44878, 1.31275, -6.31404 )
+id = "flat/bouncer"
+
 [node name="Door" parent="Map/Flat" instance=ExtResource( 9 )]
 transform = Transform( 4.37114e-08, 0, 1, 0, 1, 0, 1, 0, -4.37114e-08, -1.55734, 0, -0.449963 )
 id = "flat/door"
@@ -75,23 +83,29 @@ max_angle = 90
 
 [node name="Triggers" type="Spatial" parent="Map/Flat"]
 
-[node name="TPStairsDown" parent="Map/Flat/Triggers" instance=ExtResource( 10 )]
+[node name="TPStairsDown" parent="Map/Flat/Triggers" groups=[
+"flat-tp-trigger",
+] instance=ExtResource( 10 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.908103, -0.841917, 4.63905 )
 id = "flat/stairs-down"
 
 [node name="To" parent="Map/Flat/Triggers/TPStairsDown" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 
-[node name="TPStairsUp" parent="Map/Flat/Triggers" instance=ExtResource( 10 )]
+[node name="TPStairsUp" parent="Map/Flat/Triggers" groups=[
+"flat-tp-trigger",
+] instance=ExtResource( 10 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.50952, 4.63905 )
 id = "flat/stairs-up"
 
 [node name="To" parent="Map/Flat/Triggers/TPStairsUp" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 
-[node name="DialogPlant" parent="Map/Flat/Triggers" instance=ExtResource( 11 )]
+[node name="DialogPlant" parent="Map/Flat/Triggers" groups=[
+"flat-dialog",
+] instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06281, 1.06188, 0.230944 )
-id = "flat/dialog/plant"
+id = "flat/plant"
 
 [node name="Bar" type="Spatial" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0 )
@@ -136,18 +150,21 @@ default = "sit-stool-idle"
 
 [node name="Triggers" type="Spatial" parent="Map/Bar/Pivot"]
 
-[node name="DialogFriend" parent="Map/Bar/Pivot/Triggers" instance=ExtResource( 11 )]
+[node name="DialogFriend" parent="Map/Bar/Pivot/Triggers" groups=[
+"bar-dialog",
+] instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.56302, 1.36202, -7.49336 )
 id = "bar/friend"
 
-[node name="DialogBartender" parent="Map/Bar/Pivot/Triggers" instance=ExtResource( 11 )]
+[node name="DialogBartender" parent="Map/Bar/Pivot/Triggers" groups=[
+"bar-dialog",
+] instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02339, 1.36202, -8.5514 )
 id = "bar/bartender"
 
 [node name="Player" type="Spatial" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.60343, -4.30777 )
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_Flat_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]

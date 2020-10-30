@@ -66,11 +66,9 @@ func _before_tp(trigger: TPTrigger) -> void:
 		"flat/stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
 			$Map/Flat.set_level(Data.flat_level)
-			print("up")
 		"flat/stairs-down":
 			Data.flat_level = int(clamp(Data.flat_level - 1, -4, 2))
 			$Map/Flat.set_level(Data.flat_level)
-			print("down")
 		_ : pass
 
 func _after_tp(trigger: TPTrigger) -> void:
@@ -84,21 +82,18 @@ func _on_Appartment_tp_exited(trigger) -> void:
 		triggers.erase(trigger.id)
 
 func _on_Flat_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
-	print("super")
+	print("request flat's dialog %s" % dialog_trigger.id)
 
 func _on_Bar_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
-	print("ici")
 	match dialog_trigger.id:
 		"bar/friend":
 			if not Data.friend_intro_bar:
 				Data.friend_intro_bar = true
 				$Map/Bar.show_restroom()
 			else:
-				print("request dialog with friend")
+				print("request bar's dialog with friend")
 		var dialog_id:
-			print("request dialog %s" % dialog_id)
+			print("request bar's dialog %s" % dialog_id)
 
 func _on_Bar_door_interacted_with(door) -> void:
 	door.toggle()
-
-

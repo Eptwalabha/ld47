@@ -8,11 +8,12 @@ signal dialog_triggered(dialog_trigger)
 onready var restroom_door := $Pivot/Door
 
 func _ready() -> void:
-	for trigger in $Pivot/Triggers.get_children():
+	for trigger in get_tree().get_nodes_in_group('bar-tp-trigger'):
 		if trigger is TPTrigger:
 			trigger.connect("player_entered", self, "emit_signal", ["tp_entered", trigger])
 			trigger.connect("player_exited", self, "emit_signal", ["tp_exited", trigger])
-		elif trigger is DialogTriggerArea:
+	for trigger in get_tree().get_nodes_in_group('bar-dialog'):
+		if trigger is DialogTriggerArea:
 			trigger.connect("interacted_with", self, "emit_signal", ["dialog_triggered", trigger])
 
 func _on_Door_interacted_with() -> void:
@@ -27,4 +28,3 @@ func show_restroom() -> void:
 func _set_active(location: Location, active: bool) -> void:
 	location.set_active(active)
 	location.visible = active
-	print("%s %s" % [location, active])
