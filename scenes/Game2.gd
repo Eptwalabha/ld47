@@ -3,10 +3,12 @@ extends Spatial
 
 onready var current_player : Player = $Player/Player as Player
 onready var ui := $UI as UI
+
 var triggers := {}
 
 func _ready() -> void:
 	ui.capture_mouse()
+	$Map/Flat.set_level(Data.flat_level)
 
 func _physics_process(delta: float) -> void:
 	current_player.physics_process(delta)
@@ -36,7 +38,7 @@ func _on_Appartment_door_interacted_with(door: Door2) -> void:
 func _check_triggers():
 	if current_player.ray.is_colliding():
 		var collider = current_player.ray.get_collider()
-		if collider is InteractTrigger and collider.active:
+		if collider is InteractTrigger:
 			if Input.is_action_just_pressed("context_action"):
 				collider.interact()
 			else:
@@ -97,3 +99,22 @@ func _on_Bar_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 
 func _on_Bar_door_interacted_with(door) -> void:
 	door.toggle()
+
+
+func _on_Flat_window_triggered(window_trigger: WindowTrigger) -> void:
+	var path = window_trigger.get_path_points(current_player.global_transform.origin, .3)
+	_update_path(path)
+
+func _on_Bar_window_triggered(window_trigger: WindowTrigger) -> void:
+	var path = window_trigger.get_path_points(current_player.global_transform.origin, .3)
+	_update_path(path)
+
+func _update_path(path: Array) -> void:
+	var DebugPoint = preload("res://scenes/core/debug/DebugPoint.tscn")
+	for n in $Path.get_children():
+		n.queue_free()
+
+	for v in path:
+		var point = DebugPoint.instance()
+		$Path.add_child(point)
+		point.global_transform.origin = v

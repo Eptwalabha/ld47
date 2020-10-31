@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/CorridorTop.tscn" type="PackedScene" id=2]
@@ -20,10 +20,14 @@
 [ext_resource path="res://scenes/location/bar/BarCounter.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/models/bar-v2/restroom-sign.glb" type="PackedScene" id=20]
+[ext_resource path="res://scenes/core/WindowTrigger.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=22]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1.11876, 0.562466, 0.02 )
 
 [node name="Game2" type="Spatial"]
 script = ExtResource( 3 )
@@ -36,6 +40,13 @@ script = ExtResource( 3 )
 script = ExtResource( 8 )
 
 [node name="Appartment" parent="Map/Flat" instance=ExtResource( 4 )]
+
+[node name="Window" parent="Map/Flat/Appartment" groups=[
+"flat-window",
+] instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.415, 1.4, -3.1 )
+active = false
+id = "flat/window"
 
 [node name="Corridor" parent="Map/Flat" instance=ExtResource( 5 )]
 
@@ -118,6 +129,26 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2 )
 
 [node name="RestroomLocation" parent="Map/Bar" instance=ExtResource( 16 )]
 
+[node name="WindowGirl" parent="Map/Bar/RestroomLocation" groups=[
+"bar-window",
+] instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.6, 0 )
+id = "bar/window-girl"
+
+[node name="Area" parent="Map/Bar/RestroomLocation/WindowGirl" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0356579, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="WindowBoy" parent="Map/Bar/RestroomLocation" groups=[
+"bar-window",
+] instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06366, 1.6, 0 )
+id = "bar/window-boy"
+
+[node name="Area" parent="Map/Bar/RestroomLocation/WindowBoy" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0356579, 0, 0 )
+shape = SubResource( 2 )
+
 [node name="RestroomLocationReverse" parent="Map/Bar" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
 
@@ -165,13 +196,18 @@ id = "bar/bartender"
 [node name="Player" type="Spatial" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.155, 0, -1.8493 )
+
+[node name="Path" type="Spatial" parent="."]
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_Flat_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]
 [connection signal="tp_exited" from="Map/Flat" to="." method="_on_Appartment_tp_exited"]
+[connection signal="window_triggered" from="Map/Flat" to="." method="_on_Flat_window_triggered"]
 [connection signal="interacted_with" from="Map/Flat/Door" to="Map/Flat" method="_on_Door_interacted_with"]
 [connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_Bar_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
+[connection signal="window_triggered" from="Map/Bar" to="." method="_on_Bar_window_triggered"]
 [connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
 
 [editable path="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger"]
@@ -179,3 +215,7 @@ id = "bar/bartender"
 [editable path="Map/Flat/Triggers/TPStairsDown"]
 
 [editable path="Map/Flat/Triggers/TPStairsUp"]
+
+[editable path="Map/Bar/RestroomLocation/WindowGirl"]
+
+[editable path="Map/Bar/RestroomLocation/WindowBoy"]

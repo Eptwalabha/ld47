@@ -4,6 +4,7 @@ signal door_interacted_with(door)
 signal tp_entered(trigger)
 signal tp_exited(trigger)
 signal dialog_triggered(dialog_trigger)
+signal window_triggered(window_trigger)
 
 onready var restroom_door := $Pivot/Door
 
@@ -15,6 +16,9 @@ func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('bar-dialog'):
 		if trigger is DialogTriggerArea:
 			trigger.connect("interacted_with", self, "emit_signal", ["dialog_triggered", trigger])
+	for trigger in get_tree().get_nodes_in_group('bar-window'):
+		if trigger is WindowTrigger:
+			trigger.connect("interacted_with", self, "emit_signal", ["window_triggered", trigger])
 
 func _on_Door_interacted_with() -> void:
 	emit_signal("door_interacted_with", restroom_door)
