@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/location/Bar.gd"
 }, {
-"base": "Spatial",
-"class": "BarCorridor",
-"language": "GDScript",
-"path": "res://scenes/props/appart/BarCorridor.gd"
-}, {
 "base": "Location",
 "class": "BarLocation",
 "language": "GDScript",
@@ -65,11 +60,6 @@ _global_script_classes=[ {
 "path": "res://scenes/chapters/ChapterBar.gd"
 }, {
 "base": "Chapter",
-"class": "ChapterHome",
-"language": "GDScript",
-"path": "res://scenes/chapters/ChapterHome.gd"
-}, {
-"base": "Chapter",
 "class": "ChapterHospital",
 "language": "GDScript",
 "path": "res://scenes/chapters/ChapterHospital.gd"
@@ -102,12 +92,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "Door",
 "language": "GDScript",
-"path": "res://scenes/props/appart/Door.gd"
-}, {
-"base": "Spatial",
-"class": "Door2",
-"language": "GDScript",
-"path": "res://scenes/props/flat/Door2.gd"
+"path": "res://scenes/props/flat/Door.gd"
 }, {
 "base": "Spatial",
 "class": "Flat",
@@ -118,11 +103,6 @@ _global_script_classes=[ {
 "class": "Game",
 "language": "GDScript",
 "path": "res://scenes/Game.gd"
-}, {
-"base": "Spatial",
-"class": "Game2",
-"language": "GDScript",
-"path": "res://scenes/Game2.gd"
 }, {
 "base": "Spatial",
 "class": "Glass",
@@ -158,6 +138,26 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerState",
+"language": "GDScript",
+"path": "res://scenes/core/player_states/PlayerState.gd"
+}, {
+"base": "PlayerState",
+"class": "PlayerStateDialog",
+"language": "GDScript",
+"path": "res://scenes/core/player_states/PlayerStateDialog.gd"
+}, {
+"base": "PlayerState",
+"class": "PlayerStateFPS",
+"language": "GDScript",
+"path": "res://scenes/core/player_states/PlayerStateFPS.gd"
+}, {
+"base": "PlayerState",
+"class": "PlayerStateMoveThrough",
+"language": "GDScript",
+"path": "res://scenes/core/player_states/PlayerStateMoveThrough.gd"
 }, {
 "base": "Location",
 "class": "RestroomLocation",
@@ -208,7 +208,6 @@ _global_script_class_icons={
 "Appartment": "",
 "BackStreetBuilding": "",
 "Bar": "",
-"BarCorridor": "",
 "BarLocation": "",
 "BarStorageRoom": "",
 "Car": "",
@@ -216,7 +215,6 @@ _global_script_class_icons={
 "CarInsideArea": "",
 "Chapter": "",
 "ChapterBar": "",
-"ChapterHome": "",
 "ChapterHospital": "",
 "ChapterRoad": "",
 "Character": "",
@@ -224,10 +222,8 @@ _global_script_class_icons={
 "DialogTrigger": "",
 "DialogTriggerArea": "",
 "Door": "",
-"Door2": "",
 "Flat": "",
 "Game": "",
-"Game2": "",
 "Glass": "",
 "InteractTrigger": "",
 "Key": "",
@@ -235,6 +231,10 @@ _global_script_class_icons={
 "Location": "",
 "Phone": "",
 "Player": "",
+"PlayerState": "",
+"PlayerStateDialog": "",
+"PlayerStateFPS": "",
+"PlayerStateMoveThrough": "",
 "RestroomLocation": "",
 "Road": "",
 "TPTrigger": "",
@@ -249,7 +249,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ld47"
-run/main_scene="res://scenes/Game2.tscn"
+run/main_scene="res://scenes/Game.tscn"
 boot_splash/image="res://assets/splash-screen/godot-logo-white.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )

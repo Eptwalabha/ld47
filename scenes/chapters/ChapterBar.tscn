@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/chapters/ChapterBar.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/core/DialogTrigger.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/props/appart/Door.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=13]
 [ext_resource path="res://scenes/props/road/CarInside.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/sounds/club.ogg" type="AudioStream" id=15]
@@ -178,20 +177,18 @@ transform = Transform( -0.143475, -0.974016, -0.175236, -0.989654, 0.141208, 0.0
 [node name="Trigger" type="Spatial" parent="Bar"]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, -8.26443, 2.86102e-06, -7.80026 )
 
-[node name="Door" parent="Bar/Trigger" instance=ExtResource( 12 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
-locked = true
+[node name="Door" type="Spatial" parent="Bar/Trigger"]
 
 [node name="key" parent="Bar/Trigger/Door" instance=ExtResource( 13 )]
-transform = Transform( 0.658125, -0.752909, 1.59902e-07, 0.752909, 0.658125, 3.29107e-08, -1.30014e-07, 9.87321e-08, 1, 0.933249, 0.720318, 0.0950179 )
+transform = Transform( -1.58782e-07, 1.31643e-07, 1, 0.752909, 0.658125, 3.29107e-08, -0.658125, 0.752909, -2.03613e-07, 0.0950174, 0.720318, -0.933249 )
 
 [node name="ExitSign" type="MeshInstance" parent="Bar/Trigger/Door"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6, 2.2, -0.0495644 )
+transform = Transform( 1, 0, -4.06576e-20, 0, 1, 0, 4.06576e-20, 0, 1, -0.0495644, 2.2, -0.6 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CarInside" parent="Bar/Trigger/Door" instance=ExtResource( 14 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.972219, 0, 0.716514 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.716514, 0, -0.972219 )
 friend_sleep = false
 
 [node name="Position" type="Spatial" parent="Bar/Trigger/Door/CarInside"]
@@ -255,4 +252,3 @@ dialogs = [ "dialog_2_05" ]
 who = "friend"
 [connection signal="picked_up" from="Bar/Key" to="." method="_on_Key_picked_up"]
 [connection signal="picked_up" from="Bar/Valve" to="." method="_on_Valve_picked_up"]
-[connection signal="door_interacted_with" from="Bar/Trigger/Door" to="." method="_on_Door_door_interacted_with"]

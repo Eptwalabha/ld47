@@ -6,7 +6,8 @@ signal tp_exited(trigger)
 signal dialog_triggered(dialog_trigger)
 signal window_triggered(window_trigger)
 
-onready var restroom_door := $Pivot/Door
+onready var pivot := $Pivot as Spatial
+onready var restroom_door := $Pivot/Door as Door
 
 func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('bar-tp-trigger'):
@@ -32,3 +33,9 @@ func show_restroom() -> void:
 func _set_active(location: Location, active: bool) -> void:
 	location.set_active(active)
 	location.visible = active
+
+func _on_ToiletWindow_went_through() -> void:
+	pivot.scale.z = -1 if pivot.scale.z > 0 else 1
+
+func is_reverted() -> bool:
+	return pivot.scale.z < 0

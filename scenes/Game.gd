@@ -1,76 +1,133 @@
 class_name Game
 extends Spatial
 
-onready var chapter_home := $ChapterHome as ChapterHome
-onready var chapter_bar := $ChapterBar as ChapterBar
-onready var chapter_road := $ChapterRoad as ChapterRoad
-onready var chapter_hospital := $ChapterHospital as ChapterHospital
-onready var display_capture := $Margin as MarginContainer
+onready var current_player : Player = $Player/Player as Player
+onready var ui := $UI as UI
+onready var player_states = {
+	'move': $GameStates/FPS,
+	'dialog': $GameStates/Dialog,
+	'move-through': $GameStates/MoveThrough,
+}
 
-onready var env := $WorldEnvironment as WorldEnvironment
+var current_state = 'move'
 
-var bgs : ProceduralSky
-
-var current_chapter := 0
-var chapters = []
+var triggers := {}
 
 func _ready() -> void:
-	bgs = env.environment.background_sky
-	chapters = [
-		chapter_home,
-		chapter_bar,
-		chapter_road,
-		chapter_hospital,
-	]
-	
-	for chapter in get_tree().get_nodes_in_group('chapter'):
-		if chapter is Chapter:
-			chapter.connect("chapter_ended", self, "_on_Chapter_Ended", [chapter])
-			chapter.connect("night_environment", self, "_on_Environment_change")
-	reset_game()
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _process(delta: float) -> void:
-	chapters[current_chapter].process(delta)
-	# debug remove
-	if Input.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		display_capture.show()
-	display_capture.visible = Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED
+	ui.capture_mouse()
+	$Map/Flat.set_level(Data.flat_level)
+	for state_name in player_states:
+		var state = player_states[state_name]
+		if state is PlayerState:
+			state.player = current_player
+			state.ui = ui
+			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
 func _physics_process(delta: float) -> void:
-	chapters[current_chapter].physics_process(delta)
+	player_states[current_state].physics_process(delta)
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		ui.show_mouse_capture()
+	player_states[current_state].process(delta)
+	_check_triggers_orientation()
+
+func _check_triggers_orientation() -> void:
+	for trigger_id in triggers:
+		var trigger = triggers[trigger_id]
+		if trigger.is_well_oriented(current_player.head.global_transform.basis):
+			active_tp(trigger)
+			triggers = {}
+			break
 
 func _input(event: InputEvent) -> void:
-	chapters[current_chapter].input(event)
+	player_states[current_state].input(event)
 
-func reset_game() -> void:
-	current_chapter = Data.first_level
-	chapters[current_chapter].start()
-
-func next_chapter() -> void:
-	var old_id = current_chapter
-	current_chapter = (current_chapter + 1) % len(chapters)
-	chapters[current_chapter].start()
-	if old_id != current_chapter:
-		chapters[old_id].end()
-
-func _on_Chapter_Ended(_chapter: Chapter) -> void:
-	next_chapter()
-
-func _on_Environment_change(night: bool) -> void:
-	if night:
-		bgs.set_sky_energy(.05)
-		bgs.set_sky_top_color(Color.black)
-		$DirectionalLight.hide()
+func _on_Appartment_door_interacted_with(door: Door) -> void:
+	if not Data.phone_picked_up:
+		door.close()
+		Data.phone_picked_up = true
 	else:
-		bgs.set_sky_energy(1.0)
-		bgs.set_sky_top_color(Color(0.65, .83, .94))
-		$DirectionalLight.show()
+		door.toggle()
 
-func _on_Button_pressed() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$Margin.hide()
+func _on_Appartment_tp_entered(trigger: TPTrigger) -> void:
+	if trigger.is_well_oriented(current_player.head.global_transform.basis):
+		active_tp(trigger)
+	else:
+		triggers[trigger.id] = trigger
 
-func _on_Dot_changed(visible: bool) -> void:
-	$Dot.visible = visible
+func active_tp(trigger: TPTrigger) -> void:
+	_before_tp(trigger)
+	current_player.force_move(trigger.destination_translation())
+	_after_tp(trigger)
+
+func _before_tp(trigger: TPTrigger) -> void:
+	match trigger.id:
+		"bar/tp":
+			$Map/Bar.show()
+		"flat/stairs-up":
+			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
+			$Map/Flat.set_level(Data.flat_level)
+		"flat/stairs-down":
+			Data.flat_level = int(clamp(Data.flat_level - 1, -4, 2))
+			$Map/Flat.set_level(Data.flat_level)
+		_ : pass
+
+func _after_tp(trigger: TPTrigger) -> void:
+	match trigger.id:
+		"bar/tp":
+			$Map/Flat.hide()
+		_: pass
+
+func _on_Appartment_tp_exited(trigger) -> void:
+	if triggers.has(trigger.id):
+		triggers.erase(trigger.id)
+
+func _on_Flat_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
+	print("request flat's dialog %s" % dialog_trigger.id)
+
+func _on_Bar_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
+	match dialog_trigger.id:
+		"bar/friend":
+			if not Data.friend_intro_bar:
+				Data.friend_intro_bar = true
+				$Map/Bar.show_restroom()
+			else:
+				print("request bar's dialog with friend")
+		var dialog_id:
+			print("request bar's dialog %s" % dialog_id)
+
+func _on_Bar_door_interacted_with(door) -> void:
+	door.toggle()
+
+func _on_window_triggered(window_trigger: WindowTrigger) -> void:
+	move_through(window_trigger)
+	window_trigger.through()
+
+func _on_PlayerState_ended(state_name: String) -> void:
+	print("end of state '%s'" % state_name)
+	change_player_state('move')
+
+func _update_path(path: Array) -> void:
+	if not Data.debug:
+		return
+	var DebugPoint = preload("res://scenes/core/debug/DebugPoint.tscn")
+	for n in $Path.get_children():
+		n.queue_free()
+	for v in path:
+		var point = DebugPoint.instance()
+		$Path.add_child(point)
+		point.global_transform.origin = v
+
+func change_player_state(new_state: String) -> void:
+	if current_state != new_state and player_states.has(new_state):
+		if current_state != '':
+			player_states[current_state].exit()
+		current_state = new_state
+		player_states[current_state].enter()
+
+func move_through(window: WindowTrigger) -> void:
+	var path = window.get_path_points(current_player.global_transform.origin, .3)
+	_update_path(path)
+	player_states['move-through'].set_route(path)
+	change_player_state('move-through')

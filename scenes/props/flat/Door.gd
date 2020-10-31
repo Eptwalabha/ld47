@@ -1,4 +1,4 @@
-class_name Door2
+class_name Door
 extends Spatial
 
 signal interacted_with()

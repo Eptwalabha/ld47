@@ -10,7 +10,7 @@ onready var valve := $Bar/Valve as Valve
 onready var music := $Music as AudioStreamPlayer
 onready var friend := $Friend as Character
 onready var dialogs := $Dialogs as Spatial
-onready var door := $Bar/Trigger/Door as Door
+#onready var door := $Bar/Trigger/Door as Door
 onready var key_door := $Bar/Trigger/Door/key
 onready var car := $Bar/Trigger/Door/CarInside
 
@@ -85,10 +85,6 @@ func start() -> void:
 	key.reset()
 	valve.reset()
 	player.reset()
-#	corridor.reset()
-	door.reset()
-	door.locked = true
-	door.hide()
 	friend.sit_stool_idle()
 	friend.show()
 	key_door.hide()
@@ -123,7 +119,7 @@ func prepare_current_objective() -> void:
 		OBJECTIVES.FIND_CLOSE_DOOR:
 			friend.sleep()
 			active_dialog(2)
-			door.show()
+#			door.show()
 		OBJECTIVES.FIND_KEY:
 			key.display(true)
 			active_dialog(2, 3)

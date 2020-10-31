@@ -139,7 +139,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Glass" parent="Head/Camera" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 0.972337, -0.233581, 0, 0.233581, 0.972337, 0, -0.445876, -0.325514 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
 
 [node name="phone" parent="Head/Camera" instance=ExtResource( 4 )]
 transform = Transform( -0.691661, 0.669623, -0.270572, -0.364308, -1.59244e-08, 0.931279, 0.623606, 0.742701, 0.243949, -0.187868, -0.0426252, -0.241849 )

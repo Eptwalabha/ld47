@@ -1,7 +1,10 @@
 class_name WindowTrigger
 extends InteractTrigger
 
+signal went_through
+
 onready var box := $Area.shape as BoxShape
+export(float) var dist := 0.5
 
 func _ready() -> void:
 	if not Data.debug:
@@ -25,7 +28,7 @@ func get_path_points(global_from: Vector3, width: float) -> Array:
 		return [to_global(_end_point(local))]
 
 func _end_point(local_from: Vector3) -> Vector3:
-	var z := -1.0 if local_from.z > 0.0 else 1.0
+	var z := -dist if local_from.z > 0.0 else dist
 	return Vector3(local_from.x, local_from.y, z)
 
 func _corrected(local_from: Vector3, width: float) -> Vector3:
@@ -35,3 +38,6 @@ func _corrected(local_from: Vector3, width: float) -> Vector3:
 		return Vector3(-limit, local_from.y, z)
 	else:
 		return Vector3(limit, local_from.y, z)
+
+func through() -> void:
+	emit_signal("went_through")
