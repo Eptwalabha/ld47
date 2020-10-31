@@ -330,6 +330,9 @@ script = ExtResource( 24 )
 script = ExtResource( 25 )
 
 [node name="Tween" type="Tween" parent="GameStates/MoveThrough"]
+
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025, -0.321394, 0.383022, 0, 9.09656, 0 )
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_Flat_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]
