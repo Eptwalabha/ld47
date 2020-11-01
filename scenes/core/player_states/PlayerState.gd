@@ -21,5 +21,5 @@ func input(_event: InputEvent) -> void:
 func exit() -> void:
 	pass
 
-func should_handle_hover() -> bool:
+func is_hint_activated() -> bool:
 	return false

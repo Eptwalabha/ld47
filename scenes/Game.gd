@@ -31,21 +31,10 @@ func _process(delta: float) -> void:
 		ui.show_mouse_capture()
 	player_states[current_state].process(delta)
 	_check_triggers_orientation()
-	if player_states[current_state].should_handle_hover():
-		_handle_hover()
+	_trigger_hint()
 
 func _input(event: InputEvent) -> void:
 	player_states[current_state].input(event)
-
-func _handle_hover():
-	var collider = current_player.get_trigger_hover()
-	if collider == null:
-		ui.hide_context()
-		return
-	if Input.is_action_just_pressed("context_action"):
-		collider.interact()
-	else:
-		ui.show_context("hover:%s" % collider.id)
 
 func _check_triggers_orientation() -> void:
 	for trigger_id in triggers:
@@ -54,6 +43,14 @@ func _check_triggers_orientation() -> void:
 			active_tp(trigger)
 			triggers = {}
 			break
+
+func _trigger_hint() -> void:
+	if player_states[current_state].is_hint_activated():
+		var collider = current_player.get_trigger_hover()
+		if collider == null:
+			ui.hide_context()
+		else:
+			ui.show_context("hover:%s" % collider.id)
 
 func _on_Appartment_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
@@ -90,6 +87,11 @@ func _after_tp(trigger: TPTrigger) -> void:
 		"bar/tp":
 			$Map/Flat.hide()
 		_: pass
+
+func _on_FPS_context_action_pressed() -> void:
+	var collider = current_player.get_trigger_hover()
+	if collider is InteractTrigger:
+		collider.interact()
 
 func _on_Appartment_tp_exited(trigger) -> void:
 	if triggers.has(trigger.id):

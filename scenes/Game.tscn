@@ -349,6 +349,7 @@ environment = ExtResource( 27 )
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowGirl" to="Map/Bar" method="_on_ToiletWindow_went_through"]
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowBoy" to="Map/Bar" method="_on_ToiletWindow_went_through"]
 [connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
+[connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
 
 [editable path="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger"]
 

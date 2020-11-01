@@ -36,3 +36,21 @@ func reset_game(level: String) -> void:
 			valve_found = false
 		'road':
 			road_tutorial = false
+
+var dialogs = {
+	'flat/plant': 'flat_plant',
+	'flat/bouncer': {
+		'seq': [
+			'flat_bouncer_line_1',
+			'flat_bouncer_line_2',
+			'flat_bouncer_line_3'
+		]
+	},
+	'flat/friend-flat': 'flat_friend_flat',
+	'flat/friend-bar': 'flat_friend_bar',
+	'bar/friend': 'test:bar_friend',
+	'bar/bartender': {
+		'if_keys': 'bar_bartender_ask_keys',
+		'if_valve': 'bar_bartender_ask_valve',
+	}
+}
