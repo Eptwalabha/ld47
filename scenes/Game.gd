@@ -50,12 +50,11 @@ func _trigger_hint() -> void:
 		if collider == null:
 			ui.hide_context()
 		else:
-			ui.show_context("hover:%s" % collider.id)
+			ui.show_context("hover_%s" % collider.id)
 
 func _on_Appartment_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
-		door.close()
-		Data.phone_picked_up = true
+		display_dialog('pick_up_phone_first')
 	else:
 		door.toggle()
 
@@ -117,7 +116,6 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	window_trigger.through()
 
 func _on_PlayerState_ended(state_name: String) -> void:
-	print("end of state '%s'" % state_name)
 	change_player_state('move')
 
 func change_player_state(new_state: String) -> void:
@@ -135,3 +133,15 @@ func move_through(window: WindowTrigger) -> void:
 func display_dialog(dialog_id: String) -> void:
 	player_states['dialog'].set_dialog(dialog_id)
 	change_player_state('dialog')
+
+func _on_Flat_phone_picked_up() -> void:
+	display_dialog("flat/phone")
+	current_player.answer_phone()
+
+func _on_Dialog_dialog_ended(dialog_id) -> void:
+	match dialog_id:
+		'flat/phone':
+			Data.phone_picked_up = true
+			current_player.hangup_phone()
+		_:
+			pass

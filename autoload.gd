@@ -39,15 +39,22 @@ func reset_game(level: String) -> void:
 
 var dialogs = {
 	'flat/plant': 'flat_plant',
+	'flat/phone': {
+		'text': [
+			'voice_mail:dialog_1_phone_01',
+			'friend:dialog_1_phone_02',
+			'friend:dialog_1_phone_03',
+		],
+	},
 	'flat/bouncer': {
-		'seq': [
-			'flat_bouncer_line_1',
-			'flat_bouncer_line_2',
-			'flat_bouncer_line_3'
-		]
+		'text': [
+			'bouncer:dialog_1_bouncer_01',
+			'bouncer:dialog_1_bouncer_02',
+			'bouncer:dialog_1_bouncer_03',
+		],
 	},
 	'flat/friend-flat': 'flat_friend_flat',
-	'flat/friend-bar': 'flat_friend_bar',
+	'flat/friend-bar': 'friend:dialog_1_friend_02',
 	'bar/friend': 'test:bar_friend',
 	'bar/bartender': {
 		'if_keys': 'bar_bartender_ask_keys',

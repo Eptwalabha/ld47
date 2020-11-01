@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://scenes/core/player_states/PlayerStateMoveThrough.gd" type="Script" id=25]
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=26]
 [ext_resource path="res://default_env.tres" type="Environment" id=27]
+[ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=28]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
@@ -52,6 +53,9 @@ script = ExtResource( 17 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.415, 1.4, -3.1 )
 active = false
 id = "flat/window"
+
+[node name="Phone" parent="Map/Flat/Appartment" instance=ExtResource( 28 )]
+transform = Transform( -0.761979, 0, 0.647601, 0, 1, 0, -0.647601, 0, -0.761979, -0.307218, 0.329252, 1.43801 )
 
 [node name="Corridor" parent="Map/Flat" instance=ExtResource( 9 )]
 
@@ -85,6 +89,12 @@ id = "flat/door/bar"
 transform = Transform( 0.882373, 0, 0.47055, 0, 1, 0, -0.47055, 0, 0.882373, -0.495693, 0, -0.23423 )
 default = "idle"
 
+[node name="DialogTriggerArea" parent="Map/Flat/BackStreetBuilding/BarCorridor/Friend" groups=[
+"flat-dialog",
+] instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 1.55916, 0 )
+id = "flat/friend-bar"
+
 [node name="DialogBouncer" parent="Map/Flat/BackStreetBuilding" groups=[
 "flat-dialog",
 ] instance=ExtResource( 5 )]
@@ -94,7 +104,6 @@ id = "flat/bouncer"
 [node name="Door" parent="Map/Flat" instance=ExtResource( 1 )]
 transform = Transform( 4.37114e-08, 0, 1, 0, 1, 0, 1, 0, -4.37114e-08, -1.55734, 0, -0.449963 )
 id = "flat/door"
-opened = true
 max_angle = 90
 
 [node name="Triggers" type="Spatial" parent="Map/Flat"]
@@ -339,9 +348,11 @@ transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025
 environment = ExtResource( 27 )
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
+[connection signal="phone_picked_up" from="Map/Flat" to="." method="_on_Flat_phone_picked_up"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]
 [connection signal="tp_exited" from="Map/Flat" to="." method="_on_Appartment_tp_exited"]
 [connection signal="window_triggered" from="Map/Flat" to="." method="_on_window_triggered"]
+[connection signal="picked_up" from="Map/Flat/Appartment/Phone" to="Map/Flat" method="_on_Phone_picked_up"]
 [connection signal="interacted_with" from="Map/Flat/Door" to="Map/Flat" method="_on_Door_interacted_with"]
 [connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
@@ -350,6 +361,7 @@ environment = ExtResource( 27 )
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowBoy" to="Map/Bar" method="_on_ToiletWindow_went_through"]
 [connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
 [connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
+[connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]
 
 [editable path="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger"]
 

@@ -13,7 +13,6 @@ export(float) var mouse_sensitivity := 0.3
 export(float) var speed := 3.0
 export(float) var acceleration := 10.0
 
-var on_phone: bool = false
 var has_control: bool = true
 var camera_angle: float = 0
 var velocity = Vector3()
@@ -107,11 +106,9 @@ func force_move_to(spatial: Spatial) -> void:
 	camera_angle = 0
 
 func answer_phone() -> void:
-	on_phone = true
 	phone.show()
 
 func hangup_phone() -> void:
-	on_phone = false
 	phone.hide()
 
 func drink() -> void:
