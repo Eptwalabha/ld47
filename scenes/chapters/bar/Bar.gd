@@ -8,6 +8,7 @@ signal window_triggered(window_trigger)
 
 onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
+onready var start := $Start as Spatial
 
 func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('bar-tp-trigger'):
@@ -20,6 +21,15 @@ func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('bar-window'):
 		if trigger is WindowTrigger:
 			trigger.connect("interacted_with", self, "emit_signal", ["window_triggered", trigger])
+
+func reset() -> void:
+	show()
+	restroom_door.set_state(false)
+	_set_active($RestroomLocation, false)
+	_set_active($RestroomLocationReverse, false)
+	_set_active($BarStorageRoom, true)
+	pivot.scale.z = 1
+	Data.reset_game(Data.LEVEL.BAR)
 
 func _on_Door_interacted_with() -> void:
 	emit_signal("door_interacted_with", restroom_door)

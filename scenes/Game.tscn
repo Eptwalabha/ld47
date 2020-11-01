@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
@@ -35,6 +35,9 @@ extents = Vector3( 1.02594, 0.91001, 1.07202 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.11876, 0.562466, 0.02 )
 
+[sub_resource type="PrismMesh" id=3]
+size = Vector3( 0.1, 0.5, 0.1 )
+
 [node name="Game" type="Spatial"]
 script = ExtResource( 18 )
 
@@ -43,6 +46,7 @@ script = ExtResource( 18 )
 [node name="Map" type="Spatial" parent="."]
 
 [node name="Flat" type="Spatial" parent="Map"]
+visible = false
 script = ExtResource( 17 )
 
 [node name="Appartment" parent="Map/Flat" instance=ExtResource( 7 )]
@@ -134,6 +138,7 @@ id = "flat/plant"
 
 [node name="Bar" type="Spatial" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0 )
+visible = false
 script = ExtResource( 16 )
 
 [node name="BarStorageRoom" parent="Map/Bar" instance=ExtResource( 14 )]
@@ -320,6 +325,14 @@ default = "sleep"
 [node name="Drinker5" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
 transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5.56417, 0.0166468, -9.0717 )
 default = "sit-stool-drink"
+
+[node name="Start" type="Spatial" parent="Map/Bar"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Map/Bar/Start"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -0.25 )
+mesh = SubResource( 3 )
+material/0 = null
 
 [node name="Player" type="Spatial" parent="."]
 

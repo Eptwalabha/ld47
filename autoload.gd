@@ -1,16 +1,17 @@
 extends Node
 
 enum LEVEL {
-	HOME,
+	FLAT,
 	BAR,
 	ROAD,
 	HOSPITAL
 }
 
+var debug : bool = true
+var debug_level = LEVEL.BAR
+
 var first_time : bool = true
 var using_controller : bool = false
-var debug : bool = true
-var first_level : int = LEVEL.BAR
 
 var flat_level := 0
 var phone_picked_up := false
@@ -22,19 +23,19 @@ var missing_handle := false
 var valve_found := false
 var road_tutorial := false
 
-func reset_game(level: String) -> void:
+func reset_game(level) -> void:
 	match level:
-		'flat':
+		LEVEL.FLAT:
 			phone_picked_up = false
 			flat_level = 0
-		'bar':
+		LEVEL.BAR:
 			friend_intro_bar = false
 			friend_wants_to_go_home = false
 			door_found = false
 			key_found = false
 			missing_handle = false
 			valve_found = false
-		'road':
+		LEVEL.ROAD:
 			road_tutorial = false
 
 var dialogs = {

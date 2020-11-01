@@ -20,6 +20,12 @@ func _ready() -> void:
 		if trigger is WindowTrigger:
 			trigger.connect("interacted_with", self, "emit_signal", ["window_triggered", trigger])
 
+func reset() -> void:
+	$Appartment/Phone.show()
+	$Door.set_state(false)
+	Data.reset_game(Data.LEVEL.FLAT)
+	set_level(-1)
+
 func set_level(level: int) -> void:
 	var delta_elevation : float = level * 2.5 - $BackStreetBuilding.global_transform.origin.y
 	$BackStreetBuilding.translate(Vector3(0, delta_elevation, 0))

@@ -15,7 +15,9 @@ var triggers := {}
 
 func _ready() -> void:
 	ui.capture_mouse()
-	$Map/Flat.set_level(Data.flat_level)
+	$Map/Flat.reset()
+	if Data.debug:
+		_init_debug()
 	for state_name in player_states:
 		var state = player_states[state_name]
 		if state is PlayerState:
@@ -23,12 +25,24 @@ func _ready() -> void:
 			state.ui = ui
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
+func _init_debug() -> void:
+	match Data.debug_level:
+		Data.LEVEL.BAR:
+			$Map/Flat.hide()
+			current_player.global_transform.origin = $Map/Bar.start.global_transform.origin
+			current_player.reset()
+			$Map/Bar.reset()
+		_:
+			pass
+
 func _physics_process(delta: float) -> void:
 	player_states[current_state].physics_process(delta)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		ui.show_mouse_capture()
+	if Input.is_action_just_pressed("reset_level") and Data.debug:
+		_init_debug()
 	player_states[current_state].process(delta)
 	_check_triggers_orientation()
 	_trigger_hint()
