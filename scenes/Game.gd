@@ -31,6 +31,21 @@ func _process(delta: float) -> void:
 		ui.show_mouse_capture()
 	player_states[current_state].process(delta)
 	_check_triggers_orientation()
+	if player_states[current_state].should_handle_hover():
+		_handle_hover()
+
+func _input(event: InputEvent) -> void:
+	player_states[current_state].input(event)
+
+func _handle_hover():
+	var collider = current_player.get_trigger_hover()
+	if collider == null:
+		ui.hide_context()
+		return
+	if Input.is_action_just_pressed("context_action"):
+		collider.interact()
+	else:
+		ui.show_context("hover:%s" % collider.id)
 
 func _check_triggers_orientation() -> void:
 	for trigger_id in triggers:
@@ -39,9 +54,6 @@ func _check_triggers_orientation() -> void:
 			active_tp(trigger)
 			triggers = {}
 			break
-
-func _input(event: InputEvent) -> void:
-	player_states[current_state].input(event)
 
 func _on_Appartment_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
@@ -83,19 +95,17 @@ func _on_Appartment_tp_exited(trigger) -> void:
 	if triggers.has(trigger.id):
 		triggers.erase(trigger.id)
 
-func _on_Flat_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
-	print("request flat's dialog %s" % dialog_trigger.id)
-
-func _on_Bar_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
-	match dialog_trigger.id:
+func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
+	var dialog_id = dialog_trigger.id
+	match dialog_id:
 		"bar/friend":
 			if not Data.friend_intro_bar:
 				Data.friend_intro_bar = true
 				$Map/Bar.show_restroom()
-			else:
-				print("request bar's dialog with friend")
-		var dialog_id:
-			print("request bar's dialog %s" % dialog_id)
+		_:
+			pass
+	print("request dialog %s" % dialog_id)
+	display_dialog(dialog_id)
 
 func _on_Bar_door_interacted_with(door) -> void:
 	door.toggle()
@@ -108,17 +118,6 @@ func _on_PlayerState_ended(state_name: String) -> void:
 	print("end of state '%s'" % state_name)
 	change_player_state('move')
 
-func _update_path(path: Array) -> void:
-	if not Data.debug:
-		return
-	var DebugPoint = preload("res://scenes/core/debug/DebugPoint.tscn")
-	for n in $Path.get_children():
-		n.queue_free()
-	for v in path:
-		var point = DebugPoint.instance()
-		$Path.add_child(point)
-		point.global_transform.origin = v
-
 func change_player_state(new_state: String) -> void:
 	if current_state != new_state and player_states.has(new_state):
 		if current_state != '':
@@ -128,6 +127,9 @@ func change_player_state(new_state: String) -> void:
 
 func move_through(window: WindowTrigger) -> void:
 	var path = window.get_path_points(current_player.global_transform.origin, .3)
-	_update_path(path)
 	player_states['move-through'].set_route(path)
 	change_player_state('move-through')
+
+func display_dialog(dialog_id: String) -> void:
+	player_states['dialog'].set_dialog(dialog_id)
+	change_player_state('dialog')

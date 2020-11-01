@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scenes/core/player_states/PlayerStateDialog.gd" type="Script" id=24]
 [ext_resource path="res://scenes/core/player_states/PlayerStateMoveThrough.gd" type="Script" id=25]
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=26]
+[ext_resource path="res://default_env.tres" type="Environment" id=27]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
@@ -333,13 +334,16 @@ script = ExtResource( 25 )
 
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025, -0.321394, 0.383022, 0, 9.09656, 0 )
-[connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_Flat_dialog_triggered"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 27 )
+[connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Appartment_tp_entered"]
 [connection signal="tp_exited" from="Map/Flat" to="." method="_on_Appartment_tp_exited"]
 [connection signal="window_triggered" from="Map/Flat" to="." method="_on_window_triggered"]
 [connection signal="interacted_with" from="Map/Flat/Door" to="Map/Flat" method="_on_Door_interacted_with"]
-[connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_Bar_dialog_triggered"]
+[connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
 [connection signal="window_triggered" from="Map/Bar" to="." method="_on_window_triggered"]
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowGirl" to="Map/Bar" method="_on_ToiletWindow_went_through"]

@@ -87,6 +87,13 @@ func physics_process(delta: float) -> void:
 	else:
 		velocity.y = m.y
 
+func get_trigger_hover() -> InteractTrigger:
+	if ray.is_colliding():
+		var collider = ray.get_collider()
+		if collider is InteractTrigger and collider.active:
+			return collider
+	return null
+
 func can_control(control: bool) -> void:
 	has_control = control
 

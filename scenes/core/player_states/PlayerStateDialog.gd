@@ -1,18 +1,28 @@
 class_name PlayerStateDialog
 extends PlayerState
 
-var dialog : Dialog = null
+var dialogs := {}
+var dialog : Dialog
 
-func set_dialog(d: Dialog) -> void:
-	dialog = d
+func _ready() -> void:
+	_build_dialogs()
+
+func set_dialog(dialog_id: String) -> void:
+	if dialogs.has(dialog_id):
+		dialog = dialogs[dialog_id]
+	else:
+		dialog = null
 
 func enter() -> void:
-	player.can_control(false)
-	player.velocity = Vector3.ZERO
-	ui.hide_context()
-	dialog.start()
-	# warning-ignore:return_value_discarded
-	_print_next_bit()
+	if dialog == null:
+		emit_signal("state_ended")
+	else:
+		player.can_control(false)
+		player.velocity = Vector3.ZERO
+		ui.hide_context()
+		dialog.start()
+		# warning-ignore:return_value_discarded
+		_print_next_bit()
 
 func process(_delta: float) -> void:
 	if Input.is_action_just_pressed("context_action"):
@@ -27,3 +37,6 @@ func _print_next_bit() -> bool:
 		return false
 	ui.display_dialog(d.who, d.what)
 	return true
+
+func _build_dialogs() -> void:
+	dialogs = {}
