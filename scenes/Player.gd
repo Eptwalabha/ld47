@@ -100,7 +100,7 @@ func force_move(direction: Vector3) -> void:
 	translate(direction)
 
 func force_move_to(spatial: Spatial) -> void:
-	global_transform = spatial.global_transform
+	global_transform.origin = spatial.global_transform.origin
 	head.rotation = Vector3.ZERO
 	camera.rotation = Vector3.ZERO
 	camera_angle = 0

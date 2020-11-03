@@ -11,11 +11,10 @@ func _ready() -> void:
 	_build_dialogs()
 
 func set_dialog(dialog_id: String) -> void:
+	current_dialog_id = dialog_id
 	if dialogs.has(dialog_id):
-		current_dialog_id = dialog_id
 		dialog = dialogs[dialog_id]
 	else:
-		current_dialog_id = ''
 		dialog = Dialog.new()
 		dialog.push('', dialog_id)
 
@@ -33,7 +32,6 @@ func process(_delta: float) -> void:
 			player.can_control(true)
 			ui.hide_dialog()
 			emit_signal("dialog_ended", current_dialog_id)
-			emit_signal("state_ended")
 
 func _print_next_bit() -> bool:
 	var d = dialog.next()

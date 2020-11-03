@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=26]
 [ext_resource path="res://default_env.tres" type="Environment" id=27]
 [ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/core/player_states/PlayerStateAnimation.gd" type="Script" id=29]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
@@ -46,7 +47,6 @@ script = ExtResource( 18 )
 [node name="Map" type="Spatial" parent="."]
 
 [node name="Flat" type="Spatial" parent="Map"]
-visible = false
 script = ExtResource( 17 )
 
 [node name="Appartment" parent="Map/Flat" instance=ExtResource( 7 )]
@@ -138,7 +138,6 @@ id = "flat/plant"
 
 [node name="Bar" type="Spatial" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0 )
-visible = false
 script = ExtResource( 16 )
 
 [node name="BarStorageRoom" parent="Map/Bar" instance=ExtResource( 14 )]
@@ -192,25 +191,28 @@ transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349,
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -6.344 )
 
 [node name="Bartender" parent="Map/Bar/Pivot" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 2.00415, 0.0873877, -8.91695 )
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 2.56521, 0.0873877, -8.91695 )
 
-[node name="Character" parent="Map/Bar/Pivot" instance=ExtResource( 4 )]
+[node name="Dialog" parent="Map/Bar/Pivot/Bartender" groups=[
+"bar-dialog",
+] instance=ExtResource( 5 )]
+transform = Transform( 1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0.0192394, 1.27463, 0.36555 )
+id = "bar/bartender"
+
+[node name="Drink" type="Spatial" parent="Map/Bar/Pivot/Bartender"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
+
+[node name="Friend" parent="Map/Bar/Pivot" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.56302, 0, -7.49336 )
 default = "sit-stool-idle"
 
-[node name="Triggers" type="Spatial" parent="Map/Bar/Pivot"]
-
-[node name="DialogFriend" parent="Map/Bar/Pivot/Triggers" groups=[
+[node name="Dialog" parent="Map/Bar/Pivot/Friend" groups=[
 "bar-dialog",
 ] instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.56302, 1.36202, -7.49336 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.36202, 0 )
 id = "bar/friend"
 
-[node name="DialogBartender" parent="Map/Bar/Pivot/Triggers" groups=[
-"bar-dialog",
-] instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02339, 1.36202, -8.5514 )
-id = "bar/bartender"
+[node name="Triggers" type="Spatial" parent="Map/Bar/Pivot"]
 
 [node name="Dancers" type="Spatial" parent="Map/Bar/Pivot"]
 
@@ -315,7 +317,7 @@ transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381,
 default = "sit-stool-drink"
 
 [node name="Drinker3" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, 2.57046, 0.0166468, -7.49696 )
+transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, 1.57442, 0.0166468, -7.49696 )
 default = "sit-stool-drink"
 
 [node name="Drinker4" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
@@ -354,11 +356,16 @@ script = ExtResource( 25 )
 
 [node name="Tween" type="Tween" parent="GameStates/MoveThrough"]
 
+[node name="Animation" type="Node" parent="GameStates"]
+script = ExtResource( 29 )
+
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025, -0.321394, 0.383022, 0, 9.09656, 0 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 27 )
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="phone_picked_up" from="Map/Flat" to="." method="_on_Flat_phone_picked_up"]
@@ -373,8 +380,10 @@ environment = ExtResource( 27 )
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowGirl" to="Map/Bar" method="_on_ToiletWindow_went_through"]
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowBoy" to="Map/Bar" method="_on_ToiletWindow_went_through"]
 [connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
+[connection signal="drink_ended" from="Player/Player" to="." method="_on_Player_drink_ended"]
 [connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [editable path="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger"]
 

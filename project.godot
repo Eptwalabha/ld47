@@ -145,6 +145,11 @@ _global_script_classes=[ {
 "path": "res://scenes/core/player_states/PlayerState.gd"
 }, {
 "base": "PlayerState",
+"class": "PlayerStateAnimation",
+"language": "GDScript",
+"path": "res://scenes/core/player_states/PlayerStateAnimation.gd"
+}, {
+"base": "PlayerState",
 "class": "PlayerStateDialog",
 "language": "GDScript",
 "path": "res://scenes/core/player_states/PlayerStateDialog.gd"
@@ -232,6 +237,7 @@ _global_script_class_icons={
 "Phone": "",
 "Player": "",
 "PlayerState": "",
+"PlayerStateAnimation": "",
 "PlayerStateDialog": "",
 "PlayerStateFPS": "",
 "PlayerStateMoveThrough": "",

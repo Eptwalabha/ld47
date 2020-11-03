@@ -13,6 +13,7 @@ var debug_level = LEVEL.BAR
 var first_time : bool = true
 var using_controller : bool = false
 
+var drink_delay := 5.0
 var flat_level := 0
 var phone_picked_up := false
 var friend_intro_bar := false
@@ -56,7 +57,14 @@ var dialogs = {
 	},
 	'flat/friend-flat': 'flat_friend_flat',
 	'flat/friend-bar': 'friend:dialog_1_friend_02',
-	'bar/friend': 'test:bar_friend',
+	'bar/friend_1': {
+		'text': [
+			'friend:dialog_2_01',
+			'friend:dialog_2_02',
+		],
+	},
+	'bar/friend_2': 'friend:dialog_2_03',
+	'bar/friend_3': 'friend:dialog_2_04',
 	'bar/bartender': {
 		'if_keys': 'bar_bartender_ask_keys',
 		'if_valve': 'bar_bartender_ask_valve',

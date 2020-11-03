@@ -9,6 +9,7 @@ signal window_triggered(window_trigger)
 onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
 onready var start := $Start as Spatial
+onready var drink := $Pivot/Bartender/Drink as Spatial
 
 func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('bar-tp-trigger'):

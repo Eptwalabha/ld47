@@ -7,7 +7,9 @@ onready var player_states = {
 	'move': $GameStates/FPS,
 	'dialog': $GameStates/Dialog,
 	'move-through': $GameStates/MoveThrough,
+	'animation': $GameStates/Animation,
 }
+onready var timer := $Timer as Timer
 
 var current_state = 'move'
 
@@ -114,8 +116,8 @@ func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 	var dialog_id = dialog_trigger.id
 	match dialog_id:
 		"bar/friend":
+			dialog_id = "bar/friend_1"
 			if not Data.friend_intro_bar:
-				Data.friend_intro_bar = true
 				$Map/Bar.show_restroom()
 		_:
 			pass
@@ -153,9 +155,29 @@ func _on_Flat_phone_picked_up() -> void:
 	current_player.answer_phone()
 
 func _on_Dialog_dialog_ended(dialog_id) -> void:
+	var next_state = 'move'
 	match dialog_id:
 		'flat/phone':
 			Data.phone_picked_up = true
 			current_player.hangup_phone()
+		'bar/friend_1':
+			if not Data.friend_intro_bar:
+				Data.friend_intro_bar = true
+				drink()
+				return
 		_:
-			pass
+			print("dialog %s" % dialog_id)
+	change_player_state(next_state)
+
+func drink() -> void:
+	change_player_state('animation')
+	current_player.force_move_to($Map/Bar.drink)
+	current_player.drink()
+
+func _on_Player_drink_ended() -> void:
+	change_player_state('move')
+	if Data.friend_intro_bar and not Data.valve_found:
+		timer.start(Data.drink_delay)
+
+func _on_Timer_timeout() -> void:
+	drink()
