@@ -15,6 +15,7 @@ var using_controller : bool = false
 
 var drink_delay := 5.0
 var flat_level := 0
+var drinking := false
 var phone_picked_up := false
 var friend_intro_bar := false
 var friend_wants_to_go_home := false
@@ -30,6 +31,7 @@ func reset_game(level) -> void:
 			phone_picked_up = false
 			flat_level = 0
 		LEVEL.BAR:
+			drinking = false
 			friend_intro_bar = false
 			friend_wants_to_go_home = false
 			door_found = false

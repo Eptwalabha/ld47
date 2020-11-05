@@ -3,16 +3,15 @@ extends Spatial
 
 onready var current_player : Player = $Player/Player as Player
 onready var ui := $UI as UI
-onready var player_states = {
+onready var player_states := {
 	'move': $GameStates/FPS,
 	'dialog': $GameStates/Dialog,
 	'move-through': $GameStates/MoveThrough,
 	'animation': $GameStates/Animation,
 }
-onready var timer := $Timer as Timer
 
-var current_state = 'move'
-
+var current_state := 'move'
+var next_drinking := 0.0
 var triggers := {}
 
 func _ready() -> void:
@@ -48,6 +47,10 @@ func _process(delta: float) -> void:
 	player_states[current_state].process(delta)
 	_check_triggers_orientation()
 	_trigger_hint()
+	if Data.drinking and current_state == 'move':
+		next_drinking -= delta
+		if next_drinking <= 0:
+			drink()
 
 func _input(event: InputEvent) -> void:
 	player_states[current_state].input(event)
@@ -110,18 +113,26 @@ func _on_FPS_context_action_pressed() -> void:
 
 func _on_Appartment_tp_exited(trigger) -> void:
 	if triggers.has(trigger.id):
+		# warning-ignore:return_value_discarded
 		triggers.erase(trigger.id)
 
 func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 	var dialog_id = dialog_trigger.id
 	match dialog_id:
 		"bar/friend":
-			dialog_id = "bar/friend_1"
 			if not Data.friend_intro_bar:
+				dialog_id = "bar/friend_1"
 				$Map/Bar.show_restroom()
-		_:
+			elif not Data.friend_wants_to_go_home:
+				dialog_id = "bar/friend_2"
+			else:
+				dialog_id = "bar/friend_3"
+				if not Data.valve_found:
+					$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, true)
+		"bar/bartender":
 			pass
-	print("request dialog %s" % dialog_id)
+		_:
+			print("request dialog %s" % dialog_id)
 	display_dialog(dialog_id)
 
 func _on_Bar_door_interacted_with(door) -> void:
@@ -131,7 +142,7 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	move_through(window_trigger)
 	window_trigger.through()
 
-func _on_PlayerState_ended(state_name: String) -> void:
+func _on_PlayerState_ended(_state_name: String) -> void:
 	change_player_state('move')
 
 func change_player_state(new_state: String) -> void:
@@ -161,23 +172,29 @@ func _on_Dialog_dialog_ended(dialog_id) -> void:
 			Data.phone_picked_up = true
 			current_player.hangup_phone()
 		'bar/friend_1':
-			if not Data.friend_intro_bar:
-				Data.friend_intro_bar = true
-				drink()
-				return
+			Data.friend_intro_bar = true
+			Data.drinking = true
+			$Map/Bar.enable_dialog($Map/Bar.CHARACTERS.BARTENDER, true)
+			drink()
+			return
+		'bar/friend_2':
+			Data.friend_wants_to_go_home = true
 		_:
 			print("dialog %s" % dialog_id)
 	change_player_state(next_state)
 
 func drink() -> void:
-	change_player_state('animation')
+	next_drinking = Data.drink_delay
 	current_player.force_move_to($Map/Bar.drink)
+	change_player_state('animation')
 	current_player.drink()
 
 func _on_Player_drink_ended() -> void:
 	change_player_state('move')
-	if Data.friend_intro_bar and not Data.valve_found:
-		timer.start(Data.drink_delay)
 
-func _on_Timer_timeout() -> void:
-	drink()
+func _on_Bar_item_picked_up(item) -> void:
+	match item.id:
+		'valve':
+			Data.valve_found = true
+			$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, false)
+			Data.drinking = false

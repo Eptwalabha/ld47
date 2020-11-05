@@ -5,11 +5,21 @@ signal tp_entered(trigger)
 signal tp_exited(trigger)
 signal dialog_triggered(dialog_trigger)
 signal window_triggered(window_trigger)
+signal item_picked_up(item)
 
 onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
-onready var start := $Start as Spatial
+onready var start := $StartPoint as Spatial
 onready var drink := $Pivot/Bartender/Drink as Spatial
+
+enum CHARACTERS {
+	FRIEND,
+	BARTENDER,
+}
+enum ITEMS {
+	KEY,
+	VALVE,
+}
 
 func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('bar-tp-trigger'):
@@ -29,8 +39,25 @@ func reset() -> void:
 	_set_active($RestroomLocation, false)
 	_set_active($RestroomLocationReverse, false)
 	_set_active($BarStorageRoom, true)
+	enable_dialog(CHARACTERS.BARTENDER, false)
+	enable_item(ITEMS.KEY, false)
+	enable_item(ITEMS.VALVE, false)
 	pivot.scale.z = 1
 	Data.reset_game(Data.LEVEL.BAR)
+
+func enable_dialog(who: int, enable: bool) -> void:
+	match who:
+		CHARACTERS.BARTENDER:
+			$Pivot/Bartender/Dialog.set_active(enable)
+		CHARACTERS.FRIEND:
+			$Pivot/Friend/Dialog.set_active(enable)
+
+func enable_item(what: int, enable: bool) -> void:
+	match what:
+		ITEMS.VALVE:
+			$Valve.set_active(enable)
+		_:
+			pass
 
 func _on_Door_interacted_with() -> void:
 	emit_signal("door_interacted_with", restroom_door)
@@ -50,3 +77,6 @@ func _on_ToiletWindow_went_through() -> void:
 
 func is_reverted() -> bool:
 	return pivot.scale.z < 0
+
+func _on_Valve_picked_up() -> void:
+	emit_signal("item_picked_up", $Valve)

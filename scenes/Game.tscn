@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
@@ -29,15 +29,14 @@
 [ext_resource path="res://default_env.tres" type="Environment" id=27]
 [ext_resource path="res://scenes/props/Phone.tscn" type="PackedScene" id=28]
 [ext_resource path="res://scenes/core/player_states/PlayerStateAnimation.gd" type="Script" id=29]
+[ext_resource path="res://scenes/location/StartChapter.tscn" type="PackedScene" id=30]
+[ext_resource path="res://scenes/props/Valve.tscn" type="PackedScene" id=31]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.11876, 0.562466, 0.02 )
-
-[sub_resource type="PrismMesh" id=3]
-size = Vector3( 0.1, 0.5, 0.1 )
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 18 )
@@ -47,6 +46,7 @@ script = ExtResource( 18 )
 [node name="Map" type="Spatial" parent="."]
 
 [node name="Flat" type="Spatial" parent="Map"]
+visible = false
 script = ExtResource( 17 )
 
 [node name="Appartment" parent="Map/Flat" instance=ExtResource( 7 )]
@@ -136,6 +136,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06281, 1.06188, 0.230944 )
 id = "flat/plant"
 
+[node name="StartPoint" parent="Map/Flat" instance=ExtResource( 30 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.4, 0, 2 )
+
 [node name="Bar" type="Spatial" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0 )
 script = ExtResource( 16 )
@@ -170,10 +173,18 @@ shape = SubResource( 2 )
 [node name="RestroomLocationReverse" parent="Map/Bar" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
 
+[node name="Valve" parent="Map/Bar" instance=ExtResource( 31 )]
+transform = Transform( 1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 3.30344, 1.56921, 3.55222 )
+
 [node name="Pivot" type="Spatial" parent="Map/Bar"]
 
 [node name="Door" parent="Map/Bar/Pivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3.9 )
+id = "bar/door/bar"
+max_angle = -95
+
+[node name="Door2" parent="Map/Bar/Pivot" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.30963, -9.53674e-07, -8.23337 )
 id = "bar/door/bar"
 max_angle = -95
 
@@ -328,13 +339,7 @@ default = "sleep"
 transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5.56417, 0.0166468, -9.0717 )
 default = "sit-stool-drink"
 
-[node name="Start" type="Spatial" parent="Map/Bar"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Map/Bar/Start"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -0.25 )
-mesh = SubResource( 3 )
-material/0 = null
+[node name="StartPoint" parent="Map/Bar" instance=ExtResource( 30 )]
 
 [node name="Player" type="Spatial" parent="."]
 
@@ -364,8 +369,6 @@ transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 27 )
-
-[node name="Timer" type="Timer" parent="."]
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Appartment_door_interacted_with"]
 [connection signal="phone_picked_up" from="Map/Flat" to="." method="_on_Flat_phone_picked_up"]
@@ -376,14 +379,16 @@ environment = ExtResource( 27 )
 [connection signal="interacted_with" from="Map/Flat/Door" to="Map/Flat" method="_on_Door_interacted_with"]
 [connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
+[connection signal="item_picked_up" from="Map/Bar" to="." method="_on_Bar_item_picked_up"]
 [connection signal="window_triggered" from="Map/Bar" to="." method="_on_window_triggered"]
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowGirl" to="Map/Bar" method="_on_ToiletWindow_went_through"]
 [connection signal="went_through" from="Map/Bar/RestroomLocation/WindowBoy" to="Map/Bar" method="_on_ToiletWindow_went_through"]
+[connection signal="picked_up" from="Map/Bar/Valve" to="Map/Bar" method="_on_Valve_picked_up"]
 [connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
+[connection signal="interacted_with" from="Map/Bar/Pivot/Door2" to="Map/Bar" method="_on_Door_interacted_with"]
 [connection signal="drink_ended" from="Player/Player" to="." method="_on_Player_drink_ended"]
 [connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [editable path="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger"]
 
