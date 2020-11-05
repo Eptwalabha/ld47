@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "Bar",
 "language": "GDScript",
-"path": "res://scenes/location/Bar.gd"
+"path": "res://scenes/chapters/bar/Bar.gd"
 }, {
 "base": "Location",
 "class": "BarLocation",
@@ -53,11 +53,6 @@ _global_script_classes=[ {
 "class": "Chapter",
 "language": "GDScript",
 "path": "res://scenes/chapters/Chapter.gd"
-}, {
-"base": "Chapter",
-"class": "ChapterBar",
-"language": "GDScript",
-"path": "res://scenes/chapters/ChapterBar.gd"
 }, {
 "base": "Chapter",
 "class": "ChapterHospital",
@@ -224,7 +219,6 @@ _global_script_class_icons={
 "CarInside": "",
 "CarInsideArea": "",
 "Chapter": "",
-"ChapterBar": "",
 "ChapterHospital": "",
 "ChapterRoad": "",
 "Character": "",

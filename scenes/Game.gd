@@ -3,6 +3,8 @@ extends Spatial
 
 onready var current_player : Player = $Player/Player as Player
 onready var ui := $UI as UI
+onready var bar := $Map/Bar as Bar
+onready var flat := $Map/Flat as Flat
 onready var player_states := {
 	'move': $GameStates/FPS,
 	'dialog': $GameStates/Dialog,
@@ -16,7 +18,7 @@ var triggers := {}
 
 func _ready() -> void:
 	ui.capture_mouse()
-	$Map/Flat.reset()
+	flat.reset()
 	if Data.debug:
 		_init_debug()
 	for state_name in player_states:
@@ -29,10 +31,10 @@ func _ready() -> void:
 func _init_debug() -> void:
 	match Data.debug_level:
 		Data.LEVEL.BAR:
-			$Map/Flat.hide()
-			current_player.global_transform.origin = $Map/Bar.start.global_transform.origin
+			flat.hide()
+			current_player.global_transform.origin = bar.start.global_transform.origin
 			current_player.reset()
-			$Map/Bar.reset()
+			bar.reset()
 		_:
 			pass
 
@@ -69,7 +71,16 @@ func _trigger_hint() -> void:
 		if collider == null:
 			ui.hide_context()
 		else:
-			ui.show_context("hover_%s" % collider.id)
+			var dialog_id = collider.id
+			match dialog_id:
+				'bar-bartender':
+					if not Data.key_found:
+						dialog_id = "bartender_ask_key"
+					elif Data.key_found and not Data.key_inserted:
+						dialog_id = "bartender_ask_found_key"
+					elif Data.key_inserted and not Data.valve_found:
+						dialog_id = "bartender_ask_handle"
+			ui.show_context("hover_%s" % dialog_id)
 
 func _on_Appartment_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
@@ -91,19 +102,19 @@ func active_tp(trigger: TPTrigger) -> void:
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar/tp":
-			$Map/Bar.show()
-		"flat/stairs-up":
+			bar.show()
+		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
-			$Map/Flat.set_level(Data.flat_level)
-		"flat/stairs-down":
+			flat.set_level(Data.flat_level)
+		"flat-stairs-down":
 			Data.flat_level = int(clamp(Data.flat_level - 1, -4, 2))
-			$Map/Flat.set_level(Data.flat_level)
+			flat.set_level(Data.flat_level)
 		_ : pass
 
 func _after_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar/tp":
-			$Map/Flat.hide()
+			flat.hide()
 		_: pass
 
 func _on_FPS_context_action_pressed() -> void:
@@ -119,18 +130,21 @@ func _on_Appartment_tp_exited(trigger) -> void:
 func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 	var dialog_id = dialog_trigger.id
 	match dialog_id:
-		"bar/friend":
+		"bar-friend":
 			if not Data.friend_intro_bar:
-				dialog_id = "bar/friend_1"
-				$Map/Bar.show_restroom()
+				dialog_id = "bar-friend_1"
+				bar.show_restroom()
 			elif not Data.friend_wants_to_go_home:
-				dialog_id = "bar/friend_2"
+				dialog_id = "bar-friend_2"
 			else:
-				dialog_id = "bar/friend_3"
-				if not Data.key_found:
-					$Map/Bar.enable_item($Map/Bar.ITEMS.KEY, true)
-		"bar/bartender":
-			pass
+				dialog_id = "bar-friend_3"
+		"bar-bartender":
+			if not Data.key_found:
+				dialog_id = "bartender_ask_key"
+			elif Data.key_found and not Data.key_inserted:
+				dialog_id = "bartender_ask_found_key"
+			elif Data.key_inserted and not Data.valve_found:
+				dialog_id = "bartender_ask_handle"
 		_:
 			print("request dialog %s" % dialog_id)
 	display_dialog(dialog_id)
@@ -138,7 +152,20 @@ func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 func _on_Bar_door_interacted_with(door: Door) -> void:
 	match door.id:
 		'exit-door':
-			print("oops")
+			if not Data.door_found:
+				display_dialog('door_is_locked')
+			elif Data.door_found and not Data.key_found:
+				display_dialog('find_the_key')
+			elif Data.key_found and not Data.key_inserted:
+				bar.enable_item(bar.ITEMS.EXIT_DOOR_KEY, true)
+				display_dialog('key_inserted')
+			elif Data.key_inserted and not Data.valve_found:
+				display_dialog('find_the_valve')
+			elif Data.valve_found and not Data.valve_inserted:
+				bar.enable_item(bar.ITEMS.EXIT_DOOR_VALVE, true)
+				display_dialog('valve_inserted')
+			else:
+				print("end of sequence")
 		'toilet-door':
 			door.toggle()
 
@@ -166,30 +193,43 @@ func display_dialog(dialog_id: String) -> void:
 	change_player_state('dialog')
 
 func _on_Flat_phone_picked_up() -> void:
-	display_dialog("flat/phone")
+	display_dialog("flat-phone")
 	current_player.answer_phone()
 
 func _on_Dialog_dialog_ended(dialog_id) -> void:
 	var next_state = 'move'
 	match dialog_id:
-		'flat/phone':
+		'flat-phone':
 			Data.phone_picked_up = true
 			current_player.hangup_phone()
-		'bar/friend_1':
+		'bar-friend_1':
 			Data.friend_intro_bar = true
 			Data.drinking = true
-			$Map/Bar.enable_dialog($Map/Bar.CHARACTERS.BARTENDER, true)
+			bar.set_character_animation(bar.CHARACTERS.FRIEND, 'sit-stool-drink')
 			drink()
 			return
-		'bar/friend_2':
+		'bar-friend_2':
 			Data.friend_wants_to_go_home = true
-		_:
-			print("dialog %s" % dialog_id)
+			bar.enable_item(bar.ITEMS.EXIT_DOOR, true)
+		'door_is_locked':
+			Data.door_found = true
+			bar.enable_item(bar.ITEMS.KEY, true)
+			bar.enable_dialog(bar.CHARACTERS.BARTENDER, true)
+			bar.set_character_animation(bar.CHARACTERS.FRIEND, 'sleep')
+			drink()
+			return
+		'key_inserted':
+			Data.key_inserted = true
+			bar.enable_item(bar.ITEMS.VALVE, true)
+			drink()
+			return
+		'valve_inserted':
+			Data.valve_inserted = true
 	change_player_state(next_state)
 
 func drink() -> void:
 	next_drinking = Data.drink_delay
-	current_player.force_move_to($Map/Bar.drink)
+	current_player.force_move_to(bar.drink)
 	change_player_state('animation')
 	current_player.drink()
 
@@ -200,11 +240,12 @@ func _on_Bar_item_picked_up(item) -> void:
 	match item.id:
 		'key':
 			Data.key_found = true
-			$Map/Bar.enable_item($Map/Bar.ITEMS.KEY, false)
-			$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, true)
+			bar.enable_item(bar.ITEMS.KEY, false)
+			bar.enable_item(bar.ITEMS.VALVE, true)
 			display_dialog('key_found')
 		'valve':
 			Data.valve_found = true
-			$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, false)
 			Data.drinking = false
-			$Map/Bar.close_bar()
+			bar.enable_item(bar.ITEMS.VALVE, false)
+			display_dialog('valve_found')
+			bar.close_bar()

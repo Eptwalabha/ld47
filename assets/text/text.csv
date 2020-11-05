@@ -46,3 +46,23 @@ nurse	nurce	infirmier
 ui_mouse_capture	Hide mouse	Cacher la souris
 voice_mail	voice mail	messagerie
 flat_plant	I should water the plant	Il faudrait que j'arrose cette plante
+hover_exit-door	Exit bar	Sortir du bar
+hover_bar-door	Open the door	Ouvrir la porte
+hover_toilet-door	Open	Ouvrir
+key_inserted	The key fits the lock	La clef est entrée dans la serrure
+valve_inserted	You use the valve as a door handle replacement	Vous utilisez la valve comme poignée de porte
+find_the_key	The key to open that door must be somewhere around	La clef qui ouvre cette porte doit bien être quelque part
+find_the_valve	How am I suppose to open a door without and handle ?	Et je l'ouvre comment la porte sans la poignée ?
+missing_handle	Hey ! what happent to the door's handle ?	Heu... elle est où la poignée de la porte ?
+hover_bar-bartender	Talk to the bartender	Parler au barman
+hover_bar-friend	Talk to your friend	Parler à votre ami
+drink_call	This round's on the house !	Tournée générale !
+door_is_locked	The door is locked	La porte est vérouillée
+key_found	Key car... meh... good enough !	Clef ce bagnole... ça fera l'affaire !
+valve_found	I wonder what this valve can open for me ?	Je me demande bien ce que je vais pouvoir ouvrir avec ça
+hover_bartender_ask_key	Ask where's the key	Demander où se trouve la clef
+hover_bartender_ask_found_key	Show the key	Montrer la clef
+hover_bartender_ask_handle	Ask where's the door's handle	Demander où se trouve la poignée de la porte
+bartender_ask_found_key	That's a nice key	C'est une chouette clef
+hover_item-key	Pick up the key	Ramasser la clef
+hover_item-valve	Pick up the valve	Ramasser la manivelle

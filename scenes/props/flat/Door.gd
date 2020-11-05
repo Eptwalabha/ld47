@@ -22,6 +22,10 @@ func toggle() -> void:
 	else:
 		open()
 
+func set_active(active: bool) -> void:
+	visible = active
+	$Hinge/InteractTrigger.set_active(active)
+
 func set_state(is_open: bool) -> void:
 	opened = is_open
 	tween.stop_all()

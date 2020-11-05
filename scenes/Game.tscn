@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
@@ -32,6 +32,8 @@
 [ext_resource path="res://scenes/location/StartChapter.tscn" type="PackedScene" id=30]
 [ext_resource path="res://scenes/props/Valve.tscn" type="PackedScene" id=31]
 [ext_resource path="res://scenes/props/Key.tscn" type="PackedScene" id=32]
+[ext_resource path="res://assets/models/story/valve.glb" type="PackedScene" id=33]
+[ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=34]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.02594, 0.91001, 1.07202 )
@@ -104,7 +106,7 @@ id = "flat/friend-bar"
 "flat-dialog",
 ] instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.44878, 1.31275, -6.31404 )
-id = "flat/bouncer"
+id = "flat-bouncer"
 
 [node name="Door" parent="Map/Flat" instance=ExtResource( 1 )]
 transform = Transform( 4.37114e-08, 0, 1, 0, 1, 0, 1, 0, -4.37114e-08, -1.55734, 0, -0.449963 )
@@ -117,7 +119,7 @@ max_angle = 90
 "flat-tp-trigger",
 ] instance=ExtResource( 15 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.908103, -0.841917, 4.63905 )
-id = "flat/stairs-down"
+id = "flat-stairs-down"
 
 [node name="To" parent="Map/Flat/Triggers/TPStairsDown" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
@@ -126,7 +128,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 "flat-tp-trigger",
 ] instance=ExtResource( 15 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.727536, 2.50952, 4.63905 )
-id = "flat/stairs-up"
+id = "flat-stairs-up"
 
 [node name="To" parent="Map/Flat/Triggers/TPStairsUp" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
@@ -135,7 +137,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
 "flat-dialog",
 ] instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06281, 1.06188, 0.230944 )
-id = "flat/plant"
+id = "flat-plant"
 
 [node name="StartPoint" parent="Map/Flat" instance=ExtResource( 30 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.4, 0, 2 )
@@ -191,6 +193,15 @@ max_angle = -95
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.30963, -9.53674e-07, -8.23337 )
 id = "exit-door"
 
+[node name="DoorItems" type="Spatial" parent="Map/Bar/Pivot/ExitDoor"]
+transform = Transform( 0.6, 0, 0, 0, 0.22557, -0.555984, 0, 0.555984, 0.22557, 0.438895, 0.74791, 0.146162 )
+
+[node name="key" parent="Map/Bar/Pivot/ExitDoor/DoorItems" instance=ExtResource( 34 )]
+transform = Transform( 0.364064, -0.931374, -1.77636e-14, 0.350149, 0.13687, 0.92664, -0.863049, -0.337357, 0.375949, 0.794388, -0.05056, -0.0967636 )
+
+[node name="valve" parent="Map/Bar/Pivot/ExitDoor/DoorItems" instance=ExtResource( 33 )]
+transform = Transform( 1, -7.10543e-15, -3.55271e-15, 0, 1, -2.98023e-08, -1.77636e-15, 2.98023e-08, 1, 0, 0, 0 )
+
 [node name="BarLocation" parent="Map/Bar/Pivot" instance=ExtResource( 2 )]
 
 [node name="BarCounter" parent="Map/Bar/Pivot" instance=ExtResource( 19 )]
@@ -211,7 +222,7 @@ transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 2.56521, 
 "bar-dialog",
 ] instance=ExtResource( 5 )]
 transform = Transform( 1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0.0192394, 1.27463, 0.36555 )
-id = "bar/bartender"
+id = "bar-bartender"
 
 [node name="Drink" type="Spatial" parent="Map/Bar/Pivot/Bartender"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
@@ -224,7 +235,7 @@ default = "sit-stool-idle"
 "bar-dialog",
 ] instance=ExtResource( 5 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.36202, 0 )
-id = "bar/friend"
+id = "bar-friend"
 
 [node name="Triggers" type="Spatial" parent="Map/Bar/Pivot"]
 

@@ -10,7 +10,7 @@
 script = ExtResource( 2 )
 
 [node name="Hand" type="BoneAttachment" parent="Armature/Skeleton" index="1"]
-transform = Transform( -0.935178, -0.351076, 0.0467725, 0.0898234, -0.107352, 0.990155, -0.342599, 0.930173, 0.131928, -0.277655, 1.24841, 0.265126 )
+transform = Transform( -0.999834, 0.0182173, -0.00123779, -0.00683955, -0.310799, 0.950451, 0.01693, 0.950302, 0.310871, -0.196179, 1.11517, 0.362227 )
 bone_name = "lower_arm_r"
 
 [node name="Glass" parent="Armature/Skeleton/Hand" index="0" instance=ExtResource( 3 )]

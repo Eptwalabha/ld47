@@ -101,7 +101,6 @@ func force_move(direction: Vector3) -> void:
 
 func force_move_to(spatial: Spatial) -> void:
 	global_transform.origin = spatial.global_transform.origin
-	print("eul: %s" % spatial.global_transform.basis.get_euler())
 	rotation = spatial.global_transform.basis.get_euler()
 	head.rotation = Vector3.ZERO
 	camera.rotation = Vector3.ZERO

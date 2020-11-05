@@ -1,3 +1,4 @@
+class_name Bar
 extends Spatial
 
 signal door_interacted_with(door)
@@ -11,14 +12,21 @@ onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
 onready var start := $StartPoint as Spatial
 onready var drink := $Pivot/Bartender/Drink as Spatial
+onready var door_item_key := $Pivot/ExitDoor/DoorItems/key as Spatial
+onready var door_item_valve := $Pivot/ExitDoor/DoorItems/valve as Spatial
+onready var friend := $Pivot/Friend as Character
 
 enum CHARACTERS {
 	FRIEND,
 	BARTENDER,
+	TOILET_DANCER,
 }
 enum ITEMS {
 	KEY,
 	VALVE,
+	EXIT_DOOR,
+	EXIT_DOOR_KEY,
+	EXIT_DOOR_VALVE,
 }
 
 func _ready() -> void:
@@ -39,9 +47,12 @@ func reset() -> void:
 	_set_active($RestroomLocation, false)
 	_set_active($RestroomLocationReverse, false)
 	_set_active($BarStorageRoom, true)
-	enable_dialog(CHARACTERS.BARTENDER, false)
-	enable_item(ITEMS.KEY, false)
-	enable_item(ITEMS.VALVE, false)
+	$Pivot/Door.set_active(true)
+	for character in CHARACTERS:
+		enable_dialog(CHARACTERS[character], false)
+	for item in ITEMS:
+		enable_item(ITEMS[item], false)
+	enable_dialog(CHARACTERS.FRIEND, true)
 	pivot.scale.z = 1
 	Data.reset_game(Data.LEVEL.BAR)
 
@@ -58,6 +69,12 @@ func enable_item(what: int, enable: bool) -> void:
 			$Key.set_active(enable)
 		ITEMS.VALVE:
 			$Valve.set_active(enable)
+		ITEMS.EXIT_DOOR:
+			$Pivot/ExitDoor.set_active(enable)
+		ITEMS.EXIT_DOOR_KEY:
+			door_item_key.visible = enable
+		ITEMS.EXIT_DOOR_VALVE:
+			door_item_valve.visible = enable
 
 func _on_Door_interacted_with(door: Door) -> void:
 	emit_signal("door_interacted_with", door)
@@ -72,6 +89,11 @@ func close_bar() -> void:
 	enable_dialog(CHARACTERS.BARTENDER, false)
 	$Pivot/Bartender.visible = false
 	$Pivot/Dancers.visible = false
+
+func set_character_animation(who: int, animation: String) -> void:
+	match who:
+		CHARACTERS.FRIEND:
+			friend.play(animation)
 
 func _set_active(location: Location, active: bool) -> void:
 	location.set_active(active)
