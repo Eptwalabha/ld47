@@ -6,15 +6,10 @@ signal picked_up
 var id : String = 'valve'
 
 func reset() -> void:
-	display(false)
-
-func display(is_visible: bool) -> void:
-	visible = is_visible
-	$InteractTrigger.set_active(visible)
+	set_active(false)
 
 func _on_InteractTrigger_interacted_with() -> void:
 	emit_signal("picked_up")
-	display(false)
 
 func set_active(active) -> void:
 	visible = active

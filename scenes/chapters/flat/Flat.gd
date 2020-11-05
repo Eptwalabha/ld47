@@ -31,8 +31,8 @@ func set_level(level: int) -> void:
 	$BackStreetBuilding.translate(Vector3(0, delta_elevation, 0))
 	$Appartment/Window.set_active(level == 0 || level == 2)
 
-func _on_Door_interacted_with() -> void:
-	emit_signal("door_interacted_with", $Door)
+func _on_Door_interacted_with(door: Door) -> void:
+	emit_signal("door_interacted_with", door)
 
 func _on_Phone_picked_up() -> void:
 	$Appartment/Phone.hide()

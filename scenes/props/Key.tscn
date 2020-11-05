@@ -14,7 +14,7 @@ script = ExtResource( 3 )
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 
 [node name="InteractTrigger" parent="." index="1" instance=ExtResource( 1 )]
-hover_key = "action_pick_up_key"
+id = "item/key"
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractTrigger" index="0"]
 shape = SubResource( 1 )

@@ -1,7 +1,7 @@
 class_name Door
 extends Spatial
 
-signal interacted_with()
+signal interacted_with(door)
 
 onready var animation := $AnimationPlayer as AnimationPlayer
 onready var tween := $Tween as Tween
@@ -45,4 +45,4 @@ func open() -> void:
 		animation.play("opening")
 
 func _on_InteractTrigger_interacted_with() -> void:
-	emit_signal("interacted_with")
+	emit_signal("interacted_with", self)

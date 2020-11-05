@@ -54,19 +54,24 @@ func enable_dialog(who: int, enable: bool) -> void:
 
 func enable_item(what: int, enable: bool) -> void:
 	match what:
+		ITEMS.KEY:
+			$Key.set_active(enable)
 		ITEMS.VALVE:
 			$Valve.set_active(enable)
-		_:
-			pass
 
-func _on_Door_interacted_with() -> void:
-	emit_signal("door_interacted_with", restroom_door)
+func _on_Door_interacted_with(door: Door) -> void:
+	emit_signal("door_interacted_with", door)
 
 func show_restroom() -> void:
 	restroom_door.close()
 	_set_active($RestroomLocation, true)
 	_set_active($RestroomLocationReverse, true)
 	_set_active($BarStorageRoom, false)
+
+func close_bar() -> void:
+	enable_dialog(CHARACTERS.BARTENDER, false)
+	$Pivot/Bartender.visible = false
+	$Pivot/Dancers.visible = false
 
 func _set_active(location: Location, active: bool) -> void:
 	location.set_active(active)
@@ -80,3 +85,6 @@ func is_reverted() -> bool:
 
 func _on_Valve_picked_up() -> void:
 	emit_signal("item_picked_up", $Valve)
+
+func _on_Key_picked_up() -> void:
+	emit_signal("item_picked_up", $Key)

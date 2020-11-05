@@ -127,16 +127,20 @@ func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 				dialog_id = "bar/friend_2"
 			else:
 				dialog_id = "bar/friend_3"
-				if not Data.valve_found:
-					$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, true)
+				if not Data.key_found:
+					$Map/Bar.enable_item($Map/Bar.ITEMS.KEY, true)
 		"bar/bartender":
 			pass
 		_:
 			print("request dialog %s" % dialog_id)
 	display_dialog(dialog_id)
 
-func _on_Bar_door_interacted_with(door) -> void:
-	door.toggle()
+func _on_Bar_door_interacted_with(door: Door) -> void:
+	match door.id:
+		'exit-door':
+			print("oops")
+		'toilet-door':
+			door.toggle()
 
 func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	move_through(window_trigger)
@@ -194,7 +198,13 @@ func _on_Player_drink_ended() -> void:
 
 func _on_Bar_item_picked_up(item) -> void:
 	match item.id:
+		'key':
+			Data.key_found = true
+			$Map/Bar.enable_item($Map/Bar.ITEMS.KEY, false)
+			$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, true)
+			display_dialog('key_found')
 		'valve':
 			Data.valve_found = true
 			$Map/Bar.enable_item($Map/Bar.ITEMS.VALVE, false)
 			Data.drinking = false
+			$Map/Bar.close_bar()

@@ -16,6 +16,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0608134, 0 )
 
 [node name="InteractTrigger" parent="." index="1" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0608134, 0 )
+id = "item/valve"
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractTrigger" index="0"]
 shape = SubResource( 1 )

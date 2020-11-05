@@ -13,7 +13,7 @@ var debug_level = LEVEL.BAR
 var first_time : bool = true
 var using_controller : bool = false
 
-var drink_delay := 5.0
+var drink_delay := 20.0
 var flat_level := 0
 var drinking := false
 var phone_picked_up := false
@@ -21,8 +21,9 @@ var friend_intro_bar := false
 var friend_wants_to_go_home := false
 var door_found := false
 var key_found := false
-var missing_handle := false
+var key_inserted := false
 var valve_found := false
+var valve_inserted := false
 var road_tutorial := false
 
 func reset_game(level) -> void:
@@ -36,8 +37,9 @@ func reset_game(level) -> void:
 			friend_wants_to_go_home = false
 			door_found = false
 			key_found = false
-			missing_handle = false
+			key_inserted = false
 			valve_found = false
+			valve_inserted = false
 		LEVEL.ROAD:
 			road_tutorial = false
 
@@ -67,8 +69,11 @@ var dialogs = {
 	},
 	'bar/friend_2': 'friend:dialog_2_03',
 	'bar/friend_3': 'friend:dialog_2_04',
-	'bar/bartender': {
-		'if_keys': 'bar_bartender_ask_keys',
-		'if_valve': 'bar_bartender_ask_valve',
-	}
+	'bar/bartender_key': 'bartender:dialog_02_bartender_01',
+	'bar/bartender_valve': {
+		'text': [
+			'bartender:dialog_02_bartender_02',
+			'bartender:dialog_02_bartender_03',
+		],
+	},
 }
