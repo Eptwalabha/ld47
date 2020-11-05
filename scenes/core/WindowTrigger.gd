@@ -7,7 +7,7 @@ onready var box := $Area.shape as BoxShape
 export(float) var dist := 0.5
 
 func _ready() -> void:
-	if not Data.debug:
+	if not Data.DEBUG:
 		$VisualDebug.queue_free()
 
 func get_window_width() -> float:

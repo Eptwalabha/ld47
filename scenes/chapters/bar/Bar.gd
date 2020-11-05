@@ -8,9 +8,10 @@ signal dialog_triggered(dialog_trigger)
 signal window_triggered(window_trigger)
 signal item_picked_up(item)
 
+onready var start := $StartPoint as Spatial
+
 onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
-onready var start := $StartPoint as Spatial
 onready var drink := $Pivot/Bartender/Drink as Spatial
 onready var door_item_key := $Pivot/ExitDoor/DoorItems/key as Spatial
 onready var door_item_valve := $Pivot/ExitDoor/DoorItems/valve as Spatial

@@ -66,3 +66,7 @@ hover_bartender_ask_handle	Ask where's the door's handle	Demander où se trouve 
 bartender_ask_found_key	That's a nice key	C'est une chouette clef
 hover_item-key	Pick up the key	Ramasser la clef
 hover_item-valve	Pick up the valve	Ramasser la manivelle
+hover_phone	Pick up the phone	Décrocher
+hover_flat-plant	Look	Regarder
+hover_door_open	Open	Ouvrir
+hover_door_close	Close	Fermer

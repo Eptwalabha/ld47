@@ -19,8 +19,7 @@ var triggers := {}
 func _ready() -> void:
 	ui.capture_mouse()
 	flat.reset()
-	if Data.debug:
-		_init_debug()
+	_init_level()
 	for state_name in player_states:
 		var state = player_states[state_name]
 		if state is PlayerState:
@@ -28,12 +27,19 @@ func _ready() -> void:
 			state.ui = ui
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
-func _init_debug() -> void:
-	match Data.debug_level:
+func _init_level() -> void:
+	var level_id = Data.LEVEL.FLAT
+	if Data.DEBUG:
+		level_id = Data.DEBUG_GAME_LEVEL
+	current_player.reset()
+	match level_id:
+		Data.LEVEL.FLAT:
+			bar.hide()
+			current_player.global_transform.origin = flat.start.global_transform.origin
+			flat.reset()
 		Data.LEVEL.BAR:
 			flat.hide()
 			current_player.global_transform.origin = bar.start.global_transform.origin
-			current_player.reset()
 			bar.reset()
 		_:
 			pass
@@ -44,8 +50,8 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		ui.show_mouse_capture()
-	if Input.is_action_just_pressed("reset_level") and Data.debug:
-		_init_debug()
+	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
+		_init_level()
 	player_states[current_state].process(delta)
 	_check_triggers_orientation()
 	_trigger_hint()
@@ -71,16 +77,16 @@ func _trigger_hint() -> void:
 		if collider == null:
 			ui.hide_context()
 		else:
-			var dialog_id = collider.id
-			match dialog_id:
+			var collider_id = collider.get_id()
+			match collider_id:
 				'bar-bartender':
 					if not Data.key_found:
-						dialog_id = "bartender_ask_key"
+						collider_id = "bartender_ask_key"
 					elif Data.key_found and not Data.key_inserted:
-						dialog_id = "bartender_ask_found_key"
+						collider_id = "bartender_ask_found_key"
 					elif Data.key_inserted and not Data.valve_found:
-						dialog_id = "bartender_ask_handle"
-			ui.show_context("hover_%s" % dialog_id)
+						collider_id = "bartender_ask_handle"
+			ui.show_context("hover_%s" % collider_id)
 
 func _on_Appartment_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
@@ -166,7 +172,7 @@ func _on_Bar_door_interacted_with(door: Door) -> void:
 				display_dialog('valve_inserted')
 			else:
 				print("end of sequence")
-		'toilet-door':
+		_:
 			door.toggle()
 
 func _on_window_triggered(window_trigger: WindowTrigger) -> void:
@@ -228,7 +234,7 @@ func _on_Dialog_dialog_ended(dialog_id) -> void:
 	change_player_state(next_state)
 
 func drink() -> void:
-	next_drinking = Data.drink_delay
+	next_drinking = Data.BAR_DRINK_DELAY_SECOND
 	current_player.force_move_to(bar.drink)
 	change_player_state('animation')
 	current_player.drink()

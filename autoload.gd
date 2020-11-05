@@ -7,16 +7,21 @@ enum LEVEL {
 	HOSPITAL
 }
 
-var debug : bool = true
-var debug_level = LEVEL.BAR
+const DEBUG : bool = true
+const DEBUG_GAME_LEVEL = LEVEL.BAR
+const DEBUG_FLAT_INITIAL_LEVEL : int = -1
+
+const FLAT_INITIAL_LEVEL : int = -1
+
+const BAR_DRINK_DELAY_SECOND : float = 20.0
 
 var first_time : bool = true
 var using_controller : bool = false
 
-var drink_delay := 20.0
-var flat_level := 0
-var drinking := false
+var flat_level := -1
 var phone_picked_up := false
+
+var drinking := false
 var friend_intro_bar := false
 var friend_wants_to_go_home := false
 var door_found := false
@@ -24,13 +29,16 @@ var key_found := false
 var key_inserted := false
 var valve_found := false
 var valve_inserted := false
+
 var road_tutorial := false
 
 func reset_game(level) -> void:
 	match level:
 		LEVEL.FLAT:
 			phone_picked_up = false
-			flat_level = 0
+			flat_level = FLAT_INITIAL_LEVEL
+			if DEBUG:
+				flat_level = DEBUG_FLAT_INITIAL_LEVEL
 		LEVEL.BAR:
 			drinking = false
 			friend_intro_bar = false

@@ -16,7 +16,7 @@ func _ready() -> void:
 		to = get_node(external_to)
 	else:
 		to = $To
-	if not Data.debug:
+	if not Data.DEBUG:
 		$Forward.queue_free()
 
 func is_well_oriented(basis: Basis) -> bool:

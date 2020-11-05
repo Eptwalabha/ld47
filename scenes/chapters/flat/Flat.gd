@@ -8,6 +8,8 @@ signal dialog_triggered(dialog_trigger)
 signal window_triggered(window_trigger)
 signal phone_picked_up
 
+onready var start := $StartPoint as Spatial
+
 func _ready() -> void:
 	for trigger in get_tree().get_nodes_in_group('flat-tp-trigger'):
 		if trigger is TPTrigger:
@@ -21,10 +23,11 @@ func _ready() -> void:
 			trigger.connect("interacted_with", self, "emit_signal", ["window_triggered", trigger])
 
 func reset() -> void:
+	show()
 	$Appartment/Phone.show()
 	$Door.set_state(false)
 	Data.reset_game(Data.LEVEL.FLAT)
-	set_level(-1)
+	set_level(Data.flat_level)
 
 func set_level(level: int) -> void:
 	var delta_elevation : float = level * 2.5 - $BackStreetBuilding.global_transform.origin.y

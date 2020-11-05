@@ -24,3 +24,6 @@ func interact() -> void:
 	if not active:
 		return
 	emit_signal("interacted_with")
+
+func get_id() -> String:
+	return id
