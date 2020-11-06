@@ -107,7 +107,7 @@ func active_tp(trigger: TPTrigger) -> void:
 
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
-		"bar/tp":
+		"bar-tp":
 			bar.show()
 		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
@@ -119,7 +119,7 @@ func _before_tp(trigger: TPTrigger) -> void:
 
 func _after_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
-		"bar/tp":
+		"bar-tp":
 			flat.hide()
 		_: pass
 

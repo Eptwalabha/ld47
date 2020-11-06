@@ -80,7 +80,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.422163, -5, -6.13642 )
 ] instance=ExtResource( 15 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 1, -2 )
 oriented = true
-id = "bar/tp"
+id = "bar-tp"
 external_to = NodePath("../../../../../../Game/Map/Bar/BarStorageRoom/TP")
 
 [node name="CollisionShape" parent="Map/Flat/BackStreetBuilding/BarCorridor/TPTrigger" index="1"]

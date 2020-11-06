@@ -29,7 +29,6 @@ func _is_basis_aligned(basis: Basis) -> bool:
 
 func destination_translation() -> Vector3:
 	return to.global_transform.origin - global_transform.origin
-#	return to_local(to.global_transform.origin)
 
 func _on_TPTrigger_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
