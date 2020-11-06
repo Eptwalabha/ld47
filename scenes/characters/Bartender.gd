@@ -1,3 +1,4 @@
+class_name Bartender
 extends Spatial
 
 func _ready() -> void:

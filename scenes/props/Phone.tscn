@@ -107,12 +107,8 @@ unit_size = 5.0
 max_distance = 10.0
 bus = "sound"
 
-[node name="Message" type="AudioStreamPlayer2D" parent="." index="3"]
-bus = "phone"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 autoplay = "off"
 anims/off = SubResource( 2 )
 anims/ringing = SubResource( 3 )
 [connection signal="interacted_with" from="InteractTrigger" to="." method="_on_InteractTrigger_interacted_with"]
-[connection signal="finished" from="Message" to="." method="_on_Message_finished"]

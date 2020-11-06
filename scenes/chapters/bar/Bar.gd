@@ -1,21 +1,22 @@
 class_name Bar
-extends Spatial
-
-signal door_interacted_with(door)
-signal tp_entered(trigger)
-signal tp_exited(trigger)
-signal dialog_triggered(dialog_trigger)
-signal window_triggered(window_trigger)
-signal item_picked_up(item)
+extends GameChapter
 
 onready var start := $StartPoint as Spatial
 
 onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
+onready var exit_door := $Pivot/ExitDoor as Door
 onready var drink := $Pivot/Bartender/Drink as Spatial
+onready var friend := $Pivot/Friend as Character
+onready var bartender := $Pivot/Bartender as Bartender
+onready var friend_dialog := $Pivot/Friend/Dialog as DialogTriggerArea
+onready var bartender_dialog := $Pivot/Bartender/Dialog as DialogTriggerArea
+onready var dancers := $Pivot/Dancers as Spatial
+
+onready var item_key := $Key as Key
+onready var item_valve := $Valve as Valve
 onready var door_item_key := $Pivot/ExitDoor/DoorItems/key as Spatial
 onready var door_item_valve := $Pivot/ExitDoor/DoorItems/valve as Spatial
-onready var friend := $Pivot/Friend as Character
 
 enum CHARACTERS {
 	FRIEND,
@@ -31,24 +32,16 @@ enum ITEMS {
 }
 
 func _ready() -> void:
-	for trigger in get_tree().get_nodes_in_group('bar-tp-trigger'):
-		if trigger is TPTrigger:
-			trigger.connect("player_entered", self, "emit_signal", ["tp_entered", trigger])
-			trigger.connect("player_exited", self, "emit_signal", ["tp_exited", trigger])
-	for trigger in get_tree().get_nodes_in_group('bar-dialog'):
-		if trigger is DialogTriggerArea:
-			trigger.connect("interacted_with", self, "emit_signal", ["dialog_triggered", trigger])
-	for trigger in get_tree().get_nodes_in_group('bar-window'):
-		if trigger is WindowTrigger:
-			trigger.connect("interacted_with", self, "emit_signal", ["window_triggered", trigger])
+	_connect_triggers('bar')
 
 func reset() -> void:
-	show()
+	if not visible:
+		show()
 	restroom_door.set_state(false)
+	restroom_door.set_active(true)
 	_set_active($RestroomLocation, false)
 	_set_active($RestroomLocationReverse, false)
 	_set_active($BarStorageRoom, true)
-	$Pivot/Door.set_active(true)
 	for character in CHARACTERS:
 		enable_dialog(CHARACTERS[character], false)
 	for item in ITEMS:
@@ -60,18 +53,18 @@ func reset() -> void:
 func enable_dialog(who: int, enable: bool) -> void:
 	match who:
 		CHARACTERS.BARTENDER:
-			$Pivot/Bartender/Dialog.set_active(enable)
+			bartender_dialog.set_active(enable)
 		CHARACTERS.FRIEND:
-			$Pivot/Friend/Dialog.set_active(enable)
+			friend_dialog.set_active(enable)
 
 func enable_item(what: int, enable: bool) -> void:
 	match what:
 		ITEMS.KEY:
-			$Key.set_active(enable)
+			item_key.set_active(enable)
 		ITEMS.VALVE:
-			$Valve.set_active(enable)
+			item_valve.set_active(enable)
 		ITEMS.EXIT_DOOR:
-			$Pivot/ExitDoor.set_active(enable)
+			exit_door.set_active(enable)
 		ITEMS.EXIT_DOOR_KEY:
 			door_item_key.visible = enable
 		ITEMS.EXIT_DOOR_VALVE:
@@ -88,8 +81,8 @@ func show_restroom() -> void:
 
 func close_bar() -> void:
 	enable_dialog(CHARACTERS.BARTENDER, false)
-	$Pivot/Bartender.visible = false
-	$Pivot/Dancers.visible = false
+	bartender.visible = false
+	dancers.visible = false
 
 func set_character_animation(who: int, animation: String) -> void:
 	match who:
@@ -107,7 +100,7 @@ func is_reverted() -> bool:
 	return pivot.scale.z < 0
 
 func _on_Valve_picked_up() -> void:
-	emit_signal("item_picked_up", $Valve)
+	emit_signal("item_picked_up", item_valve)
 
 func _on_Key_picked_up() -> void:
-	emit_signal("item_picked_up", $Key)
+	emit_signal("item_picked_up", item_key)

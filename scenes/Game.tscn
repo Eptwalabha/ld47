@@ -28,8 +28,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0 )
 [node name="Player" parent="Player" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, -2.38418e-07, 0, 1, 0, 2.38418e-07, 0, 1, 0.267026, 0, 1.74314 )
 
-[node name="Path" type="Spatial" parent="."]
-
 [node name="GameStates" type="Node" parent="."]
 
 [node name="FPS" type="Node" parent="GameStates"]

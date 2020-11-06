@@ -109,14 +109,14 @@ func active_tp(trigger: TPTrigger) -> void:
 	_before_tp(trigger)
 	var tp_translation = trigger.destination_translation()
 	if trigger.id == 'bar-tp':
-			tp_translation = bar.start.global_transform.origin - trigger.global_transform.origin
+		tp_translation = bar.start.global_transform.origin - trigger.global_transform.origin
 	current_player.force_move(tp_translation)
 	_after_tp(trigger)
 
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar-tp":
-			bar.show()
+			bar.reset()
 		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
 			flat.set_level(Data.flat_level)
