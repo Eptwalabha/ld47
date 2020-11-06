@@ -4,18 +4,13 @@ extends Area
 signal player_entered
 signal player_exited
 
+onready var to : Spatial = $To
+
 export(bool) var oriented := false
 export(float, 0.2, 1.0) var orientation_angle := 0.5
 export(String) var id := ""
-export(NodePath) var external_to
-
-var to : Spatial
 
 func _ready() -> void:
-	if external_to:
-		to = get_node(external_to)
-	else:
-		to = $To
 	if not Data.DEBUG:
 		$Forward.queue_free()
 

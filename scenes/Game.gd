@@ -88,21 +88,29 @@ func _trigger_hint() -> void:
 						collider_id = "bartender_ask_handle"
 			ui.show_context("hover_%s" % collider_id)
 
-func _on_Appartment_door_interacted_with(door: Door) -> void:
+func _on_Flat_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
 		display_dialog('pick_up_phone_first')
 	else:
 		door.toggle()
 
-func _on_Appartment_tp_entered(trigger: TPTrigger) -> void:
+func _on_Flat_tp_entered(trigger: TPTrigger) -> void:
 	if trigger.is_well_oriented(current_player.head.global_transform.basis):
 		active_tp(trigger)
 	else:
 		triggers[trigger.id] = trigger
 
+func _on_Flat_tp_exited(trigger) -> void:
+	if triggers.has(trigger.id):
+		# warning-ignore:return_value_discarded
+		triggers.erase(trigger.id)
+
 func active_tp(trigger: TPTrigger) -> void:
 	_before_tp(trigger)
-	current_player.force_move(trigger.destination_translation())
+	var tp_translation = trigger.destination_translation()
+	if trigger.id == 'bar-tp':
+			tp_translation = bar.start.global_transform.origin - trigger.global_transform.origin
+	current_player.force_move(tp_translation)
 	_after_tp(trigger)
 
 func _before_tp(trigger: TPTrigger) -> void:
@@ -127,11 +135,6 @@ func _on_FPS_context_action_pressed() -> void:
 	var collider = current_player.get_trigger_hover()
 	if collider is InteractTrigger:
 		collider.interact()
-
-func _on_Appartment_tp_exited(trigger) -> void:
-	if triggers.has(trigger.id):
-		# warning-ignore:return_value_discarded
-		triggers.erase(trigger.id)
 
 func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 	var dialog_id = dialog_trigger.id
@@ -255,3 +258,4 @@ func _on_Bar_item_picked_up(item) -> void:
 			bar.enable_item(bar.ITEMS.VALVE, false)
 			display_dialog('valve_found')
 			bar.close_bar()
+
