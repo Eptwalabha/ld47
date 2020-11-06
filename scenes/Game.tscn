@@ -1,35 +1,15 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/location/bar/RestroomLocation.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/core/DialogTriggerArea.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/chapters/bar/Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/chapters/flat/Flat.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/core/WindowTrigger.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/location/bar/BarStorageRoom.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/chapters/bar/Bar.gd" type="Script" id=16]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=18]
-[ext_resource path="res://scenes/location/bar/BarCounter.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=20]
-[ext_resource path="res://assets/models/bar-v2/restroom-sign.glb" type="PackedScene" id=21]
-[ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/core/player_states/PlayerStateFPS.gd" type="Script" id=23]
 [ext_resource path="res://scenes/core/player_states/PlayerStateDialog.gd" type="Script" id=24]
 [ext_resource path="res://scenes/core/player_states/PlayerStateMoveThrough.gd" type="Script" id=25]
-[ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=26]
 [ext_resource path="res://default_env.tres" type="Environment" id=27]
 [ext_resource path="res://scenes/core/player_states/PlayerStateAnimation.gd" type="Script" id=29]
-[ext_resource path="res://scenes/location/StartChapter.tscn" type="PackedScene" id=30]
-[ext_resource path="res://scenes/props/Valve.tscn" type="PackedScene" id=31]
-[ext_resource path="res://scenes/props/Key.tscn" type="PackedScene" id=32]
-[ext_resource path="res://assets/models/story/valve.glb" type="PackedScene" id=33]
-[ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=34]
-
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 1.11876, 0.562466, 0.02 )
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 18 )
@@ -40,215 +20,8 @@ script = ExtResource( 18 )
 
 [node name="Flat" parent="Map" instance=ExtResource( 7 )]
 
-[node name="Bar" type="Spatial" parent="Map"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0 )
-script = ExtResource( 16 )
-
-[node name="BarStorageRoom" parent="Map/Bar" instance=ExtResource( 14 )]
-
-[node name="RestroomLocation" parent="Map/Bar" instance=ExtResource( 3 )]
-
-[node name="WindowGirl" parent="Map/Bar/RestroomLocation" groups=[
-"bar-window",
-] instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.6, 0 )
-id = "bar/window-girl"
-
-[node name="Area" parent="Map/Bar/RestroomLocation/WindowGirl" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0356579, 0, 0 )
-shape = SubResource( 2 )
-
-[node name="WindowBoy" parent="Map/Bar/RestroomLocation" groups=[
-"bar-window",
-] instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06366, 1.6, 0 )
-id = "bar/window-boy"
-
-[node name="Area" parent="Map/Bar/RestroomLocation/WindowBoy" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0356579, 0, 0 )
-shape = SubResource( 2 )
-
-[node name="RestroomLocationReverse" parent="Map/Bar" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
-
-[node name="Key" parent="Map/Bar" instance=ExtResource( 32 )]
-transform = Transform( -0.897435, 0.0383794, -0.439473, 0, 0.996208, 0.0869993, 0.441146, 0.0780763, -0.894033, -0.662619, 1.1245, -8.70608 )
-
-[node name="Valve" parent="Map/Bar" instance=ExtResource( 31 )]
-transform = Transform( 1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 3.30344, 1.56921, 3.55222 )
-
-[node name="Pivot" type="Spatial" parent="Map/Bar"]
-
-[node name="Door" parent="Map/Bar/Pivot" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3.9 )
-max_angle = -95
-
-[node name="ExitDoor" parent="Map/Bar/Pivot" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.30963, -9.53674e-07, -8.23337 )
-id = "exit-door"
-change_hint_state = false
-
-[node name="DoorItems" type="Spatial" parent="Map/Bar/Pivot/ExitDoor"]
-transform = Transform( 0.6, 0, 0, 0, 0.22557, -0.555984, 0, 0.555984, 0.22557, 0.438895, 0.74791, 0.146162 )
-
-[node name="key" parent="Map/Bar/Pivot/ExitDoor/DoorItems" instance=ExtResource( 34 )]
-transform = Transform( 0.364064, -0.931374, -1.77636e-14, 0.350149, 0.13687, 0.92664, -0.863049, -0.337357, 0.375949, 0.794388, -0.05056, -0.0967636 )
-
-[node name="valve" parent="Map/Bar/Pivot/ExitDoor/DoorItems" instance=ExtResource( 33 )]
-transform = Transform( 1, -7.10543e-15, -3.55271e-15, 0, 1, -2.98023e-08, -1.77636e-15, 2.98023e-08, 1, 0, 0, 0 )
-
-[node name="BarLocation" parent="Map/Bar/Pivot" instance=ExtResource( 2 )]
-
-[node name="BarCounter" parent="Map/Bar/Pivot" instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10.35 )
-
-[node name="restroom-sign" parent="Map/Bar/Pivot" instance=ExtResource( 21 )]
-
-[node name="PoolTable1" parent="Map/Bar/Pivot" instance=ExtResource( 20 )]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -11.166 )
-
-[node name="PoolTable2" parent="Map/Bar/Pivot" instance=ExtResource( 20 )]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -6.344 )
-
-[node name="Bartender" parent="Map/Bar/Pivot" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 2.56521, 0.0873877, -8.91695 )
-
-[node name="Dialog" parent="Map/Bar/Pivot/Bartender" groups=[
-"bar-dialog",
-] instance=ExtResource( 5 )]
-transform = Transform( 1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0.0192394, 1.27463, 0.36555 )
-id = "bar-bartender"
-
-[node name="Drink" type="Spatial" parent="Map/Bar/Pivot/Bartender"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
-
-[node name="Friend" parent="Map/Bar/Pivot" instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.56302, 0, -7.49336 )
-default = "sit-stool-idle"
-
-[node name="Dialog" parent="Map/Bar/Pivot/Friend" groups=[
-"bar-dialog",
-] instance=ExtResource( 5 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.36202, 0 )
-id = "bar-friend"
-
-[node name="Triggers" type="Spatial" parent="Map/Bar/Pivot"]
-
-[node name="Dancers" type="Spatial" parent="Map/Bar/Pivot"]
-
-[node name="Dancer01" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.489397, 0, -0.872061, 0, 1, 0, 0.872061, 0, -0.489397, 8.02302, 0, -5.07806 )
-
-[node name="Dancer02" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.444448, 0, 0.895805, 0, 1, 0, -0.895805, 0, 0.444448, 7.27619, 0, -8.43808 )
-
-[node name="Dancer03" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19234, -4.76837e-07, -7.50803 )
-
-[node name="Dancer04" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.647575, 0, -0.762002, 0, 1, 0, 0.762002, 0, -0.647575, 7.19164, 0, -6.26868 )
-
-[node name="Dancer05" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.0528769, 0, 0.998601, 0, 1, 0, -0.998601, 0, -0.0528769, 5.62426, 0.0166478, -5.98288 )
-
-[node name="Dancer06" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.0954121, 0, 0.995438, 0, 1, 0, -0.995438, 0, -0.0954121, 6.38549, 0.0166468, -4.85407 )
-
-[node name="Dancer07" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.904582, 0, -0.4263, 0, 1, 0, 0.4263, 0, 0.904582, 8.24141, 0.0166468, -7.8331 )
-
-[node name="Dancer08" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.489397, 0, -0.872061, 0, 1, 0, 0.872061, 0, -0.489397, 4.4687, -9.53674e-07, -4.84382 )
-
-[node name="Dancer09" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.444448, 0, 0.895805, 0, 1, 0, -0.895805, 0, 0.444448, 1.58484, -9.53674e-07, -6.35473 )
-
-[node name="Dancer10" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.762962, 0, 0.646443, 0, 1, 0, -0.646443, 0, -0.762962, 1.82726, -1.43051e-06, -4.79293 )
-
-[node name="Dancer11" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.647575, 0, -0.762002, 0, 1, 0, 0.762002, 0, -0.647575, 4.39127, -9.53674e-07, -5.89727 )
-
-[node name="Dancer12" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.464642, 0, 0.885499, 0, 1, 0, -0.885499, 0, -0.464642, 2.82696, 0.0166468, -4.98503 )
-
-[node name="Dancer13" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.829126, 0, 0.559062, 0, 1, 0, -0.559062, 0, -0.829126, 3.38126, 0.0166458, -4.29133 )
-
-[node name="Dancer14" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.904582, 0, -0.4263, 0, 1, 0, 0.4263, 0, 0.904582, 5.02781, 0.0166458, -7.27036 )
-
-[node name="Dancer15" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.961406, 0, 0.275133, 0, 1, 0, -0.275133, 0, -0.961406, -2.98426, 9.53674e-07, -4.28237 )
-
-[node name="Dancer16" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.974146, 0, -0.225921, 0, 1, 0, 0.225921, 0, 0.974146, 0.113016, 9.53674e-07, -5.78382 )
-
-[node name="Dancer17" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.230576, 0, -0.973054, 0, 1, 0, 0.973054, 0, 0.230576, -1.04188, 4.76837e-07, -6.62402 )
-
-[node name="Dancer18" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.890785, 0, 0.454426, 0, 1, 0, -0.454426, 0, -0.890785, -2.01742, 9.53674e-07, -5.36588 )
-
-[node name="Dancer19" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.959501, 0, 0.281706, 0, 1, 0, -0.281706, 0, 0.959501, -2.65692, 0.0166488, -6.82513 )
-
-[node name="Dancer20" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.946615, 0, 0.322365, 0, 1, 0, -0.322365, 0, 0.946615, -3.57979, 0.0166478, -5.82413 )
-
-[node name="Dancer21" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.206238, 0, -0.978502, 0, 1, 0, 0.978502, 0, -0.206238, -0.253105, 0.0166478, -4.70511 )
-
-[node name="Dancer22" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.961406, 0, 0.275133, 0, 1, 0, -0.275133, 0, -0.961406, -4.27282, 0, -7.27963 )
-
-[node name="Dancer23" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.974146, 0, -0.225921, 0, 1, 0, 0.225921, 0, 0.974146, -3.22648, 0, -10.8414 )
-
-[node name="DancerToilet1" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.766045, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766045, -3.99344, 0, -1.20981 )
-synchronized = true
-
-[node name="DancerToilet2" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.766044, 0, 0.642788, 0, 1, 0, 0.642788, 0, -0.766044, -3.993, 0, 1.21 )
-synchronized = true
-
-[node name="Dancer24" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.230576, 0, -0.973054, 0, 1, 0, 0.973054, 0, 0.230576, -2.33044, -4.76837e-07, -9.62127 )
-
-[node name="Dancer25" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.890785, 0, 0.454426, 0, 1, 0, -0.454426, 0, -0.890785, -3.30598, 0, -8.36314 )
-
-[node name="Dancer26" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.959501, 0, 0.281706, 0, 1, 0, -0.281706, 0, 0.959501, -3.94548, 0.0166478, -9.82238 )
-
-[node name="Dancer27" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( 0.946615, 0, 0.322365, 0, 1, 0, -0.322365, 0, 0.946615, -4.86835, 0.0166468, -8.82139 )
-
-[node name="Dancer28" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.206238, 0, -0.978502, 0, 1, 0, 0.978502, 0, -0.206238, -1.54166, 0.0166468, -7.70237 )
-
-[node name="Drinker1" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, -0.411223, 0.0166468, -7.49696 )
-default = "sleep"
-
-[node name="Drinker2" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, 0.60626, 0.0166468, -7.49696 )
-default = "sit-stool-drink"
-
-[node name="Drinker3" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, 1.57442, 0.0166468, -7.49696 )
-default = "sit-stool-drink"
-
-[node name="Drinker4" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5.56417, 0.0166468, -8.0863 )
-default = "sleep"
-
-[node name="Drinker5" parent="Map/Bar/Pivot/Dancers" instance=ExtResource( 26 )]
-transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5.56417, 0.0166468, -9.0717 )
-default = "sit-stool-drink"
-
-[node name="StartPoint" parent="Map/Bar" instance=ExtResource( 30 )]
+[node name="Bar" parent="Map" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0 )
 
 [node name="Player" type="Spatial" parent="."]
 
@@ -288,16 +61,6 @@ environment = ExtResource( 27 )
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
 [connection signal="item_picked_up" from="Map/Bar" to="." method="_on_Bar_item_picked_up"]
 [connection signal="window_triggered" from="Map/Bar" to="." method="_on_window_triggered"]
-[connection signal="went_through" from="Map/Bar/RestroomLocation/WindowGirl" to="Map/Bar" method="_on_ToiletWindow_went_through"]
-[connection signal="went_through" from="Map/Bar/RestroomLocation/WindowBoy" to="Map/Bar" method="_on_ToiletWindow_went_through"]
-[connection signal="picked_up" from="Map/Bar/Key" to="Map/Bar" method="_on_Key_picked_up"]
-[connection signal="picked_up" from="Map/Bar/Valve" to="Map/Bar" method="_on_Valve_picked_up"]
-[connection signal="interacted_with" from="Map/Bar/Pivot/Door" to="Map/Bar" method="_on_Door_interacted_with"]
-[connection signal="interacted_with" from="Map/Bar/Pivot/ExitDoor" to="Map/Bar" method="_on_Door_interacted_with"]
 [connection signal="drink_ended" from="Player/Player" to="." method="_on_Player_drink_ended"]
 [connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]
-
-[editable path="Map/Bar/RestroomLocation/WindowGirl"]
-
-[editable path="Map/Bar/RestroomLocation/WindowBoy"]
