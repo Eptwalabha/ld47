@@ -47,8 +47,6 @@ ui_mouse_capture	Hide mouse	Cacher la souris
 voice_mail	voice mail	messagerie
 flat_plant	I should water the plant	Il faudrait que j'arrose cette plante
 hover_exit-door	Exit bar	Sortir du bar
-hover_bar-door	Open the door	Ouvrir la porte
-hover_toilet-door	Open	Ouvrir
 key_inserted	The key fits the lock	La clef est entrée dans la serrure
 valve_inserted	You use the valve as a door handle replacement	Vous utilisez la valve comme poignée de porte
 find_the_key	The key to open that door must be somewhere around	La clef qui ouvre cette porte doit bien être quelque part
@@ -70,3 +68,7 @@ hover_phone	Pick up the phone	Décrocher
 hover_flat-plant	Look	Regarder
 hover_door_open	Open	Ouvrir
 hover_door_close	Close	Fermer
+hover_flat-bouncer	Knock at the door	Frapper à la porte
+hover_flat-window	Use the window	Passer par la fenêtre
+hover_flat-friend_bar	Talk to your friend	Parler à votre ami
+pick_up_phone_first	I can't leave without my phone	Je ne peux pas sortir sans mon téléphone

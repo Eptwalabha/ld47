@@ -58,7 +58,7 @@ script = ExtResource( 17 )
 ] instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.415, 1.4, -3.1 )
 active = false
-id = "flat/window"
+id = "flat-window"
 
 [node name="Phone" parent="Map/Flat/Appartment" instance=ExtResource( 28 )]
 transform = Transform( -0.761979, 0, 0.647601, 0, 1, 0, -0.647601, 0, -0.761979, -0.307218, 0.329252, 1.43801 )

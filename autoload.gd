@@ -8,7 +8,7 @@ enum LEVEL {
 }
 
 const DEBUG : bool = true
-const DEBUG_GAME_LEVEL = LEVEL.BAR
+const DEBUG_GAME_LEVEL = LEVEL.FLAT
 const DEBUG_FLAT_INITIAL_LEVEL : int = -1
 
 const FLAT_INITIAL_LEVEL : int = -1
@@ -67,8 +67,8 @@ var dialogs = {
 			'bouncer:dialog_1_bouncer_03',
 		],
 	},
-	'flat-friend-flat': 'flat_friend_flat',
-	'flat-friend-bar': 'friend:dialog_1_friend_02',
+	'flat-friend_flat': 'flat_friend_flat',
+	'flat-friend_bar': 'friend:dialog_1_friend_02',
 	'bar-friend_1': {
 		'text': [
 			'friend:dialog_2_01',
@@ -100,5 +100,6 @@ var dialogs = {
 			'bartender:drink_call'
 		]
 	},
-	'valve_inserted': 'key_inserted',
+	'valve_inserted': 'valve_inserted',
+	'pick_up_phone_first': 'pick_up_phone_first',
 }
