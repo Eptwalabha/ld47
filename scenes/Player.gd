@@ -8,6 +8,7 @@ onready var camera := $Head/Camera as Camera
 onready var ray := $Head/Camera/RayCast as RayCast
 onready var phone := $Head/Camera/phone
 onready var glass := $Head/Camera/Glass
+onready var ground := $Ground as RayCast
 
 export(float) var mouse_sensitivity := 0.3
 export(float) var speed := 3.0
@@ -16,9 +17,10 @@ export(float) var acceleration := 10.0
 var has_control: bool = true
 var camera_angle: float = 0
 var velocity = Vector3()
+var gravity_vector : Vector3 = Vector3.ZERO
 
-const GRAVITY : int = -5
-const MAX_GRAVITY : int = -140
+const GRAVITY : int = 10
+const MAX_GRAVITY : int = 140
 const MAX_SLOP : float = deg2rad(45.0)
 
 func _ready() -> void:
@@ -74,17 +76,21 @@ func physics_process(delta: float) -> void:
 	input_controller()
 	
 	if not is_on_floor():
-		velocity.y += GRAVITY * delta
-	
-	if velocity.y < MAX_GRAVITY:
-		velocity.y = MAX_GRAVITY
-
-	var m = move_and_slide_with_snap(velocity, Vector3(0, -1, 0), Vector3.UP, true, 4, MAX_SLOP)
-
-	if is_on_wall():
-		velocity = m
+		gravity_vector += Vector3.DOWN * GRAVITY * delta
+	elif is_on_floor() and ground.is_colliding():
+		gravity_vector = -get_floor_normal() * -GRAVITY
 	else:
-		velocity.y = m.y
+		gravity_vector = -get_floor_normal()
+	
+	if gravity_vector.y > MAX_GRAVITY:
+		gravity_vector.y = MAX_GRAVITY
+	
+	velocity.x += gravity_vector.x
+	velocity.y = gravity_vector.y
+	velocity.z += gravity_vector.z
+
+	velocity = move_and_slide_with_snap(velocity, Vector3(0, -1, 0), Vector3.UP, true, 4, MAX_SLOP)
+
 
 func get_trigger_hover() -> InteractTrigger:
 	if ray.is_colliding():

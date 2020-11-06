@@ -158,3 +158,6 @@ bus = "sound"
 
 [node name="DebugPoint" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.646199, -0.432565 )
+
+[node name="Ground" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
