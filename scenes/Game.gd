@@ -5,6 +5,7 @@ onready var current_player : Player = $Player/Player as Player
 onready var ui := $UI as UI
 onready var bar := $Map/Bar as Bar
 onready var flat := $Map/Flat as Flat
+
 onready var player_states := {
 	'move': $GameStates/FPS,
 	'dialog': $GameStates/Dialog,
@@ -18,7 +19,6 @@ var triggers := {}
 
 func _ready() -> void:
 	ui.capture_mouse()
-	flat.reset()
 	_init_level()
 	for state_name in player_states:
 		var state = player_states[state_name]

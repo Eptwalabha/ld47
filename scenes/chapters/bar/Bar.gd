@@ -39,9 +39,9 @@ func reset() -> void:
 		show()
 	restroom_door.set_state(false)
 	restroom_door.set_active(true)
-	_set_active($RestroomLocation, false)
-	_set_active($RestroomLocationReverse, false)
-	_set_active($BarStorageRoom, true)
+	_set_location_active($RestroomLocation, false)
+	_set_location_active($RestroomLocationReverse, false)
+	_set_location_active($BarStorageRoom, true)
 	for character in CHARACTERS:
 		enable_dialog(CHARACTERS[character], false)
 	for item in ITEMS:
@@ -75,9 +75,9 @@ func _on_Door_interacted_with(door: Door) -> void:
 
 func show_restroom() -> void:
 	restroom_door.close()
-	_set_active($RestroomLocation, true)
-	_set_active($RestroomLocationReverse, true)
-	_set_active($BarStorageRoom, false)
+	_set_location_active($RestroomLocation, true)
+	_set_location_active($RestroomLocationReverse, true)
+	_set_location_active($BarStorageRoom, false)
 
 func close_bar() -> void:
 	enable_dialog(CHARACTERS.BARTENDER, false)
@@ -88,10 +88,6 @@ func set_character_animation(who: int, animation: String) -> void:
 	match who:
 		CHARACTERS.FRIEND:
 			friend.play(animation)
-
-func _set_active(location: Location, active: bool) -> void:
-	location.set_active(active)
-	location.visible = active
 
 func _on_ToiletWindow_went_through() -> void:
 	pivot.scale.z = -1 if pivot.scale.z > 0 else 1

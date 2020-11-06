@@ -25,3 +25,7 @@ func _connect_triggers(prefix: String) -> void:
 	for trigger in get_tree().get_nodes_in_group('%s-window' % prefix):
 		if trigger is WindowTrigger:
 			trigger.connect("interacted_with", self, "emit_signal", ["window_triggered", trigger])
+
+func _set_location_active(location: Location, active: bool) -> void:
+	location.set_active(active)
+	location.visible = active

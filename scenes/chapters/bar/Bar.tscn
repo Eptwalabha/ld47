@@ -30,13 +30,13 @@ script = ExtResource( 14 )
 "bar-window",
 ] instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.6, 0 )
-id = "bar/window-girl"
+id = "bar-window_girl"
 
 [node name="WindowBoy" parent="RestroomLocation" groups=[
 "bar-window",
 ] instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06366, 1.6, 0 )
-id = "bar/window-boy"
+id = "bar-window_boy"
 
 [node name="RestroomLocationReverse" parent="." instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
