@@ -1,27 +1,17 @@
-class_name Player
-extends KinematicBody
+class_name FPSPlayer
+extends Player
 
 signal drink_ended
 
-onready var head := $Head as Spatial
-onready var camera := $Head/Camera as Camera
-onready var ray := $Head/Camera/RayCast as RayCast
 onready var phone := $Head/Camera/phone
 onready var glass := $Head/Camera/Glass
 onready var ground := $Ground as RayCast
 
-export(float) var mouse_sensitivity := 0.3
 export(float) var speed := 3.0
 export(float) var acceleration := 10.0
 
-var has_control: bool = true
-var camera_angle: float = 0
 var velocity = Vector3()
 var gravity_vector : Vector3 = Vector3.ZERO
-
-const GRAVITY : int = 10
-const MAX_GRAVITY : int = 140
-const MAX_SLOP : float = deg2rad(45.0)
 
 func _ready() -> void:
 	mouse_sensitivity = mouse_sensitivity * -1
@@ -33,18 +23,6 @@ func reset() -> void:
 	camera.make_current()
 	hangup_phone()
 	glass.hide()
-
-func input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		Data.using_controller = false
-		head.rotate_y(deg2rad(event.relative.x * mouse_sensitivity))
-
-		var change = event.relative.y * mouse_sensitivity
-		if change + camera_angle < 90 and change + camera_angle > -90:
-			camera.rotate_x(deg2rad(change))
-			camera_angle = camera_angle + change
-	if event is InputEventJoypadMotion or event is InputEventJoypadButton:
-		Data.using_controller = true
 
 func input_controller() -> void:
 	if Data.using_controller:
@@ -76,41 +54,20 @@ func physics_process(delta: float) -> void:
 	input_controller()
 	
 	if not is_on_floor():
-		gravity_vector += Vector3.DOWN * GRAVITY * delta
+		gravity_vector += Vector3.DOWN * Data.GRAVITY * delta
 	elif is_on_floor() and ground.is_colliding():
-		gravity_vector = -get_floor_normal() * -GRAVITY
+		gravity_vector = -get_floor_normal() * -Data.GRAVITY
 	else:
 		gravity_vector = -get_floor_normal()
 	
-	if gravity_vector.y > MAX_GRAVITY:
-		gravity_vector.y = MAX_GRAVITY
+	if gravity_vector.y > Data.MAX_GRAVITY:
+		gravity_vector.y = Data.MAX_GRAVITY
 	
 	velocity.x += gravity_vector.x
 	velocity.y = gravity_vector.y
 	velocity.z += gravity_vector.z
 
-	velocity = move_and_slide_with_snap(velocity, Vector3(0, -1, 0), Vector3.UP, true, 4, MAX_SLOP)
-
-
-func get_trigger_hover() -> InteractTrigger:
-	if ray.is_colliding():
-		var collider = ray.get_collider()
-		if collider is InteractTrigger and collider.active:
-			return collider
-	return null
-
-func can_control(control: bool) -> void:
-	has_control = control
-
-func force_move(direction: Vector3) -> void:
-	translate(direction)
-
-func force_move_to(spatial: Spatial) -> void:
-	global_transform.origin = spatial.global_transform.origin
-	rotation = spatial.global_transform.basis.get_euler()
-	head.rotation = Vector3.ZERO
-	camera.rotation = Vector3.ZERO
-	camera_angle = 0
+	velocity = move_and_slide_with_snap(velocity, Vector3(0, -1, 0), Vector3.UP, true, 4, Data.MAX_SLOP)
 
 func answer_phone() -> void:
 	phone.show()

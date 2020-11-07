@@ -11,6 +11,10 @@ const DEBUG : bool = true
 const DEBUG_GAME_LEVEL = LEVEL.FLAT
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 
+const GRAVITY : int = 10
+const MAX_GRAVITY : int = 100
+const MAX_SLOP : float = deg2rad(15.0)
+
 const FLAT_INITIAL_LEVEL : int = -1
 
 const BAR_DRINK_DELAY_SECOND : float = 20.0

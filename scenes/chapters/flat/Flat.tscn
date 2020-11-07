@@ -47,13 +47,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.422163, -5, -6.13642 )
 [node name="TPTrigger" parent="BackStreetBuilding/BarCorridor" groups=[
 "flat-tp-trigger",
 ] instance=ExtResource( 22 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 1, -2 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -2 )
 oriented = true
 id = "bar-tp"
 
 [node name="CollisionShape" parent="BackStreetBuilding/BarCorridor/TPTrigger" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0, 1.43785 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.9407e-08, 0.72578, 1.43785 )
 shape = SubResource( 1 )
+
+[node name="Forward" parent="BackStreetBuilding/BarCorridor/TPTrigger" index="2"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0.15 )
 
 [node name="Door" parent="BackStreetBuilding/BarCorridor" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3.9 )
