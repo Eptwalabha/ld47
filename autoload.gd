@@ -19,6 +19,9 @@ const FLAT_INITIAL_LEVEL : int = -1
 
 const BAR_DRINK_DELAY_SECOND : float = 20.0
 
+const ROAD_CAR_ACCELERATION : float = 1.0
+const ROAD_CAR_SPEED : float = 0.6
+
 var first_time : bool = true
 var using_controller : bool = false
 

@@ -13,16 +13,16 @@ export(float) var acceleration := 10.0
 var velocity = Vector3()
 var gravity_vector : Vector3 = Vector3.ZERO
 
-func _ready() -> void:
-	mouse_sensitivity = mouse_sensitivity * -1
-
 func reset() -> void:
 	head.rotation = Vector3.ZERO
 	camera.rotation = Vector3.ZERO
 	camera_angle = 0
-	camera.make_current()
+	make_current()
 	hangup_phone()
 	glass.hide()
+
+func zeroed_velocity() -> void:
+	velocity = Vector3.ZERO
 
 func input_controller() -> void:
 	if Data.using_controller:

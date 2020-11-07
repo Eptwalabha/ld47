@@ -1,7 +1,8 @@
 class_name Game
 extends Spatial
 
-onready var current_player : Player = $Player/FPSPlayer
+#onready var current_player : Player = $Player/FPSPlayer
+onready var current_player : Player = $Player/CarPlayer
 onready var ui := $UI as UI
 onready var bar := $Map/Bar as Bar
 onready var flat := $Map/Flat as Flat
@@ -32,6 +33,7 @@ func _init_level() -> void:
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
 	current_player.reset()
+	current_player.make_current()
 	match level_id:
 		Data.LEVEL.FLAT:
 			bar.hide()

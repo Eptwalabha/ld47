@@ -20,7 +20,7 @@ func set_dialog(dialog_id: String) -> void:
 
 func enter() -> void:
 	player.can_control(false)
-	player.velocity = Vector3.ZERO
+	player.zeroed_velocity()
 	ui.hide_context()
 	dialog.start()
 	# warning-ignore:return_value_discarded

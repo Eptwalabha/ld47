@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/props/road/CarInsideArea.gd"
 }, {
+"base": "Player",
+"class": "CarPlayer",
+"language": "GDScript",
+"path": "res://scenes/player/CarPlayer.gd"
+}, {
 "base": "Spatial",
 "class": "Chapter",
 "language": "GDScript",
@@ -239,6 +244,7 @@ _global_script_class_icons={
 "Car": "",
 "CarInside": "",
 "CarInsideArea": "",
+"CarPlayer": "",
 "Chapter": "",
 "ChapterHospital": "",
 "ChapterRoad": "",

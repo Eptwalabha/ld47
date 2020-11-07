@@ -10,7 +10,16 @@ export(float) var mouse_sensitivity := 0.3
 var has_control : bool = true
 var camera_angle : float = 0.0
 
+func _ready() -> void:
+	mouse_sensitivity = mouse_sensitivity * -1
+
 func reset() -> void:
+	pass
+
+func make_current() -> void:
+	camera.make_current()
+
+func zeroed_velocity() -> void:
 	pass
 
 func input(event: InputEvent) -> void:
