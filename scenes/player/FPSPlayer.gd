@@ -80,5 +80,8 @@ func drink() -> void:
 	yield($AnimationPlayer, "animation_finished")
 	emit_signal("drink_ended")
 
+func empty(empty_glass: bool) -> void:
+	glass.empty(empty_glass)
+
 func move_through_window() -> void:
 	$AnimationPlayer.play("move_through_window")

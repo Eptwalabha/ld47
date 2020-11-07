@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/player/FPSPlayer.gd" type="Script" id=1]
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/props/bar/Glass.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/sounds/glup.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/models/story/phone.glb" type="PackedScene" id=4]
-[ext_resource path="res://assets/models/prop/bar-glass.glb" type="PackedScene" id=5]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RayShape" id=6]
 length = 0.3
@@ -28,13 +28,37 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( -7.141, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("Head/Camera/Glass")
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Camera/Glass:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("Head/Camera/Glass")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -44,30 +68,6 @@ tracks/1/keys = {
 "args": [ true ],
 "method": "empty"
 } ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Head/Camera/Glass:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 119.796, 0, 0 ), Vector3( 33.994, 0, 0 ), Vector3( 13.508, 0, 0 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Head/Camera/Glass:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ true, false ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Head/Camera/Glass:translation")
@@ -79,19 +79,19 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.5, -0.1 ), Vector3( 0, -0.211342, -0.302963 ), Vector3( 0, -0.258699, -0.447292 ), Vector3( 0, -0.258699, -0.447292 ), Vector3( 0, -0.0985843, -0.244329 ), Vector3( 0, -0.258699, -0.447292 ), Vector3( 0, -0.445876, -0.325514 ), Vector3( 0, -0.5, -0.1 ) ]
+"values": [ Vector3( 0, -0.5, -0.1 ), Vector3( 0, -0.211, -0.303 ), Vector3( 0, -0.259, -0.447 ), Vector3( 0, -0.259, -0.447 ), Vector3( 0, -0.1, -0.244 ), Vector3( 0, -0.259, -0.447 ), Vector3( 0, -0.446, -0.326 ), Vector3( 0, -0.5, -0.1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/5/path = NodePath("Head/Camera/Glass:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"times": PoolRealArray( 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 119.796, 0, 0 ), Vector3( 33.994, 0, 0 ), Vector3( 13.508, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -112,7 +112,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 1.65, 0 ), Vector3( 0, 1.4, 0 ), Vector3( 0, 1.65, 0 ) ]
 }
 
-[node name="FPSPlayer" instance=ExtResource( 2 )]
+[node name="FPSPlayer" instance=ExtResource( 6 )]
 script = ExtResource( 1 )
 
 [node name="Ray" type="CollisionShape" parent="." index="0"]
@@ -128,8 +128,9 @@ shape = SubResource( 1 )
 [node name="Head" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0 )
 
-[node name="Glass" parent="Head/Camera" index="2" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 0.99188, -0.127177, 0, 0.127177, 0.99188, 0, -0.5, -0.1 )
+[node name="Glass" parent="Head/Camera" index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 0.972337, -0.233581, 0, 0.233581, 0.972337, 0, -0.5, -0.1 )
+visible = false
 
 [node name="phone" parent="Head/Camera" index="3" instance=ExtResource( 4 )]
 transform = Transform( -0.69164, 0.669649, -0.270563, -0.364308, -5.93533e-08, 0.931279, 0.62363, 0.742678, 0.243958, -0.188, -0.043, -0.242 )

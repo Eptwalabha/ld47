@@ -58,5 +58,6 @@ environment = ExtResource( 27 )
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
 [connection signal="item_picked_up" from="Map/Bar" to="." method="_on_Bar_item_picked_up"]
 [connection signal="window_triggered" from="Map/Bar" to="." method="_on_window_triggered"]
+[connection signal="drink_ended" from="Player/FPSPlayer" to="." method="_on_Player_drink_ended"]
 [connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]

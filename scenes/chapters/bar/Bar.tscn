@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/location/bar/BarCounter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/Bartender.tscn" type="PackedScene" id=2]
@@ -19,6 +19,12 @@
 [ext_resource path="res://scenes/location/bar/RestroomLocation.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=30]
 
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1.2, 0.6, 0.02 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1.2, 0.6, 0.02 )
+
 [node name="Bar" type="Spatial"]
 script = ExtResource( 14 )
 
@@ -32,11 +38,17 @@ script = ExtResource( 14 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.6, 0 )
 id = "bar-window_girl"
 
+[node name="Area" parent="RestroomLocation/WindowGirl" index="0"]
+shape = SubResource( 1 )
+
 [node name="WindowBoy" parent="RestroomLocation" groups=[
 "bar-window",
 ] instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06366, 1.6, 0 )
 id = "bar-window_boy"
+
+[node name="Area" parent="RestroomLocation/WindowBoy" index="0"]
+shape = SubResource( 2 )
 
 [node name="RestroomLocationReverse" parent="." instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
@@ -225,3 +237,7 @@ default = "sit-stool-drink"
 [connection signal="picked_up" from="Valve" to="." method="_on_Valve_picked_up"]
 [connection signal="interacted_with" from="Pivot/Door" to="." method="_on_Door_interacted_with"]
 [connection signal="interacted_with" from="Pivot/ExitDoor" to="." method="_on_Door_interacted_with"]
+
+[editable path="RestroomLocation/WindowGirl"]
+
+[editable path="RestroomLocation/WindowBoy"]
