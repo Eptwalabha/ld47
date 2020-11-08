@@ -45,15 +45,20 @@ func _ready() -> void:
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
 func _init_level() -> void:
+	Data.reset_game(Data.LEVEL.FLAT)
+	Data.reset_game(Data.LEVEL.BAR)
+	Data.reset_game(Data.LEVEL.ROAD)
+	ui.hide_context()
+	ui.hide_dialog()
+	current_state = 'move'
 	var level_id = Data.LEVEL.FLAT
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
 	current_map = level_id
-	change_current_map(level_id)
+	change_map(level_id)
 	if Data.DEBUG:
-		current_player.global_transform.origin = maps[current_map].start.global_transform.origin
-	current_player.reset()
-	current_player.make_current()
+		current_player.global_transform.origin = maps[current_map].get_start_origin()
+		current_player.reset()
 
 func _physics_process(delta: float) -> void:
 	player_states[current_state].physics_process(current_player, delta)
@@ -132,7 +137,7 @@ func active_tp(trigger: TPTrigger) -> void:
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar-tp":
-			change_current_map(Data.LEVEL.BAR)
+			change_map(Data.LEVEL.BAR)
 #			bar.reset()
 		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
@@ -192,7 +197,7 @@ func _on_Bar_door_interacted_with(door: Door) -> void:
 				current_player.show_item('key', false)
 				display_dialog('valve_inserted')
 			else:
-				change_current_map(Data.LEVEL.ROAD)
+				change_map(Data.LEVEL.ROAD)
 		_:
 			door.toggle()
 
@@ -203,13 +208,6 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 func _on_PlayerState_ended(_state_name: String) -> void:
 	change_player_state('move')
 
-func change_current_player(new_player_type: String) -> void:
-	for player_type in players:
-		players[player_type].visible = (player_type == new_player_type)
-	current_player_type = new_player_type
-	current_player = players[new_player_type]
-	current_player.make_current()
-
 func change_player_state(new_state: String) -> void:
 	if current_state != new_state and player_states.has(new_state):
 		if current_state != '':
@@ -217,18 +215,32 @@ func change_player_state(new_state: String) -> void:
 		current_state = new_state
 		player_states[current_state].enter(current_player)
 
-func change_current_map(new_map) -> void:
+func change_current_player(new_player_type: String) -> void:
+	for player_type in players:
+		players[player_type].visible = (player_type == new_player_type)
+	current_player_type = new_player_type
+	current_player = players[new_player_type]
+	current_player.make_current()
+
+func change_map(new_map) -> void:
 	current_map = new_map
+	var new_origin = maps[current_map].get_start_origin()
+	match current_map:
+		Data.LEVEL.FLAT:
+			maps[current_map].reset()
+			change_current_player('fps')
+			current_player.global_transform.origin = new_origin
+			current_player.reset()
+		Data.LEVEL.BAR:
+			maps[current_map].reset()
+			change_current_player('fps')
+		Data.LEVEL.ROAD:
+			maps[current_map].reset()
+			change_current_player('car')
+			current_player.global_transform.origin = new_origin
+			current_player.reset()
 	for map in maps:
 		maps[map].visible = (map == current_map)
-	match new_map:
-		Data.LEVEL.ROAD:
-			change_current_player('car')
-		_:
-			change_current_player('fps')
-	maps[current_map].set_up_player(current_player)
-	maps[current_map].reset()
-	
 
 func move_through(window: WindowTrigger) -> void:
 	var path = window.get_path_points(current_player.global_transform.origin, .3)
@@ -302,4 +314,4 @@ func _on_Bar_item_picked_up(item) -> void:
 func _on_Road_car_crashed() -> void:
 #	ui.black()
 #	ui.show_dot(false)
-	change_current_map(Data.LEVEL.FLAT)
+	change_map(Data.LEVEL.FLAT)

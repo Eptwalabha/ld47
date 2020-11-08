@@ -103,3 +103,6 @@ func _on_Valve_picked_up() -> void:
 
 func _on_Key_picked_up() -> void:
 	emit_signal("item_picked_up", item_key)
+
+func get_start_origin() -> Vector3:
+	return start.global_transform.origin

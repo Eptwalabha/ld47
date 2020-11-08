@@ -31,8 +31,8 @@ func reset() -> void:
 	emit_signal("night_environment", true)
 	$CarEngine.play()
 
-func set_up_player(player: Player) -> void:
-	player.global_transform.origin = start.global_transform.origin
+func get_start_origin() -> Vector3:
+	return start.global_transform.origin
 
 func process(delta : float) -> void:
 	if Data.road_car_crashed:
