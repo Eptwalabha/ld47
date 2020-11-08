@@ -128,8 +128,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0 )
 
 [node name="Glass" parent="Head/Camera" index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 0.972337, -0.233581, 0, 0.233581, 0.972337, 0, -0.5, -0.1 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
 
 [node name="phone" parent="Head/Camera" index="3" instance=ExtResource( 4 )]
 transform = Transform( -0.69164, 0.669649, -0.270563, -0.364308, -5.93533e-08, 0.931279, 0.62363, 0.742678, 0.243958, -0.188, -0.043, -0.242 )

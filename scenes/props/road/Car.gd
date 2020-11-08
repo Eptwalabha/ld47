@@ -1,32 +1,29 @@
 class_name Car
-extends Spatial
+extends Area
 
-signal crash
+signal crashed_on_player
+
 export(int) var turn_before_active
 
-var reset_turn_before_active : int = 0
 var current_turn : int = 0
 
 func _ready() -> void:
-	reset_turn_before_active = turn_before_active
-	hide()
+	check_active()
 
 func reset() -> void:
-	turn_before_active = reset_turn_before_active
 	current_turn = 0
-	_update_car_visiblity()
+	check_active()
 
-func _update_car_visiblity() -> void:
-	if current_turn < turn_before_active:
-		hide()
-	else:
-		show()
-
-func _on_Area_area_entered(area: Area) -> void:
-	if area is TurnTrigger:
+func new_turn() -> void:
+	if not visible:
 		current_turn += 1
-		_update_car_visiblity()
-		$SpotLight.visible = true
-	elif area is CarInsideArea:
-		if current_turn >= turn_before_active:
-			emit_signal("crash")
+		check_active()
+
+func _on_Car_body_entered(body: Node) -> void:
+	if current_turn >= turn_before_active and body.is_in_group('player'):
+		emit_signal('crashed_on_player')
+
+func check_active() -> void:
+	var active = current_turn >= turn_before_active
+	visible = active
+	$SpotLight.visible = active

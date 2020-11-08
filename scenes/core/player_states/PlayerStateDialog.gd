@@ -18,7 +18,7 @@ func set_dialog(dialog_id: String) -> void:
 		dialog = Dialog.new()
 		dialog.push('', dialog_id)
 
-func enter() -> void:
+func enter(player: Player) -> void:
 	player.can_control(false)
 	player.zeroed_velocity()
 	ui.hide_context()
@@ -26,7 +26,7 @@ func enter() -> void:
 	# warning-ignore:return_value_discarded
 	_print_next_bit()
 
-func process(_delta: float) -> void:
+func process(player: Player, _delta: float) -> void:
 	if Input.is_action_just_pressed("context_action"):
 		if not _print_next_bit():
 			player.can_control(true)

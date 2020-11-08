@@ -7,6 +7,7 @@ signal tp_exited(trigger)
 signal dialog_triggered(dialog_trigger)
 signal window_triggered(window_trigger)
 signal item_picked_up(item)
+signal night_environment(is_night)
 
 func reset() -> void:
 	pass
@@ -29,3 +30,6 @@ func _connect_triggers(prefix: String) -> void:
 func _set_location_active(location: Location, active: bool) -> void:
 	location.set_active(active)
 	location.visible = active
+
+func process(_delta: float) -> void:
+	pass

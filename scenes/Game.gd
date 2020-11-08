@@ -1,11 +1,15 @@
 class_name Game
 extends Spatial
 
-#onready var current_player : Player = $Player/FPSPlayer
-onready var current_player : Player = $Player/CarPlayer
+onready var current_player : Player
+onready var fps_player : FPSPlayer = $Player/FPSPlayer
+onready var car_player : CarPlayer = $Player/CarPlayer
+#onready var current_player : Player = $Player/CarPlayer
 onready var ui := $UI as UI
+
 onready var bar := $Map/Bar as Bar
 onready var flat := $Map/Flat as Flat
+onready var road := $Map/Road as Road
 
 onready var player_states := {
 	'move': $GameStates/FPS,
@@ -13,8 +17,20 @@ onready var player_states := {
 	'move-through': $GameStates/MoveThrough,
 	'animation': $GameStates/Animation,
 }
+onready var players := {
+	'fps': fps_player,
+	'car': car_player,
+}
+onready var maps := {
+	Data.LEVEL.FLAT: flat,
+	Data.LEVEL.BAR: bar,
+	Data.LEVEL.ROAD: road,
+}
 
 var current_state := 'move'
+var current_player_type := 'fps'
+var current_map : int = Data.LEVEL.FLAT
+
 var next_drinking := 0.0
 var triggers := {}
 
@@ -24,7 +40,7 @@ func _ready() -> void:
 	for state_name in player_states:
 		var state = player_states[state_name]
 		if state is PlayerState:
-			state.player = current_player
+#			state.player = current_player
 			state.ui = ui
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
@@ -32,29 +48,40 @@ func _init_level() -> void:
 	var level_id = Data.LEVEL.FLAT
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
-	current_player.reset()
-	current_player.make_current()
+	current_map = level_id
 	match level_id:
 		Data.LEVEL.FLAT:
 			bar.hide()
+			road.hide()
+			change_current_player('fps')
 			current_player.global_transform.origin = flat.start.global_transform.origin
 			flat.reset()
 		Data.LEVEL.BAR:
 			flat.hide()
+			road.hide()
+			change_current_player('fps')
 			current_player.global_transform.origin = bar.start.global_transform.origin
 			bar.reset()
+		Data.LEVEL.ROAD:
+			flat.hide()
+			bar.hide()
+			change_current_player('car')
+			current_player.global_transform.origin = road.start.global_transform.origin
 		_:
 			pass
+	current_player.reset()
+	current_player.make_current()
 
 func _physics_process(delta: float) -> void:
-	player_states[current_state].physics_process(delta)
+	player_states[current_state].physics_process(current_player, delta)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		ui.show_mouse_capture()
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
-	player_states[current_state].process(delta)
+	player_states[current_state].process(current_player, delta)
+	maps[current_map].process(delta)
 	_check_triggers_orientation()
 	_trigger_hint()
 	if Data.drinking and current_state == 'move':
@@ -63,7 +90,7 @@ func _process(delta: float) -> void:
 			drink()
 
 func _input(event: InputEvent) -> void:
-	player_states[current_state].input(event)
+	player_states[current_state].input(current_player, event)
 
 func _check_triggers_orientation() -> void:
 	for trigger_id in triggers:
@@ -112,6 +139,7 @@ func active_tp(trigger: TPTrigger) -> void:
 	var tp_translation = trigger.destination_translation()
 	if trigger.id == 'bar-tp':
 		tp_translation = bar.start.global_transform.origin - trigger.global_transform.origin
+		current_map = Data.LEVEL.BAR
 	current_player.force_move(tp_translation)
 	_after_tp(trigger)
 
@@ -156,8 +184,6 @@ func _on_dialog_triggered(dialog_trigger: DialogTriggerArea) -> void:
 				dialog_id = "bartender_ask_found_key"
 			elif Data.key_inserted and not Data.valve_found:
 				dialog_id = "bartender_ask_handle"
-		_:
-			print("request dialog %s" % dialog_id)
 	display_dialog(dialog_id)
 
 func _on_Bar_door_interacted_with(door: Door) -> void:
@@ -187,12 +213,19 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 func _on_PlayerState_ended(_state_name: String) -> void:
 	change_player_state('move')
 
+func change_current_player(new_player_type: String) -> void:
+	for player_type in players:
+		players[player_type].visible = (player_type == new_player_type)
+	current_player_type = new_player_type
+	current_player = players[new_player_type]
+	current_player.make_current()
+
 func change_player_state(new_state: String) -> void:
 	if current_state != new_state and player_states.has(new_state):
 		if current_state != '':
 			player_states[current_state].exit()
 		current_state = new_state
-		player_states[current_state].enter()
+		player_states[current_state].enter(current_player)
 
 func move_through(window: WindowTrigger) -> void:
 	var path = window.get_path_points(current_player.global_transform.origin, .3)

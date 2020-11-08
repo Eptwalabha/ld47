@@ -3,19 +3,19 @@ extends Node
 
 signal state_ended
 
-var player: Player = null
+#var player: Player = null
 var ui : UI = null
 
-func enter() -> void:
+func enter(_player: Player) -> void:
 	pass
 
-func process(_delta: float) -> void:
+func process(_player: Player, _delta: float) -> void:
 	pass
 
-func physics_process(_delta: float) -> void:
+func physics_process(_player: Player, _delta: float) -> void:
 	pass
 
-func input(_event: InputEvent) -> void:
+func input(_player: Player, _event: InputEvent) -> void:
 	pass
 
 func exit() -> void:

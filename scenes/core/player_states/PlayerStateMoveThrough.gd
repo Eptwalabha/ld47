@@ -10,7 +10,7 @@ func _ready() -> void:
 func set_route(new_path: Array) -> void:
 	path = new_path
 
-func enter() -> void:
+func enter(player: Player) -> void:
 	player.can_control(false)
 	match len(path):
 		0:
@@ -43,9 +43,10 @@ func enter() -> void:
 				Tween.EASE_OUT,
 				.2)
 	tween.start()
-	player.move_through_window()
+	if player.has_method('move_through_window'):
+		player.move_through_window()
 
-func input(event: InputEvent) -> void:
+func input(player: Player, event: InputEvent) -> void:
 	player.input(event)
 
 func _on_Tween_tween_all_completed() -> void:
