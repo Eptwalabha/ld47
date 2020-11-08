@@ -47,6 +47,9 @@ func reset() -> void:
 	for item in ITEMS:
 		enable_item(ITEMS[item], false)
 	enable_dialog(CHARACTERS.FRIEND, true)
+	bartender.visible = true
+	dancers.visible = true
+	set_character_animation(CHARACTERS.FRIEND, 'sit-stool-idle')
 	pivot.scale.z = 1
 	Data.reset_game(Data.LEVEL.BAR)
 

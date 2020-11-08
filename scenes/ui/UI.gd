@@ -40,6 +40,9 @@ func black() -> void:
 func show_dot(is_dot_visible: bool) -> void:
 	dot.visible = is_dot_visible
 
+func is_mouse_captured() -> bool:
+	return not mouse_capture.visible
+
 func show_mouse_capture() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_capture.visible = true

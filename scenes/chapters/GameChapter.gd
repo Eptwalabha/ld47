@@ -33,3 +33,6 @@ func _set_location_active(location: Location, active: bool) -> void:
 
 func process(_delta: float) -> void:
 	pass
+
+func set_up_player(_player: Player) -> void:
+	pass

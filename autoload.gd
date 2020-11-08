@@ -21,6 +21,7 @@ const BAR_DRINK_DELAY_SECOND : float = 10.0
 
 const ROAD_CAR_ACCELERATION : float = 1.0
 const ROAD_CAR_SPEED : float = 0.6
+const ROAD_CAR_MAX_DRAG : float = -0.005
 
 var first_time : bool = true
 var using_controller : bool = false
@@ -40,6 +41,7 @@ var valve_inserted := false
 var road_tutorial := false
 var road_car_crashed := false
 var road_car_speed := 0.0
+var road_car_drag := 0.0
 
 func reset_game(level) -> void:
 	match level:
@@ -61,6 +63,7 @@ func reset_game(level) -> void:
 			road_tutorial = false
 			road_car_crashed = false
 			road_car_speed = 0.0
+			road_car_drag = 0.0
 
 var dialogs = {
 	'flat-plant': 'flat_plant',

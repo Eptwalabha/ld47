@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/player/FPSPlayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/props/bar/Glass.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/sounds/glup.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/models/story/phone.glb" type="PackedScene" id=4]
+[ext_resource path="res://assets/models/story/valve.glb" type="PackedScene" id=5]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=7]
 
 [sub_resource type="RayShape" id=1]
 length = 0.3
@@ -127,11 +129,17 @@ shape = SubResource( 2 )
 [node name="Head" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0 )
 
-[node name="Glass" parent="Head/Camera" index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
+[node name="valve" parent="Head/Camera/HandBone" index="0" instance=ExtResource( 5 )]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 
-[node name="phone" parent="Head/Camera" index="3" instance=ExtResource( 4 )]
+[node name="key" parent="Head/Camera/HandBone" index="1" instance=ExtResource( 7 )]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
+
+[node name="phone" parent="Head/Camera" index="2" instance=ExtResource( 4 )]
 transform = Transform( -0.69164, 0.669649, -0.270563, -0.364308, -5.93533e-08, 0.931279, 0.62363, 0.742678, 0.243958, -0.188, -0.043, -0.242 )
+
+[node name="Glass" parent="Head/Camera" index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="4"]
 stream = ExtResource( 3 )

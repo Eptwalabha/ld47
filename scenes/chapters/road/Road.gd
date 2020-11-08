@@ -9,34 +9,30 @@ onready var line_a := $Pivot/LineA as Spatial
 onready var line_b := $Pivot/LineB as Spatial
 onready var car_engine_sound := $CarEngine as AudioStreamPlayer2D
 
-var reset_line_a_transform : Transform
-var reset_line_b_transform : Transform
-var reset_road_transform : Transform
+var initial_road_rotation : Vector3
 
 func _ready() -> void:
-	reset_line_a_transform = line_a.global_transform
-	reset_line_b_transform = line_b.global_transform
-	reset_road_transform = road.global_transform
+	initial_road_rotation = road.rotation
 	for car in get_tree().get_nodes_in_group("cars"):
 		if car is Car:
 			car.connect("crashed_on_player", self, "crash_car")
 	$CarEngine.stop()
 	$CarCrash.stop()
-	reset()
-
-func start() -> void:
-	$CarEngine.play()
-	emit_signal("night_environment", true)
-	reset()
+#	reset()
 
 func reset() -> void:
 	for car in get_tree().get_nodes_in_group("cars"):
 		if car is Car:
 			car.reset()
-	line_a.global_transform = reset_line_a_transform
-	line_b.global_transform = reset_line_b_transform
-	road.global_transform = reset_road_transform
+	road.rotation = initial_road_rotation
+	line_a.rotation = Vector3.ZERO
+	line_b.rotation = Vector3.ZERO
 	Data.reset_game(Data.LEVEL.ROAD)
+	emit_signal("night_environment", true)
+	$CarEngine.play()
+
+func set_up_player(player: Player) -> void:
+	player.global_transform.origin = start.global_transform.origin
 
 func process(delta : float) -> void:
 	if Data.road_car_crashed:

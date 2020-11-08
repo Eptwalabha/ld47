@@ -56,3 +56,6 @@ func get_trigger_hover() -> InteractTrigger:
 		if collider is InteractTrigger and collider.active:
 			return collider
 	return null
+
+func show_item(_item_name: String, _visible: bool) -> void:
+	pass

@@ -49,26 +49,9 @@ func _init_level() -> void:
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
 	current_map = level_id
-	match level_id:
-		Data.LEVEL.FLAT:
-			bar.hide()
-			road.hide()
-			change_current_player('fps')
-			current_player.global_transform.origin = flat.start.global_transform.origin
-			flat.reset()
-		Data.LEVEL.BAR:
-			flat.hide()
-			road.hide()
-			change_current_player('fps')
-			current_player.global_transform.origin = bar.start.global_transform.origin
-			bar.reset()
-		Data.LEVEL.ROAD:
-			flat.hide()
-			bar.hide()
-			change_current_player('car')
-			current_player.global_transform.origin = road.start.global_transform.origin
-		_:
-			pass
+	change_current_map(level_id)
+	if Data.DEBUG:
+		current_player.global_transform.origin = maps[current_map].start.global_transform.origin
 	current_player.reset()
 	current_player.make_current()
 
@@ -77,7 +60,10 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		ui.show_mouse_capture()
+		if ui.is_mouse_captured():
+			ui.show_mouse_capture()
+		else:
+			get_tree().quit()
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
 	player_states[current_state].process(current_player, delta)
@@ -146,7 +132,8 @@ func active_tp(trigger: TPTrigger) -> void:
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar-tp":
-			bar.reset()
+			change_current_map(Data.LEVEL.BAR)
+#			bar.reset()
 		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
 			flat.set_level(Data.flat_level)
@@ -156,10 +143,11 @@ func _before_tp(trigger: TPTrigger) -> void:
 		_ : pass
 
 func _after_tp(trigger: TPTrigger) -> void:
-	match trigger.id:
-		"bar-tp":
-			flat.hide()
-		_: pass
+#	match trigger.id:
+#		"bar-tp":
+#			flat.hide()
+#		_: pass
+	pass
 
 func _on_FPS_context_action_pressed() -> void:
 	var collider = current_player.get_trigger_hover()
@@ -195,14 +183,16 @@ func _on_Bar_door_interacted_with(door: Door) -> void:
 				display_dialog('find_the_key')
 			elif Data.key_found and not Data.key_inserted:
 				bar.enable_item(bar.ITEMS.EXIT_DOOR_KEY, true)
+				current_player.show_item('key', false)
 				display_dialog('key_inserted')
 			elif Data.key_inserted and not Data.valve_found:
 				display_dialog('find_the_valve')
 			elif Data.valve_found and not Data.valve_inserted:
 				bar.enable_item(bar.ITEMS.EXIT_DOOR_VALVE, true)
+				current_player.show_item('key', false)
 				display_dialog('valve_inserted')
 			else:
-				print("end of sequence")
+				change_current_map(Data.LEVEL.ROAD)
 		_:
 			door.toggle()
 
@@ -226,6 +216,19 @@ func change_player_state(new_state: String) -> void:
 			player_states[current_state].exit()
 		current_state = new_state
 		player_states[current_state].enter(current_player)
+
+func change_current_map(new_map) -> void:
+	current_map = new_map
+	for map in maps:
+		maps[map].visible = (map == current_map)
+	match new_map:
+		Data.LEVEL.ROAD:
+			change_current_player('car')
+		_:
+			change_current_player('fps')
+	maps[current_map].set_up_player(current_player)
+	maps[current_map].reset()
+	
 
 func move_through(window: WindowTrigger) -> void:
 	var path = window.get_path_points(current_player.global_transform.origin, .3)
@@ -286,11 +289,17 @@ func _on_Bar_item_picked_up(item) -> void:
 			Data.key_found = true
 			bar.enable_item(bar.ITEMS.KEY, false)
 			bar.enable_item(bar.ITEMS.VALVE, true)
+			current_player.show_item('key', true)
 			display_dialog('key_found')
 		'valve':
 			Data.valve_found = true
 			Data.drinking = false
 			bar.enable_item(bar.ITEMS.VALVE, false)
+			current_player.show_item('valve', true)
 			display_dialog('valve_found')
 			bar.close_bar()
 
+func _on_Road_car_crashed() -> void:
+#	ui.black()
+#	ui.show_dot(false)
+	change_current_map(Data.LEVEL.FLAT)

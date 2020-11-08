@@ -6,12 +6,18 @@ signal drink_ended
 onready var phone := $Head/Camera/phone
 onready var glass := $Head/Camera/Glass
 onready var ground := $Ground as RayCast
+onready var key := $Head/Camera/HandBone/key
+onready var valve := $Head/Camera/HandBone/valve
 
 export(float) var speed := 3.0
 export(float) var acceleration := 10.0
 
 var velocity = Vector3()
 var gravity_vector : Vector3 = Vector3.ZERO
+
+func _ready() -> void:
+	glass.hide()
+	phone.hide()
 
 func reset() -> void:
 	head.rotation = Vector3.ZERO
@@ -20,6 +26,9 @@ func reset() -> void:
 	make_current()
 	hangup_phone()
 	glass.hide()
+	phone.hide()
+	key.visible = false
+	valve.visible = false
 
 func zeroed_velocity() -> void:
 	velocity = Vector3.ZERO
@@ -85,3 +94,8 @@ func empty(empty_glass: bool) -> void:
 
 func move_through_window() -> void:
 	$AnimationPlayer.play("move_through_window")
+
+func show_item(item_name : String, visible: bool) -> void:
+	key.visible = (visible and item_name == 'key')
+	valve.visible = (visible and item_name == 'valve')
+	phone.visible = (visible and item_name == 'phone')

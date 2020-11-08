@@ -22,6 +22,9 @@ func reset() -> void:
 	Data.reset_game(Data.LEVEL.FLAT)
 	set_level(Data.flat_level)
 
+func set_up_player(player: Player) -> void:
+	player.global_transform.origin = start.global_transform.origin
+
 func set_level(level: int) -> void:
 	var delta_elevation : float = level * 2.5 - backstreet_building.global_transform.origin.y
 	backstreet_building.translate(Vector3(0, delta_elevation, 0))
