@@ -23,6 +23,13 @@ transform = Transform( 0.8, -1.42109e-14, 0, 0, 0.49882, 0.625443, 0, -0.625443,
 [node name="OmniLight" type="OmniLight" parent="car_inside" index="2"]
 transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 1.4, 0 )
 
+[node name="SpotLight" type="SpotLight" parent="car_inside" index="3"]
+transform = Transform( 1, 0, 0, 0, -0.998027, 0.0627905, 0, -0.0627905, -0.998027, -7.15256e-07, 0.798428, 2.23771 )
+light_color = Color( 1, 0.988235, 0.72549, 1 )
+light_energy = 3.0
+spot_range = 20.0
+spot_attenuation = 0.659754
+
 [node name="BoxCollision" type="CollisionShape" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.914583, 0 )
 shape = SubResource( 1 )

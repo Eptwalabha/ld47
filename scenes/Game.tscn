@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/chapters/bar/Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/player/CarPlayer.tscn" type="PackedScene" id=2]
@@ -12,6 +12,205 @@
 [ext_resource path="res://scenes/core/player_states/PlayerStateMoveThrough.gd" type="Script" id=25]
 [ext_resource path="res://default_env.tres" type="Environment" id=27]
 [ext_resource path="res://scenes/core/player_states/PlayerStateAnimation.gd" type="Script" id=29]
+
+[sub_resource type="Animation" id=1]
+resource_name = "sunrise"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:background_sky:sky_top_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.647059, 0.839216, 0.945098, 1 ), Color( 0.0313726, 0.0313726, 0.0313726, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky:sky_horizon_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.839216, 0.917647, 0.980392, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WorldEnvironment:environment:background_sky:sky_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WorldEnvironment:environment:background_sky:sun_latitude")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 35.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("WorldEnvironment:environment:background_sky:sun_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("WorldEnvironment:environment:background_sky:ground_bottom_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.156863, 0.184314, 0.211765, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("WorldEnvironment:environment:background_sky:ground_horizon_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.423529, 0.396078, 0.372549, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sun:light_energy")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "sunset"
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:background_sky:sky_top_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.647059, 0.839216, 0.945098, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky:sky_horizon_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.839216, 0.917647, 0.980392, 1 ), Color( 0.941176, 0.835294, 0.356863, 1 ), Color( 0.0509804, 0.0509804, 0.0509804, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WorldEnvironment:environment:background_sky:sky_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.6 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WorldEnvironment:environment:background_sky:sun_latitude")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 35.0, 10.0, -39.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("WorldEnvironment:environment:background_sky:sun_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.85098, 0.639216, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("WorldEnvironment:environment:background_sky:ground_bottom_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.156863, 0.184314, 0.211765, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("WorldEnvironment:environment:background_sky:ground_horizon_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.423529, 0.396078, 0.372549, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sun:light_energy")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.1 ]
+}
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 18 )
@@ -57,8 +256,14 @@ transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 27 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "sunrise"
+anims/sunrise = SubResource( 1 )
+anims/sunset = SubResource( 2 )
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Flat_door_interacted_with"]
+[connection signal="night_environment" from="Map/Flat" to="." method="_on_Night_environment"]
 [connection signal="phone_picked_up" from="Map/Flat" to="." method="_on_Flat_phone_picked_up"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Flat_tp_entered"]
 [connection signal="tp_exited" from="Map/Flat" to="." method="_on_Flat_tp_exited"]
@@ -66,8 +271,10 @@ environment = ExtResource( 27 )
 [connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]
 [connection signal="item_picked_up" from="Map/Bar" to="." method="_on_Bar_item_picked_up"]
+[connection signal="night_environment" from="Map/Bar" to="." method="_on_Night_environment"]
 [connection signal="window_triggered" from="Map/Bar" to="." method="_on_window_triggered"]
 [connection signal="car_crashed" from="Map/Road" to="." method="_on_Road_car_crashed"]
+[connection signal="night_environment" from="Map/Road" to="." method="_on_Night_environment"]
 [connection signal="drink_ended" from="Player/FPSPlayer" to="." method="_on_Player_drink_ended"]
 [connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]

@@ -86,6 +86,7 @@ func close_bar() -> void:
 	enable_dialog(CHARACTERS.BARTENDER, false)
 	bartender.visible = false
 	dancers.visible = false
+	emit_signal("night_environment", true)
 
 func set_character_animation(who: int, animation: String) -> void:
 	match who:

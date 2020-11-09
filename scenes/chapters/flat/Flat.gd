@@ -21,6 +21,7 @@ func reset() -> void:
 	appartment_door.set_state(false)
 	Data.reset_game(Data.LEVEL.FLAT)
 	set_level(Data.flat_level)
+	emit_signal("night_environment", false)
 
 func set_level(level: int) -> void:
 	var delta_elevation : float = level * 2.5 - backstreet_building.global_transform.origin.y

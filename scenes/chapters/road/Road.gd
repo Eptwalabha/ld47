@@ -28,7 +28,7 @@ func reset() -> void:
 	line_a.rotation = Vector3.ZERO
 	line_b.rotation = Vector3.ZERO
 	Data.reset_game(Data.LEVEL.ROAD)
-	emit_signal("night_environment", true)
+#	emit_signal("night_environment", true)
 	$CarEngine.play()
 
 func get_start_origin() -> Vector3:

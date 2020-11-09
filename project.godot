@@ -271,6 +271,10 @@ window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[filesystem]
+
+import/open_asset_import/use_fbx=false
+
 [input]
 
 ui_select={
