@@ -4,7 +4,6 @@ extends Spatial
 onready var current_player : Player
 onready var fps_player : FPSPlayer = $Player/FPSPlayer
 onready var car_player : CarPlayer = $Player/CarPlayer
-#onready var current_player : Player = $Player/CarPlayer
 onready var ui := $UI as UI
 
 onready var bar := $Map/Bar as Bar
