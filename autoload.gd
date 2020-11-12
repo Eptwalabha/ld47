@@ -8,7 +8,7 @@ enum LEVEL {
 }
 
 const DEBUG : bool = false
-const DEBUG_GAME_LEVEL = LEVEL.FLAT
+const DEBUG_GAME_LEVEL = LEVEL.ROAD
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 
 const GRAVITY : int = 10

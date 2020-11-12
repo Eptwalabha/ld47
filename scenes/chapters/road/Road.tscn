@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/chapters/road/Road.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/road/road.glb" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/props/road/Car.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/sounds/car-crash.ogg" type="AudioStream" id=5]
 [ext_resource path="res://assets/sounds/car-engine.ogg" type="AudioStream" id=6]
+[ext_resource path="res://scenes/props/road/LampPole.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.562912, 1, 1 )
@@ -55,6 +56,27 @@ turn_before_active = 1
 [node name="LB4" parent="Pivot/LineB" instance=ExtResource( 4 )]
 transform = Transform( -0.222144, 0, -0.975014, 0, 1, 0, 0.975014, 0, -0.222144, -11.4037, 0, 50.052 )
 turn_before_active = 3
+
+[node name="Lamps" type="Spatial" parent="Pivot"]
+transform = Transform( 0.537049, 0, 0.843551, 0, 1, 0, -0.843551, 0, 0.537049, 0, 0, 0 )
+
+[node name="LampPole1" parent="Pivot/Lamps" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -68.1304, 0, 0 )
+
+[node name="LampPole2" parent="Pivot/Lamps" instance=ExtResource( 7 )]
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -48.1755, 0, 48.1755 )
+
+[node name="LampPole4" parent="Pivot/Lamps" instance=ExtResource( 7 )]
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 48.1755, 0, 48.1755 )
+
+[node name="LampPole7" parent="Pivot/Lamps" instance=ExtResource( 7 )]
+transform = Transform( -2.08616e-07, 0, -1, 0, 1, 0, 1, 0, -2.08616e-07, 1.42131e-05, 0, -68.1305 )
+
+[node name="LampPole8" parent="Pivot/Lamps" instance=ExtResource( 7 )]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -48.1755, 0, -48.1755 )
+
+[node name="LampPole3" parent="Pivot/Lamps" instance=ExtResource( 7 )]
+transform = Transform( -0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 17.6335, 0, 65.8089 )
 
 [node name="StartPoint" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, -2 )
