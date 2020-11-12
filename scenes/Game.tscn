@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/chapters/bar/Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/player/CarPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/chapters/road/Road.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/core/misc/MaterialPreloader.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/location/StartChapter.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/player/FPSPlayer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/chapters/flat/Flat.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=13]
@@ -222,6 +224,8 @@ script = ExtResource( 18 )
 [node name="Flat" parent="Map" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0 )
 
+[node name="Lol" parent="Map/Flat" instance=ExtResource( 5 )]
+
 [node name="Bar" parent="Map" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )
 
@@ -230,7 +234,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )
 [node name="Player" type="Spatial" parent="."]
 
 [node name="FPSPlayer" parent="Player" instance=ExtResource( 6 )]
-visible = false
+
+[node name="MaterialPreloader" parent="Player/FPSPlayer" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2 )
 
 [node name="CarPlayer" parent="Player" instance=ExtResource( 2 )]
 visible = false

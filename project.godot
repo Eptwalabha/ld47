@@ -264,7 +264,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Data="*res://autoload.gd"
-MaterialPreloader="*res://scenes/core/misc/MaterialPreloader.tscn"
 
 [display]
 
