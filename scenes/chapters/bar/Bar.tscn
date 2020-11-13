@@ -231,6 +231,7 @@ transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5
 default = "sit-stool-drink"
 
 [node name="StartPoint" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 [connection signal="went_through" from="RestroomLocation/WindowGirl" to="." method="_on_ToiletWindow_went_through"]
 [connection signal="went_through" from="RestroomLocation/WindowBoy" to="." method="_on_ToiletWindow_went_through"]
 [connection signal="picked_up" from="Key" to="." method="_on_Key_picked_up"]

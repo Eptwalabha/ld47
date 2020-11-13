@@ -109,7 +109,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06281, 1.06188, 0.230944 )
 id = "flat-plant"
 
 [node name="StartPoint" parent="." instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.4, 0, 2 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.25, 0, 2 )
 [connection signal="interacted_with" from="Door" to="." method="_on_Door_interacted_with"]
 
 [editable path="BackStreetBuilding/BarCorridor/TPTrigger"]

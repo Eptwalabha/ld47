@@ -23,7 +23,7 @@ func _ready() -> void:
 	var path = "res://assets/models"
 	dir.open(path)
 	
-	_get_materials(dir)
+	_load_materials(dir)
 	
 	for material in materials:
 		var mesh = MeshInstance.new()
@@ -34,20 +34,21 @@ func _ready() -> void:
 	
 	set_process(true)
 
-func _get_materials(dir: Directory) -> void:
+func _load_materials(dir: Directory) -> void:
 	dir.list_dir_begin(true, true)
 	var file = dir.get_next()
 	while file != "":
+		var file_path = dir.get_current_dir() + "/" + file
 		if dir.current_is_dir():
 			var dir2 = Directory.new()
-			dir2.open(dir.get_current_dir() + "/" + file)
-			_get_materials(dir2)
+			dir2.open(file_path)
+			_load_materials(dir2)
 		elif file.ends_with(".material"):
-			materials.append(load(dir.get_current_dir() + "/" + file))
+			materials.append(load(file_path))
 		file = dir.get_next()
 
 func _process(delta: float) -> void:
 	count += 1
-	if count > 5:
+	if count > 10:
 		hide()
 		set_process(false)
