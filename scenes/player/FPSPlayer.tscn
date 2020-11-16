@@ -31,7 +31,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( -7.141, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/path = NodePath("Drink:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -141,7 +141,7 @@ transform = Transform( -0.69164, 0.669649, -0.270563, -0.364308, -5.93533e-08, 0
 [node name="Glass" parent="Head/Camera" index="3" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="4"]
+[node name="Drink" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 3 )
 bus = "sound"
 

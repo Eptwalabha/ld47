@@ -58,7 +58,7 @@ func _init_level() -> void:
 	if Data.DEBUG:
 		current_player.global_transform.origin = maps[current_map].get_start_origin()
 		current_player.reset()
-		if level_id == Data.LEVEL.ROAD:
+		if level_id == Data.LEVEL.ROAD and Data.DEBUG_ENVIRONMENT:
 			$AnimationPlayer.play("sunset")
 
 func _physics_process(delta: float) -> void:
@@ -317,9 +317,14 @@ func _on_Road_car_crashed() -> void:
 #	ui.show_dot(false)
 	change_map(Data.LEVEL.FLAT)
 
+func _on_Road_car_bounced(left: bool) -> void:
+	if current_player is CarPlayer:
+		current_player.bounce(left)
 
 func _on_Night_environment(is_night: bool) -> void:
 	if is_night:
-		$AnimationPlayer.play("sunset")
+		if Data.DEBUG and Data.DEBUG_ENVIRONMENT or not Data.DEBUG:
+			$AnimationPlayer.play("sunset")
 	else:
 		$AnimationPlayer.play("sunrise")
+

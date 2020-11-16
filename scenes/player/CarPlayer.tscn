@@ -1,12 +1,41 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/player/CarPlayer.gd" type="Script" id=2]
 [ext_resource path="res://assets/models/story/valve.glb" type="PackedScene" id=3]
 [ext_resource path="res://assets/models/road/car_inside.glb" type="PackedScene" id=4]
+[ext_resource path="res://scenes/particles/GrindSparks.tscn" type="PackedScene" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.836516, 0.664314, 1.90982 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "grind"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("car_inside/valve:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector3( 0.4, 0.818, 0.6 ), Vector3( 0.437738, 0.835172, 0.6 ), Vector3( 0.418969, 0.823797, 0.6 ), Vector3( 0.358021, 0.882738, 0.6 ), Vector3( 0.386248, 0.853492, 0.6 ), Vector3( 0.381521, 0.899742, 0.6 ), Vector3( 0.426743, 0.83038, 0.6 ), Vector3( 0.4, 0.818, 0.6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("car_inside:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.4, 0, 0 ), Vector3( 0.374943, 0, 0 ), Vector3( 0.428789, 0, 0 ), Vector3( 0.365861, 0, 0 ) ]
+}
 
 [node name="CarPlayer" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -18,7 +47,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0 )
 far = 200.0
 
 [node name="car_inside" parent="." index="1" instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.4, 0, 0 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.365861, 0, 0 )
 
 [node name="valve" parent="car_inside" index="1" instance=ExtResource( 3 )]
 transform = Transform( 0.8, -1.42109e-14, 0, 0, 0.49882, 0.625443, 0, -0.625443, 0.49882, 0.4, 0.818, 0.6 )
@@ -28,11 +57,25 @@ transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 1.4,
 
 [node name="SpotLight" type="SpotLight" parent="car_inside" index="3"]
 transform = Transform( 1, 0, 0, 0, -0.998027, 0.0627905, 0, -0.0627905, -0.998027, -7.15256e-07, 0.798428, 2.23771 )
-light_color = Color( 1, 0.988235, 0.72549, 1 )
+light_color = Color( 0.976471, 0.968627, 0.827451, 1 )
 light_energy = 3.0
-spot_range = 20.0
-spot_attenuation = 0.659754
+spot_range = 30.0
+spot_attenuation = 3.86375
+spot_angle = 50.0
+spot_angle_attenuation = 5.09824
+
+[node name="Particles" type="Spatial" parent="car_inside" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.154765, 0 )
+
+[node name="Left" parent="car_inside/Particles" index="0" instance=ExtResource( 5 )]
+transform = Transform( 0.591661, -1.49396e-07, 0.806187, 0.369632, 0.888697, -0.271273, -0.716456, 0.458494, 0.525808, 0.750483, 0.758606, 1.95525 )
+
+[node name="Right" parent="car_inside/Particles" index="1" instance=ExtResource( 5 )]
+transform = Transform( -0.429781, 0.0656875, 0.900541, 0.432826, 0.890283, 0.141626, -0.792433, 0.450646, -0.411058, -0.902949, 0.758606, 1.95525 )
 
 [node name="BoxCollision" type="CollisionShape" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.914583, 0 )
 shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+anims/grind = SubResource( 2 )
