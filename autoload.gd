@@ -8,7 +8,7 @@ enum LEVEL {
 }
 
 const DEBUG : bool = true
-const DEBUG_GAME_LEVEL = LEVEL.FLAT
+const DEBUG_GAME_LEVEL = LEVEL.ROAD
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 const DEBUG_ENVIRONMENT : bool = true
 const DEBUG_ROAD_CONTROL : bool = false
@@ -23,7 +23,8 @@ const BAR_DRINK_DELAY_SECOND : float = 10.0
 
 const ROAD_CAR_ACCELERATION : float = 1.0
 const ROAD_CAR_SPEED : float = 0.6
-const ROAD_CAR_MAX_DRAG : float = -0.005
+const ROAD_CAR_MAX_DRAG : float = -0.001
+const ROAD_DISABLE_CAR_DRAG : bool = false
 
 var first_time : bool = true
 var using_controller : bool = false
@@ -43,7 +44,7 @@ var valve_inserted := false
 var road_tutorial := false
 var road_car_crashed := false
 var road_car_speed := 0.0
-var road_car_drag := 0.0
+var road_car_drag := 0.01
 
 func reset_game(level) -> void:
 	match level:
@@ -65,7 +66,10 @@ func reset_game(level) -> void:
 			road_tutorial = false
 			road_car_crashed = false
 			road_car_speed = 0.0
-			road_car_drag = 0.0
+			if DEBUG and ROAD_DISABLE_CAR_DRAG:
+				road_car_drag = 0.0
+			else:
+				road_car_drag = ROAD_CAR_MAX_DRAG
 
 var dialogs = {
 	'flat-plant': 'flat_plant',
