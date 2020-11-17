@@ -82,3 +82,6 @@ ui_title_pause_menu	Pause	Pause
 ui_title_options_menu	Options	Options
 ui_slider_music_volume	Volume	Volume
 ui_slider_mouse_sensitivity	Mouse sensitivity	Sensibilité de la souris
+ui_select_lang	Language	Langue
+ui_locale_fr	Français	Français
+ui_locale_en	English	English
