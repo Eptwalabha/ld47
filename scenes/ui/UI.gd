@@ -3,11 +3,13 @@ extends Control
 
 # warning-ignore:unused_signal
 signal blink
+signal game_resumed
 
 onready var dialog := $VBoxContainer/Dialog as UIDialog
 onready var context := $VBoxContainer/Context as UIContext
 onready var dot := $Dot as CenterContainer
-onready var mouse_capture := $MouseCapture as MarginContainer
+onready var pause := $PauseMenu as PauseMenu
+onready var options := $OptionsMenu as OptionsMenu
 
 func reset() -> void:
 	show()
@@ -40,16 +42,32 @@ func black() -> void:
 func show_dot(is_dot_visible: bool) -> void:
 	dot.visible = is_dot_visible
 
-func is_mouse_captured() -> bool:
-	return not mouse_capture.visible
+func quit_game() -> void:
+	get_tree().quit()
 
-func show_mouse_capture() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	mouse_capture.visible = true
+func open_pause_menu() -> void:
+	if not pause.visible and not options.visible:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		show_dot(false)
+		pause.open()
+	else:
+		if options.visible:
+			options.hide()
+			pause.open()
 
-func capture_mouse() -> void:
+func _on_PauseMenu_continue_clicked() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	mouse_capture.visible = Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED
+	show_dot(true)
+	pause.hide()
+	emit_signal("game_resumed")
 
-func _on_Button_pressed() -> void:
-	capture_mouse()
+func _on_PauseMenu_quit_clicked() -> void:
+	quit_game()
+
+func _on_OptionsMenu_back_clicked() -> void:
+	pause.open()
+	options.hide()
+
+func _on_PauseMenu_options_clicked() -> void:
+	pause.visible = false
+	options.open()

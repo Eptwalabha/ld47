@@ -34,7 +34,7 @@ var next_drinking := 0.0
 var triggers := {}
 
 func _ready() -> void:
-	ui.capture_mouse()
+	ui.open_pause_menu()
 	_init_level()
 	for state_name in player_states:
 		var state = player_states[state_name]
@@ -66,10 +66,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		if ui.is_mouse_captured():
-			ui.show_mouse_capture()
-		else:
-			get_tree().quit()
+		ui.open_pause_menu()
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
 	player_states[current_state].process(current_player, delta)
@@ -149,10 +146,6 @@ func _before_tp(trigger: TPTrigger) -> void:
 		_ : pass
 
 func _after_tp(trigger: TPTrigger) -> void:
-#	match trigger.id:
-#		"bar-tp":
-#			flat.hide()
-#		_: pass
 	pass
 
 func _on_FPS_context_action_pressed() -> void:

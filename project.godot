@@ -129,6 +129,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/location/Location.gd"
 }, {
+"base": "MarginContainer",
+"class": "OptionsMenu",
+"language": "GDScript",
+"path": "res://scenes/ui/menus/OptionsMenu.gd"
+}, {
+"base": "MarginContainer",
+"class": "PauseMenu",
+"language": "GDScript",
+"path": "res://scenes/ui/menus/PauseMenu.gd"
+}, {
 "base": "Spatial",
 "class": "Phone",
 "language": "GDScript",
@@ -234,6 +244,8 @@ _global_script_class_icons={
 "Key": "",
 "LightTrigger": "",
 "Location": "",
+"OptionsMenu": "",
+"PauseMenu": "",
 "Phone": "",
 "Player": "",
 "PlayerState": "",
