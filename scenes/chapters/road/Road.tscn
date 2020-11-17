@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/chapters/road/Road.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/road/road.glb" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://assets/sounds/car-crash.ogg" type="AudioStream" id=5]
 [ext_resource path="res://assets/sounds/car-engine.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scenes/props/road/LampPole.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/models/road/road-v2.glb" type="PackedScene" id=8]
 [ext_resource path="res://assets/sounds/car-grind.ogg" type="AudioStream" id=9]
 
 [sub_resource type="BoxShape" id=1]
@@ -20,19 +19,10 @@ extents = Vector3( 10.5218, 1.53021, 1 )
 script = ExtResource( 1 )
 
 [node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="road-v2" parent="Pivot" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, -7.94729e-08, 0, 1, 0, 7.94729e-08, 0, 1, 0, 0, 0 )
-
-[node name="RoadModel" parent="Pivot" instance=ExtResource( 2 )]
-transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0 )
-visible = false
 
 [node name="TempCars" type="Spatial" parent="Pivot"]
 
 [node name="LineA" type="Spatial" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="LA2" parent="Pivot/LineA" instance=ExtResource( 4 )]
 transform = Transform( 0.0889112, 0, 0.99604, 0, 1, 0, -0.99604, 0, 0.0889112, -6.66723, 0, 74.6903 )
@@ -49,7 +39,6 @@ turn_before_active = 2
 transform = Transform( 0.895214, 0, 0.445636, 0, 1, 0, -0.445636, 0, 0.895214, -68.6737, 0, 34.1856 )
 
 [node name="LineB" type="Spatial" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="LB1" parent="Pivot/LineB" instance=ExtResource( 4 )]
 transform = Transform( 0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 56.8951, 0, -56.8951 )
@@ -84,6 +73,8 @@ transform = Transform( -0.269391, 0, -0.963031, 0, 1, 0, 0.963031, 0, -0.269391,
 
 [node name="LampPole3" parent="Pivot/Lamps" instance=ExtResource( 7 )]
 transform = Transform( -0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 22.7525, 0, 84.9134 )
+
+[node name="RoadModel" parent="Pivot" instance=ExtResource( 2 )]
 
 [node name="StartPoint" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -75.9037, 0, -2 )
