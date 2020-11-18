@@ -8,13 +8,16 @@ enum LEVEL {
 }
 
 const DEBUG : bool = true
-const DEBUG_GAME_LEVEL = LEVEL.FLAT
+const DEBUG_GAME_LEVEL = LEVEL.ROAD
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 const DEBUG_ENVIRONMENT : bool = true
 const DEBUG_ROAD_CONTROL : bool = false
 
 const MOUSE_SENSITIVITY_MIN : float = 0.1
 const MOUSE_SENSITIVITY_MAX : float = 0.7
+
+const BUS_VOLUME_MIN : float = -24.0
+const BUS_VOLUME_MAX : float = 7.0
 
 const GRAVITY : int = 10
 const MAX_GRAVITY : int = 100
@@ -27,7 +30,7 @@ const BAR_DRINK_DELAY_SECOND : float = 10.0
 const ROAD_CAR_ACCELERATION : float = 1.0
 const ROAD_CAR_SPEED : float = 0.6
 const ROAD_CAR_MAX_DRAG : float = -0.001
-const ROAD_DISABLE_CAR_DRAG : bool = false
+const ROAD_DISABLE_CAR_DRAG : bool = true
 
 var mouse_sensitivity : float = -.3
 
@@ -77,10 +80,18 @@ func reset_game(level) -> void:
 				road_car_drag = ROAD_CAR_MAX_DRAG
 
 func change_mouse_sensitivity(mouse: float) -> void:
-	mouse_sensitivity = -(MOUSE_SENSITIVITY_MIN + (MOUSE_SENSITIVITY_MAX - MOUSE_SENSITIVITY_MIN) * mouse)
+	mouse_sensitivity = -lerp(MOUSE_SENSITIVITY_MIN, MOUSE_SENSITIVITY_MAX, mouse)
 
 func get_mouse_sensitivity_amount() -> float:
-	return -(mouse_sensitivity + MOUSE_SENSITIVITY_MIN) / (MOUSE_SENSITIVITY_MAX - MOUSE_SENSITIVITY_MIN)
+	return inverse_lerp(MOUSE_SENSITIVITY_MIN, MOUSE_SENSITIVITY_MAX, -mouse_sensitivity)
+
+func change_master_bus_volume(volume: float) -> void:
+	var v = lerp(BUS_VOLUME_MIN, BUS_VOLUME_MAX, volume)
+	AudioServer.set_bus_volume_db(0, v)
+	AudioServer.set_bus_mute(0, volume <= 0.0)
+
+func get_master_bus_amount() -> float:
+	return inverse_lerp(BUS_VOLUME_MIN, BUS_VOLUME_MAX, AudioServer.get_bus_volume_db(0))
 
 var dialogs = {
 	'flat-plant': 'flat_plant',

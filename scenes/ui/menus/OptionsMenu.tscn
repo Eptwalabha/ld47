@@ -64,19 +64,19 @@ margin_right = 692.0
 margin_bottom = 194.0
 custom_constants/separation = 20
 
-[node name="Music" type="HBoxContainer" parent="Menu/Container/Options/List"]
+[node name="Sound" type="HBoxContainer" parent="Menu/Container/Options/List"]
 margin_right = 500.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 500, 0 )
 
-[node name="Label" type="Label" parent="Menu/Container/Options/List/Music"]
+[node name="Label" type="Label" parent="Menu/Container/Options/List/Sound"]
 margin_top = 1.0
 margin_right = 165.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 text = "ui_slider_music_volume"
 
-[node name="HSlider" type="HSlider" parent="Menu/Container/Options/List/Music"]
+[node name="HSlider" type="HSlider" parent="Menu/Container/Options/List/Sound"]
 margin_left = 169.0
 margin_right = 500.0
 margin_bottom = 16.0
@@ -154,7 +154,7 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 text = "ui_btn_back"
 flat = true
-[connection signal="value_changed" from="Menu/Container/Options/List/Music/HSlider" to="." method="_on_Music_Slider_value_changed"]
+[connection signal="value_changed" from="Menu/Container/Options/List/Sound/HSlider" to="." method="_on_Music_Slider_value_changed"]
 [connection signal="value_changed" from="Menu/Container/Options/List/Mouse/HSlider" to="." method="_on_Mouse_Slider_value_changed"]
 [connection signal="item_selected" from="Menu/Container/Options/List/Locales/OptionButton" to="." method="_on_MenuButton_item_selected"]
 [connection signal="pressed" from="Menu/Back/CenterContainer/Back" to="." method="_on_Back_pressed"]

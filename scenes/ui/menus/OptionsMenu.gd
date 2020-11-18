@@ -6,7 +6,7 @@ signal options_clicked
 signal back_clicked
 
 onready var dropdown := $Menu/Container/Options/List/Locales/OptionButton as OptionButton
-onready var music_slider := $Menu/Container/Options/List/Music/HSlider as HSlider
+onready var sound_slider := $Menu/Container/Options/List/Sound/HSlider as HSlider
 onready var mouse_slider := $Menu/Container/Options/List/Mouse/HSlider as HSlider
 
 var locales = []
@@ -23,6 +23,7 @@ func _ready() -> void:
 			dropdown.select(i)
 		i += 1
 	mouse_slider.set_value(Data.get_mouse_sensitivity_amount())
+	sound_slider.set_value(Data.get_master_bus_amount())
 
 func open() -> void:
 	visible = true
@@ -37,4 +38,4 @@ func _on_Mouse_Slider_value_changed(value: float) -> void:
 	Data.change_mouse_sensitivity(value)
 
 func _on_Music_Slider_value_changed(value: float) -> void:
-	pass # Replace with function body.
+	Data.change_master_bus_volume(value)
