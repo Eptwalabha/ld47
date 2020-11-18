@@ -5,13 +5,8 @@ onready var ray := $Head/Camera/RayCast as RayCast
 onready var head := $Head as Spatial
 onready var camera := $Head/Camera as Camera
 
-export(float) var mouse_sensitivity := 0.3
-
 var has_control : bool = true
 var camera_angle : float = 0.0
-
-func _ready() -> void:
-	mouse_sensitivity = mouse_sensitivity * -1
 
 func reset() -> void:
 	pass
@@ -25,9 +20,9 @@ func zeroed_velocity() -> void:
 func input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		Data.using_controller = false
-		head.rotate_y(deg2rad(event.relative.x * mouse_sensitivity))
+		head.rotate_y(deg2rad(event.relative.x * Data.mouse_sensitivity))
 
-		var change = event.relative.y * mouse_sensitivity
+		var change = event.relative.y * Data.mouse_sensitivity
 		if change + camera_angle < 90 and change + camera_angle > -90:
 			camera.rotate_x(deg2rad(change))
 			camera_angle = camera_angle + change

@@ -6,6 +6,8 @@ signal options_clicked
 signal back_clicked
 
 onready var dropdown := $Menu/Container/Options/List/Locales/OptionButton as OptionButton
+onready var music_slider := $Menu/Container/Options/List/Music/HSlider as HSlider
+onready var mouse_slider := $Menu/Container/Options/List/Mouse/HSlider as HSlider
 
 var locales = []
 
@@ -20,6 +22,7 @@ func _ready() -> void:
 		if current_locale.begins_with(locale):
 			dropdown.select(i)
 		i += 1
+	mouse_slider.set_value(Data.get_mouse_sensitivity_amount())
 
 func open() -> void:
 	visible = true
@@ -29,3 +32,9 @@ func _on_Back_pressed() -> void:
 
 func _on_MenuButton_item_selected(index: int) -> void:
 	TranslationServer.set_locale(locales[index])
+
+func _on_Mouse_Slider_value_changed(value: float) -> void:
+	Data.change_mouse_sensitivity(value)
+
+func _on_Music_Slider_value_changed(value: float) -> void:
+	pass # Replace with function body.

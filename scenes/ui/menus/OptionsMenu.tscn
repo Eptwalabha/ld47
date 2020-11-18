@@ -83,6 +83,8 @@ margin_bottom = 16.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.01
 
 [node name="Mouse" type="HBoxContainer" parent="Menu/Container/Options/List"]
 margin_top = 36.0
@@ -104,6 +106,8 @@ margin_bottom = 16.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.01
 
 [node name="Locales" type="HBoxContainer" parent="Menu/Container/Options/List"]
 margin_top = 72.0
@@ -125,7 +129,6 @@ margin_bottom = 20.0
 grow_vertical = 0
 size_flags_vertical = 3
 text = "English"
-selected = 0
 
 [node name="Back" type="MarginContainer" parent="Menu"]
 margin_top = 428.0
@@ -151,5 +154,7 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 text = "ui_btn_back"
 flat = true
+[connection signal="value_changed" from="Menu/Container/Options/List/Music/HSlider" to="." method="_on_Music_Slider_value_changed"]
+[connection signal="value_changed" from="Menu/Container/Options/List/Mouse/HSlider" to="." method="_on_Mouse_Slider_value_changed"]
 [connection signal="item_selected" from="Menu/Container/Options/List/Locales/OptionButton" to="." method="_on_MenuButton_item_selected"]
 [connection signal="pressed" from="Menu/Back/CenterContainer/Back" to="." method="_on_Back_pressed"]

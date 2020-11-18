@@ -13,6 +13,9 @@ const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 const DEBUG_ENVIRONMENT : bool = true
 const DEBUG_ROAD_CONTROL : bool = false
 
+const MOUSE_SENSITIVITY_MIN : float = 0.1
+const MOUSE_SENSITIVITY_MAX : float = 0.7
+
 const GRAVITY : int = 10
 const MAX_GRAVITY : int = 100
 const MAX_SLOP : float = deg2rad(15.0)
@@ -25,6 +28,8 @@ const ROAD_CAR_ACCELERATION : float = 1.0
 const ROAD_CAR_SPEED : float = 0.6
 const ROAD_CAR_MAX_DRAG : float = -0.001
 const ROAD_DISABLE_CAR_DRAG : bool = false
+
+var mouse_sensitivity : float = -.3
 
 var first_time : bool = true
 var using_controller : bool = false
@@ -70,6 +75,12 @@ func reset_game(level) -> void:
 				road_car_drag = 0.0
 			else:
 				road_car_drag = ROAD_CAR_MAX_DRAG
+
+func change_mouse_sensitivity(mouse: float) -> void:
+	mouse_sensitivity = -(MOUSE_SENSITIVITY_MIN + (MOUSE_SENSITIVITY_MAX - MOUSE_SENSITIVITY_MIN) * mouse)
+
+func get_mouse_sensitivity_amount() -> float:
+	return -(mouse_sensitivity + MOUSE_SENSITIVITY_MIN) / (MOUSE_SENSITIVITY_MAX - MOUSE_SENSITIVITY_MIN)
 
 var dialogs = {
 	'flat-plant': 'flat_plant',
