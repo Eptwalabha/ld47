@@ -23,3 +23,9 @@ func exit() -> void:
 
 func is_hint_activated() -> bool:
 	return false
+
+func pause(_player: Player, next_state: String) -> void:
+	pass
+
+func resume(_player: Player) -> void:
+	pass

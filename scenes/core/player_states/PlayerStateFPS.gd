@@ -18,3 +18,6 @@ func process(_player: Player, _delta: float) -> void:
 
 func is_hint_activated() -> bool:
 	return true
+
+func resume(player: Player) -> void:
+	player.can_control(true)

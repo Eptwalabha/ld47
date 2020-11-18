@@ -99,3 +99,9 @@ func show_item(item_name : String, visible: bool) -> void:
 	key.visible = (visible and item_name == 'key')
 	valve.visible = (visible and item_name == 'valve')
 	phone.visible = (visible and item_name == 'phone')
+
+func pause_animation() -> void:
+	$AnimationPlayer.stop(false)
+
+func resume_animation() -> void:
+	$AnimationPlayer.play()

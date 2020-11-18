@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/chapters/bar/Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/player/CarPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/chapters/road/Road.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/core/misc/MaterialPreloader.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/PlayerStateMoveDrink.gd" type="Script" id=5]
 [ext_resource path="res://scenes/player/FPSPlayer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/chapters/flat/Flat.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/PlayerStatePauseMenu.gd" type="Script" id=8]
 [ext_resource path="res://scenes/ui/UI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=18]
 [ext_resource path="res://scenes/core/player_states/PlayerStateFPS.gd" type="Script" id=23]
@@ -240,8 +242,11 @@ visible = false
 
 [node name="GameStates" type="Node" parent="."]
 
-[node name="FPS" type="Node" parent="GameStates"]
+[node name="Move" type="Node" parent="GameStates"]
 script = ExtResource( 23 )
+
+[node name="MoveDrink" type="Node" parent="GameStates"]
+script = ExtResource( 5 )
 
 [node name="Dialog" type="Node" parent="GameStates"]
 script = ExtResource( 24 )
@@ -254,6 +259,9 @@ script = ExtResource( 25 )
 [node name="Animation" type="Node" parent="GameStates"]
 script = ExtResource( 29 )
 
+[node name="PauseMenu" type="Node" parent="GameStates"]
+script = ExtResource( 8 )
+
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025, -0.321394, 0.383022, 0, 9.09656, 0 )
 
@@ -264,6 +272,7 @@ environment = ExtResource( 27 )
 autoplay = "sunrise"
 anims/sunrise = SubResource( 1 )
 anims/sunset = SubResource( 2 )
+[connection signal="game_resumed" from="UI" to="." method="_on_UI_game_resumed"]
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Flat_door_interacted_with"]
 [connection signal="night_environment" from="Map/Flat" to="." method="_on_Night_environment"]
@@ -280,5 +289,7 @@ anims/sunset = SubResource( 2 )
 [connection signal="car_crashed" from="Map/Road" to="." method="_on_Road_car_crashed"]
 [connection signal="night_environment" from="Map/Road" to="." method="_on_Night_environment"]
 [connection signal="drink_ended" from="Player/FPSPlayer" to="." method="_on_Player_drink_ended"]
-[connection signal="context_action_pressed" from="GameStates/FPS" to="." method="_on_FPS_context_action_pressed"]
+[connection signal="context_action_pressed" from="GameStates/Move" to="." method="_on_FPS_context_action_pressed"]
+[connection signal="context_action_pressed" from="GameStates/MoveDrink" to="." method="_on_FPS_context_action_pressed"]
+[connection signal="drink_timeout" from="GameStates/MoveDrink" to="." method="_on_MoveDrink_drink_timeout"]
 [connection signal="dialog_ended" from="GameStates/Dialog" to="." method="_on_Dialog_dialog_ended"]

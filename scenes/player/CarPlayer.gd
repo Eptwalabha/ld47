@@ -46,3 +46,10 @@ func bounce(left: bool) -> void:
 func hide_particles() -> void:
 	$car_inside/Particles/Left.emitting = false
 	$car_inside/Particles/Right.emitting = false
+
+
+func pause_animation() -> void:
+	$AnimationPlayer.stop(false)
+
+func resume_animation() -> void:
+	$AnimationPlayer.play()

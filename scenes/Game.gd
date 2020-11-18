@@ -11,7 +11,9 @@ onready var flat := $Map/Flat as Flat
 onready var road := $Map/Road as Road
 
 onready var player_states := {
-	'move': $GameStates/FPS,
+	'pause-menu': $GameStates/PauseMenu,
+	'move': $GameStates/Move,
+	'move-drink': $GameStates/MoveDrink,
 	'dialog': $GameStates/Dialog,
 	'move-through': $GameStates/MoveThrough,
 	'animation': $GameStates/Animation,
@@ -27,10 +29,10 @@ onready var maps := {
 }
 
 var current_state := 'move'
+var states_queue := []
 var current_player_type := 'fps'
 var current_map : int = Data.LEVEL.FLAT
 
-var next_drinking := 0.0
 var triggers := {}
 
 func _ready() -> void:
@@ -39,7 +41,6 @@ func _ready() -> void:
 	for state_name in player_states:
 		var state = player_states[state_name]
 		if state is PlayerState:
-#			state.player = current_player
 			state.ui = ui
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
@@ -49,7 +50,8 @@ func _init_level() -> void:
 	Data.reset_game(Data.LEVEL.ROAD)
 	ui.hide_context()
 	ui.hide_dialog()
-	current_state = 'move'
+	current_state = 'pause-menu'
+	states_queue = ['move']
 	var level_id = Data.LEVEL.FLAT
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
@@ -66,6 +68,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
+		push_player_state('pause-menu')
 		ui.open_pause_menu()
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
@@ -73,10 +76,6 @@ func _process(delta: float) -> void:
 	maps[current_map].process(delta)
 	_check_triggers_orientation()
 	_trigger_hint()
-	if Data.drinking and current_state == 'move':
-		next_drinking -= delta
-		if next_drinking <= 0:
-			drink()
 
 func _input(event: InputEvent) -> void:
 	player_states[current_state].input(current_player, event)
@@ -145,7 +144,7 @@ func _before_tp(trigger: TPTrigger) -> void:
 			flat.set_level(Data.flat_level)
 		_ : pass
 
-func _after_tp(trigger: TPTrigger) -> void:
+func _after_tp(_trigger: TPTrigger) -> void:
 	pass
 
 func _on_FPS_context_action_pressed() -> void:
@@ -200,13 +199,20 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	window_trigger.through()
 
 func _on_PlayerState_ended(_state_name: String) -> void:
-	change_player_state('move')
+	pop_player_state()
 
-func change_player_state(new_state: String) -> void:
-	if current_state != new_state and player_states.has(new_state):
-		if current_state != '':
-			player_states[current_state].exit()
-		current_state = new_state
+func pop_player_state() -> void:
+	if len(states_queue) > 0:
+		var old_state = states_queue.pop_back()
+		player_states[current_state].exit()
+		current_state = old_state
+		player_states[current_state].resume(current_player)
+
+func push_player_state(next_state: String) -> void:
+	if current_state != next_state:
+		states_queue.push_back(current_state)
+		player_states[current_state].pause(current_player, next_state)
+		current_state = next_state
 		player_states[current_state].enter(current_player)
 
 func change_current_player(new_player_type: String) -> void:
@@ -239,28 +245,26 @@ func change_map(new_map) -> void:
 func move_through(window: WindowTrigger) -> void:
 	var path = window.get_path_points(current_player.global_transform.origin, .3)
 	player_states['move-through'].set_route(path)
-	change_player_state('move-through')
+	push_player_state('move-through')
 
 func display_dialog(dialog_id: String) -> void:
 	player_states['dialog'].set_dialog(dialog_id)
-	change_player_state('dialog')
+	push_player_state('dialog')
 
 func _on_Flat_phone_picked_up() -> void:
 	display_dialog("flat-phone")
 	current_player.answer_phone()
 
 func _on_Dialog_dialog_ended(dialog_id) -> void:
-	var next_state = 'move'
+	pop_player_state()
 	match dialog_id:
 		'flat-phone':
 			Data.phone_picked_up = true
 			current_player.hangup_phone()
 		'bar-friend_1':
 			Data.friend_intro_bar = true
-			Data.drinking = true
 			bar.set_character_animation(bar.CHARACTERS.FRIEND, 'sit-stool-drink')
 			drink()
-			return
 		'bar-friend_2':
 			Data.friend_wants_to_go_home = true
 			bar.enable_item(bar.ITEMS.EXIT_DOOR, true)
@@ -270,24 +274,21 @@ func _on_Dialog_dialog_ended(dialog_id) -> void:
 			bar.enable_dialog(bar.CHARACTERS.BARTENDER, true)
 			bar.set_character_animation(bar.CHARACTERS.FRIEND, 'sleep')
 			drink()
-			return
 		'key_inserted':
 			Data.key_inserted = true
 			bar.enable_item(bar.ITEMS.VALVE, true)
 			drink()
-			return
 		'valve_inserted':
 			Data.valve_inserted = true
-	change_player_state(next_state)
 
 func drink() -> void:
-	next_drinking = Data.BAR_DRINK_DELAY_SECOND
+	push_player_state('move-drink')
+	push_player_state('animation')
 	current_player.force_move_to(bar.drink)
-	change_player_state('animation')
 	current_player.drink()
 
 func _on_Player_drink_ended() -> void:
-	change_player_state('move')
+	pop_player_state()
 
 func _on_Bar_item_picked_up(item) -> void:
 	match item.id:
@@ -302,6 +303,7 @@ func _on_Bar_item_picked_up(item) -> void:
 			Data.drinking = false
 			bar.enable_item(bar.ITEMS.VALVE, false)
 			current_player.show_item('valve', true)
+			pop_player_state()
 			display_dialog('valve_found')
 			bar.close_bar()
 
@@ -321,3 +323,11 @@ func _on_Night_environment(is_night: bool) -> void:
 	else:
 		$AnimationPlayer.play("sunrise")
 
+func _on_MoveDrink_drink_timeout() -> void:
+	current_player.force_move_to(bar.drink)
+	push_player_state('animation')
+	current_player.drink()
+
+
+func _on_UI_game_resumed() -> void:
+	pop_player_state()
