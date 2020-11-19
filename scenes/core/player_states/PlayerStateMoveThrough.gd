@@ -52,10 +52,13 @@ func input(player: Player, event: InputEvent) -> void:
 func _on_Tween_tween_all_completed() -> void:
 	emit_signal("state_ended")
 
+func exit(p: Player) -> void:
+	p.can_control(true)
+
 func pause(player: Player, _next_state: String) -> void:
 	tween.stop_all()
 	player.pause_animation()
 
-func resume(player: Player) -> void:
+func resume(player: Player, _next_state: String) -> void:
 	tween.resume_all()
 	player.resume_animation()

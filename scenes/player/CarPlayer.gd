@@ -1,11 +1,13 @@
 class_name CarPlayer
 extends Player
 
+signal bounce_ended
+
 onready var steer_wheel = $car_inside/valve
 
 var velocity_x : float = 0.0
 var x : float = 0.0
-var stuck := 0.0
+var stuck : bool = false
 
 func reset() -> void:
 	velocity_x = 0.0
@@ -16,10 +18,7 @@ func steer(amount: float) -> void:
 	steer_wheel.rotate_object_local(Vector3.UP, -1.5 * amount)
 
 func physics_process(delta: float) -> void:
-	if stuck > 0.0:
-		stuck -= delta
-		if stuck <= 0:
-			hide_particles()
+	if stuck:
 		return
 	x = 0.0
 	if Input.is_action_pressed("move_left"):
@@ -32,24 +31,31 @@ func physics_process(delta: float) -> void:
 	translate(Vector3(velocity_x, 0, 0))
 
 func bounce(left: bool) -> void:
-	stuck = .7
+	stuck = true
 	$car_inside/Particles/Left.emitting = left
 	$car_inside/Particles/Right.emitting = not left
-	$AnimationPlayer.play("grind")
 	var v = abs(velocity_x) * 3
 	if left:
 		velocity_x = v
 	else:
 		velocity_x = -v
+	$AnimationPlayer.play("grind")
+	yield($AnimationPlayer, "animation_finished")
+	emit_signal("bounce_ended")
+	hide_particles()
+	stuck = false
 
 
 func hide_particles() -> void:
 	$car_inside/Particles/Left.emitting = false
 	$car_inside/Particles/Right.emitting = false
 
-
 func pause_animation() -> void:
 	$AnimationPlayer.stop(false)
+	$car_inside/Particles/Left.set_speed_scale(0.0)
+	$car_inside/Particles/Right.set_speed_scale(0.0)
 
 func resume_animation() -> void:
 	$AnimationPlayer.play()
+	$car_inside/Particles/Left.set_speed_scale(1.0)
+	$car_inside/Particles/Right.set_speed_scale(1.0)

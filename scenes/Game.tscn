@@ -289,6 +289,7 @@ anims/sunset = SubResource( 2 )
 [connection signal="car_crashed" from="Map/Road" to="." method="_on_Road_car_crashed"]
 [connection signal="night_environment" from="Map/Road" to="." method="_on_Night_environment"]
 [connection signal="drink_ended" from="Player/FPSPlayer" to="." method="_on_Player_drink_ended"]
+[connection signal="bounce_ended" from="Player/CarPlayer" to="." method="_on_CarPlayer_bounce_ended"]
 [connection signal="context_action_pressed" from="GameStates/Move" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="context_action_pressed" from="GameStates/MoveDrink" to="." method="_on_FPS_context_action_pressed"]
 [connection signal="drink_timeout" from="GameStates/MoveDrink" to="." method="_on_MoveDrink_drink_timeout"]

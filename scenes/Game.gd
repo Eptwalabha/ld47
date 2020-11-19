@@ -34,6 +34,7 @@ var current_player_type := 'fps'
 var current_map : int = Data.LEVEL.FLAT
 
 var triggers := {}
+var game_paused := false
 
 func _ready() -> void:
 	ui.open_pause_menu()
@@ -56,6 +57,7 @@ func _init_level() -> void:
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
 	current_map = level_id
+	game_paused = (current_state == 'pause-menu')
 	change_map(level_id)
 	if Data.DEBUG:
 		current_player.global_transform.origin = maps[current_map].get_start_origin()
@@ -70,12 +72,14 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		push_player_state('pause-menu')
 		ui.open_pause_menu()
+		game_paused = true
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
 	player_states[current_state].process(current_player, delta)
-	maps[current_map].process(delta)
-	_check_triggers_orientation()
-	_trigger_hint()
+	if not game_paused:
+		maps[current_map].process(delta)
+		_check_triggers_orientation()
+		_trigger_hint()
 
 func _input(event: InputEvent) -> void:
 	player_states[current_state].input(current_player, event)
@@ -129,7 +133,6 @@ func active_tp(trigger: TPTrigger) -> void:
 		tp_translation = bar.start.global_transform.origin - trigger.global_transform.origin
 		current_map = Data.LEVEL.BAR
 	current_player.force_move(tp_translation)
-	_after_tp(trigger)
 
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
@@ -143,9 +146,6 @@ func _before_tp(trigger: TPTrigger) -> void:
 			Data.flat_level = int(clamp(Data.flat_level - 1, -4, 2))
 			flat.set_level(Data.flat_level)
 		_ : pass
-
-func _after_tp(_trigger: TPTrigger) -> void:
-	pass
 
 func _on_FPS_context_action_pressed() -> void:
 	var collider = current_player.get_trigger_hover()
@@ -198,15 +198,16 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	move_through(window_trigger)
 	window_trigger.through()
 
-func _on_PlayerState_ended(_state_name: String) -> void:
+func _on_PlayerState_ended(state_name: String) -> void:
 	pop_player_state()
 
 func pop_player_state() -> void:
 	if len(states_queue) > 0:
 		var old_state = states_queue.pop_back()
-		player_states[current_state].exit()
+		player_states[current_state].exit(current_player)
+		var previous_state = current_state
 		current_state = old_state
-		player_states[current_state].resume(current_player)
+		player_states[current_state].resume(current_player, previous_state)
 
 func push_player_state(next_state: String) -> void:
 	if current_state != next_state:
@@ -290,6 +291,9 @@ func drink() -> void:
 func _on_Player_drink_ended() -> void:
 	pop_player_state()
 
+func _on_CarPlayer_bounce_ended() -> void:
+	pop_player_state()
+
 func _on_Bar_item_picked_up(item) -> void:
 	match item.id:
 		'key':
@@ -314,6 +318,7 @@ func _on_Road_car_crashed() -> void:
 
 func _on_Road_car_bounced(left: bool) -> void:
 	if current_player is CarPlayer:
+		push_player_state('animation')
 		current_player.bounce(left)
 
 func _on_Night_environment(is_night: bool) -> void:
@@ -328,6 +333,8 @@ func _on_MoveDrink_drink_timeout() -> void:
 	push_player_state('animation')
 	current_player.drink()
 
-
 func _on_UI_game_resumed() -> void:
+	game_paused = false
 	pop_player_state()
+
+

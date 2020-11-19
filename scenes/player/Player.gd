@@ -54,3 +54,9 @@ func get_trigger_hover() -> InteractTrigger:
 
 func show_item(_item_name: String, _visible: bool) -> void:
 	pass
+
+func pause_animation() -> void:
+	pass
+
+func resume_animation() -> void:
+	pass

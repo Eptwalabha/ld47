@@ -18,7 +18,7 @@ func physics_process(_player: Player, _delta: float) -> void:
 func input(_player: Player, _event: InputEvent) -> void:
 	pass
 
-func exit() -> void:
+func exit(_player: Player) -> void:
 	pass
 
 func is_hint_activated() -> bool:
@@ -27,5 +27,5 @@ func is_hint_activated() -> bool:
 func pause(_player: Player, next_state: String) -> void:
 	pass
 
-func resume(_player: Player) -> void:
+func resume(_player: Player, previous_state: String) -> void:
 	pass

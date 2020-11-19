@@ -75,5 +75,4 @@ func _on_Left_body_entered(body: Node) -> void:
 
 func side_road_body_entered(body: Node, left: bool) -> void:
 	if body.is_in_group('player'):
-		$CarBump.play()
 		emit_signal("car_bounced", left)
