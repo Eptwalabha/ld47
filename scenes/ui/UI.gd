@@ -4,12 +4,27 @@ extends Control
 # warning-ignore:unused_signal
 signal blink
 signal game_resumed
+signal game_paused
 
 onready var dialog := $VBoxContainer/Dialog as UIDialog
 onready var context := $VBoxContainer/Context as UIContext
 onready var dot := $Dot as CenterContainer
 onready var pause := $PauseMenu as PauseMenu
 onready var options := $OptionsMenu as OptionsMenu
+
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _process(_delta: float) -> void:
+	if not is_menu_open() and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		open_pause_menu()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_released('ui_cancel'):
+		if not is_menu_open():
+			open_pause_menu()
+		else:
+			switch_menu()
 
 func reset() -> void:
 	show()
@@ -46,14 +61,18 @@ func quit_game() -> void:
 	get_tree().quit()
 
 func open_pause_menu() -> void:
-	if not pause.visible and not options.visible:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		show_dot(false)
+	emit_signal("game_paused")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	show_dot(false)
+	pause.open()
+
+func switch_menu() -> void:
+	if options.visible:
+		options.hide()
 		pause.open()
-	else:
-		if options.visible:
-			options.hide()
-			pause.open()
+
+func is_menu_open() -> bool:
+	return pause.visible or options.visible
 
 func _on_PauseMenu_continue_clicked() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

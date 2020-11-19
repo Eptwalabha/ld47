@@ -31,7 +31,6 @@ var triggers := {}
 var game_paused := false
 
 func _ready() -> void:
-	ui.open_pause_menu()
 	_init_level()
 	for state_name in player_states:
 		var state = player_states[state_name]
@@ -45,7 +44,7 @@ func _init_level() -> void:
 	Data.reset_game(Data.LEVEL.ROAD)
 	ui.hide_context()
 	ui.hide_dialog()
-	current_state = 'pause-menu'
+	current_state = 'move'
 	states_queue = ['move']
 	var level_id = Data.LEVEL.FLAT
 	if Data.DEBUG:
@@ -63,10 +62,6 @@ func _physics_process(delta: float) -> void:
 	player_states[current_state].physics_process(current_player, delta)
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		push_player_state('pause-menu')
-		ui.open_pause_menu()
-		game_paused = true
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
 	player_states[current_state].process(current_player, delta)
@@ -329,3 +324,7 @@ func _on_MoveDrink_drink_timeout() -> void:
 func _on_UI_game_resumed() -> void:
 	game_paused = false
 	pop_player_state()
+
+func _on_UI_game_paused() -> void:
+	game_paused = true
+	push_player_state('pause-menu')

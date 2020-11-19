@@ -272,6 +272,7 @@ environment = ExtResource( 27 )
 autoplay = "sunrise"
 anims/sunrise = SubResource( 1 )
 anims/sunset = SubResource( 2 )
+[connection signal="game_paused" from="UI" to="." method="_on_UI_game_paused"]
 [connection signal="game_resumed" from="UI" to="." method="_on_UI_game_resumed"]
 [connection signal="dialog_triggered" from="Map/Flat" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Flat" to="." method="_on_Flat_door_interacted_with"]
