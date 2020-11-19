@@ -8,6 +8,7 @@ onready var steer_wheel = $car_inside/valve
 var velocity_x : float = 0.0
 var x : float = 0.0
 var stuck : bool = false
+var play_back_position := 0.0
 
 func reset() -> void:
 	velocity_x = 0.0
@@ -40,6 +41,7 @@ func bounce(left: bool) -> void:
 	else:
 		velocity_x = -v
 	$AnimationPlayer.play("grind")
+	$Bump.play()
 	yield($AnimationPlayer, "animation_finished")
 	emit_signal("bounce_ended")
 	hide_particles()
@@ -52,10 +54,17 @@ func hide_particles() -> void:
 
 func pause_animation() -> void:
 	$AnimationPlayer.stop(false)
+	if $Bump.playing:
+		play_back_position = $Bump.get_playback_position()
+		$Bump.stop()
+	else:
+		play_back_position = -1.0
 	$car_inside/Particles/Left.set_speed_scale(0.0)
 	$car_inside/Particles/Right.set_speed_scale(0.0)
 
 func resume_animation() -> void:
 	$AnimationPlayer.play()
+	if play_back_position >= 0:
+		$Bump.play(play_back_position)
 	$car_inside/Particles/Left.set_speed_scale(1.0)
 	$car_inside/Particles/Right.set_speed_scale(1.0)
