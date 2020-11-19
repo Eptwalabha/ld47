@@ -18,10 +18,6 @@ onready var player_states := {
 	'move-through': $GameStates/MoveThrough,
 	'animation': $GameStates/Animation,
 }
-onready var players := {
-	'fps': fps_player,
-	'car': car_player,
-}
 onready var maps := {
 	Data.LEVEL.FLAT: flat,
 	Data.LEVEL.BAR: bar,
@@ -30,9 +26,7 @@ onready var maps := {
 
 var current_state := 'move'
 var states_queue := []
-var current_player_type := 'fps'
 var current_map : int = Data.LEVEL.FLAT
-
 var triggers := {}
 var game_paused := false
 
@@ -198,7 +192,7 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	move_through(window_trigger)
 	window_trigger.through()
 
-func _on_PlayerState_ended(state_name: String) -> void:
+func _on_PlayerState_ended(_state_name: String) -> void:
 	pop_player_state()
 
 func pop_player_state() -> void:
@@ -216,11 +210,10 @@ func push_player_state(next_state: String) -> void:
 		current_state = next_state
 		player_states[current_state].enter(current_player)
 
-func change_current_player(new_player_type: String) -> void:
-	for player_type in players:
-		players[player_type].visible = (player_type == new_player_type)
-	current_player_type = new_player_type
-	current_player = players[new_player_type]
+func change_current_player(player: int) -> void:
+	fps_player.visible = (player == Data.PLAYER.FPS)
+	car_player.visible = (player == Data.PLAYER.CAR)
+	current_player = fps_player if (player == Data.PLAYER.FPS) else car_player
 	current_player.make_current()
 
 func change_map(new_map) -> void:
@@ -229,15 +222,15 @@ func change_map(new_map) -> void:
 	match current_map:
 		Data.LEVEL.FLAT:
 			maps[current_map].reset()
-			change_current_player('fps')
+			change_current_player(Data.PLAYER.FPS)
 			current_player.global_transform.origin = new_origin
 			current_player.reset()
 		Data.LEVEL.BAR:
 			maps[current_map].reset()
-			change_current_player('fps')
+			change_current_player(Data.PLAYER.FPS)
 		Data.LEVEL.ROAD:
 			maps[current_map].reset()
-			change_current_player('car')
+			change_current_player(Data.PLAYER.CAR)
 			current_player.global_transform.origin = new_origin
 			current_player.reset()
 	for map in maps:
@@ -336,5 +329,3 @@ func _on_MoveDrink_drink_timeout() -> void:
 func _on_UI_game_resumed() -> void:
 	game_paused = false
 	pop_player_state()
-
-

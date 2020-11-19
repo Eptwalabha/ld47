@@ -7,6 +7,11 @@ enum LEVEL {
 	HOSPITAL
 }
 
+enum PLAYER {
+	FPS,
+	CAR,
+}
+
 const DEBUG : bool = true
 const DEBUG_GAME_LEVEL = LEVEL.FLAT
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
