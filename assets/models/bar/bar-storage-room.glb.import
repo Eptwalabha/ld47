@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/bar-storage-room.glb-f531c14876170be4a1618f943c03fed3.scn"
+path="res://.import/bar-storage-room.glb-c44ac775c84bfd5c36343ab0807d8ab3.scn"
 
 [deps]
 
-source_file="res://assets/models/bar-v2/bar-storage-room.glb"
-dest_files=[ "res://.import/bar-storage-room.glb-f531c14876170be4a1618f943c03fed3.scn" ]
+source_file="res://assets/models/bar/bar-storage-room.glb"
+dest_files=[ "res://.import/bar-storage-room.glb-c44ac775c84bfd5c36343ab0807d8ab3.scn" ]
 
 [params]
 

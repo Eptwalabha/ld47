@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/toilet-panel.glb-2d395ec2bc0d79b7e1aff430914dda03.scn"
+path="res://.import/bar-counter.glb-2c90ea520e701bcac7fa46eb4ea6a665.scn"
 
 [deps]
 
-source_file="res://assets/models/bar-v2/toilet-panel.glb"
-dest_files=[ "res://.import/toilet-panel.glb-2d395ec2bc0d79b7e1aff430914dda03.scn" ]
+source_file="res://assets/models/bar/bar-counter.glb"
+dest_files=[ "res://.import/bar-counter.glb-2c90ea520e701bcac7fa46eb4ea6a665.scn" ]
 
 [params]
 

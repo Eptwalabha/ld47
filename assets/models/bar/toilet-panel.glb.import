@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/restroom-sign.glb-765cd4a596e4b2d7c5eeccd8820c6665.scn"
+path="res://.import/toilet-panel.glb-7e30a448d2b802b30be8f0fe6a9b1110.scn"
 
 [deps]
 
-source_file="res://assets/models/bar-v2/restroom-sign.glb"
-dest_files=[ "res://.import/restroom-sign.glb-765cd4a596e4b2d7c5eeccd8820c6665.scn" ]
+source_file="res://assets/models/bar/toilet-panel.glb"
+dest_files=[ "res://.import/toilet-panel.glb-7e30a448d2b802b30be8f0fe6a9b1110.scn" ]
 
 [params]
 

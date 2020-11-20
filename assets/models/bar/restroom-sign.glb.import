@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/bar-counter.glb-64d4c0ecc72fe13ea5c11a32410ae791.scn"
+path="res://.import/restroom-sign.glb-051ded94b1e6ad6af0e72b8b8eae6005.scn"
 
 [deps]
 
-source_file="res://assets/models/bar-v2/bar-counter.glb"
-dest_files=[ "res://.import/bar-counter.glb-64d4c0ecc72fe13ea5c11a32410ae791.scn" ]
+source_file="res://assets/models/bar/restroom-sign.glb"
+dest_files=[ "res://.import/restroom-sign.glb-051ded94b1e6ad6af0e72b8b8eae6005.scn" ]
 
 [params]
 

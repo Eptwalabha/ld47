@@ -5,7 +5,8 @@
 [ext_resource path="res://scenes/location/bar/BarCounter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/location/bar/Bar.gd" type="Script" id=4]
 [ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/models/bar-v2/restroom-sign.glb" type="PackedScene" id=6]
+[ext_resource path="res://assets/models/bar/restroom-sign.glb" type="PackedScene" id=6]
+
 
 [node name="Bar" type="Spatial"]
 script = ExtResource( 4 )

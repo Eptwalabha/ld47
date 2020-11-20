@@ -15,9 +15,10 @@
 [ext_resource path="res://assets/models/story/key.glb" type="PackedScene" id=25]
 [ext_resource path="res://scenes/props/flat/Door.tscn" type="PackedScene" id=26]
 [ext_resource path="res://scenes/core/WindowTrigger.tscn" type="PackedScene" id=27]
-[ext_resource path="res://assets/models/bar-v2/restroom-sign.glb" type="PackedScene" id=28]
+[ext_resource path="res://assets/models/bar/restroom-sign.glb" type="PackedScene" id=28]
 [ext_resource path="res://scenes/location/bar/RestroomLocation.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=30]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.2, 0.6, 0.02 )

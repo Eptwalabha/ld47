@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/restroom.glb-68d0c998a72557dad815a6fe6ec1c67d.scn"
+path="res://.import/bar-corridor.glb-cb6a01234a84a1d3471d5d8e97241281.scn"
 
 [deps]
 
-source_file="res://assets/models/bar-v2/restroom.glb"
-dest_files=[ "res://.import/restroom.glb-68d0c998a72557dad815a6fe6ec1c67d.scn" ]
+source_file="res://assets/models/bar/bar-corridor.glb"
+dest_files=[ "res://.import/bar-corridor.glb-cb6a01234a84a1d3471d5d8e97241281.scn" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/bar-corridor.glb-607cc0fff9b6dfccf56d857229f340a3.scn"
+path="res://.import/urinal.glb-1eb7fc28a507f4b46efe5c422a651c20.scn"
 
 [deps]
 
-source_file="res://assets/models/bar-v2/bar-corridor.glb"
-dest_files=[ "res://.import/bar-corridor.glb-607cc0fff9b6dfccf56d857229f340a3.scn" ]
+source_file="res://assets/models/bar/urinal.glb"
+dest_files=[ "res://.import/urinal.glb-1eb7fc28a507f4b46efe5c422a651c20.scn" ]
 
 [params]
 
