@@ -6,8 +6,8 @@ signal drink_ended
 onready var phone := $Head/Camera/phone
 onready var glass := $Head/Camera/Glass
 onready var ground := $Ground as RayCast
-onready var key := $Head/Camera/HandBone/key
-onready var valve := $Head/Camera/HandBone/valve
+onready var key := $Head/HandBone/key
+onready var valve := $Head/HandBone/valve
 
 export(float) var speed := 3.0
 export(float) var acceleration := 10.0

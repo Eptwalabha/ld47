@@ -19,48 +19,36 @@ height = 0.86
 resource_name = "drink"
 length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head:rotation_degrees")
+tracks/0/path = NodePath("Drink:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.8, 2, 2.2, 2.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( -7.141, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Drink:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 2 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Head/Camera/Glass:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/Glass:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/3/type = "method"
-tracks/3/path = NodePath("Head/Camera/Glass")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/path = NodePath("Head/Camera/Glass")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -71,29 +59,41 @@ tracks/3/keys = {
 "method": "empty"
 } ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Head/Camera/Glass:translation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/path = NodePath("Head/Camera/Glass:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, -0.5, -0.1 ), Vector3( 0, -0.211, -0.303 ), Vector3( 0, -0.259, -0.447 ), Vector3( 0, -0.259, -0.447 ), Vector3( 0, -0.1, -0.244 ), Vector3( 0, -0.259, -0.447 ), Vector3( 0, -0.446, -0.326 ), Vector3( 0, -0.5, -0.1 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Head/Camera/Glass:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 119.796, 0, 0 ), Vector3( 33.994, 0, 0 ), Vector3( 13.508, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
 tracks/5/type = "value"
-tracks/5/path = NodePath("Head/Camera/Glass:rotation_degrees")
+tracks/5/path = NodePath("Head/Camera:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.7, 1.3, 1.6, 2, 2.3, 2.9, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1.8, 2, 2.2, 2.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 43.839, 0, 0 ), Vector3( 119.796, 0, 0 ), Vector3( 33.994, 0, 0 ), Vector3( 13.508, 0, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( -7.141, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 50.291, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -129,17 +129,17 @@ shape = SubResource( 2 )
 [node name="Head" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0 )
 
-[node name="valve" parent="Head/Camera/HandBone" index="0" instance=ExtResource( 5 )]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
-
-[node name="key" parent="Head/Camera/HandBone" index="1" instance=ExtResource( 7 )]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
-
-[node name="phone" parent="Head/Camera" index="2" instance=ExtResource( 4 )]
+[node name="phone" parent="Head/Camera" index="1" instance=ExtResource( 4 )]
 transform = Transform( -0.69164, 0.669649, -0.270563, -0.364308, -5.93533e-08, 0.931279, 0.62363, 0.742678, 0.243958, -0.188, -0.043, -0.242 )
 
-[node name="Glass" parent="Head/Camera" index="3" instance=ExtResource( 2 )]
+[node name="Glass" parent="Head/Camera" index="2" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.1 )
+
+[node name="valve" parent="Head/HandBone" index="0" instance=ExtResource( 5 )]
+transform = Transform( 0.6, 2.23517e-08, 1.11759e-08, -2.23517e-08, 0.6, 0, -1.11759e-08, -4.16334e-16, 0.6, 0, 0, 0 )
+
+[node name="key" parent="Head/HandBone" index="1" instance=ExtResource( 7 )]
+transform = Transform( 0.6, 2.23517e-08, 1.11759e-08, -2.23517e-08, 0.6, 0, -1.11759e-08, -4.16334e-16, 0.6, 0, 0, 0 )
 
 [node name="Drink" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 3 )
