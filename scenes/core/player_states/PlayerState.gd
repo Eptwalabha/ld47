@@ -3,9 +3,6 @@ extends Node
 
 signal state_ended
 
-#var player: Player = null
-var ui : UI = null
-
 func enter(_player: Player) -> void:
 	pass
 

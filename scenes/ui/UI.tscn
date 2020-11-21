@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/ui/UI.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui/UIDialog.tscn" type="PackedScene" id=2]
@@ -6,6 +6,19 @@
 [ext_resource path="res://scenes/ui/menus/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/menus/OptionsMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/theme/ui_theme.tres" type="Theme" id=6]
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform float amount : hint_range(0.0, 3.0);
+
+void fragment() {
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, amount);
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/amount = null
 
 [sub_resource type="Animation" id=1]
 resource_name = "blink"
@@ -77,6 +90,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3

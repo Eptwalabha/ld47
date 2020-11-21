@@ -35,7 +35,8 @@ func _ready() -> void:
 	for state_name in player_states:
 		var state = player_states[state_name]
 		if state is PlayerState:
-			state.ui = ui
+			if state is PlayerStateDialog:
+				state.ui = ui
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
 func _init_level() -> void:
@@ -209,7 +210,11 @@ func push_player_state(next_state: String) -> void:
 func change_current_player(player: int) -> void:
 	fps_player.visible = (player == Data.PLAYER.FPS)
 	car_player.visible = (player == Data.PLAYER.CAR)
-	current_player = fps_player if (player == Data.PLAYER.FPS) else car_player
+	match player:
+		Data.PLAYER.FPS:
+			current_player = fps_player
+		_:
+			current_player = car_player
 	current_player.make_current()
 
 func change_map(new_map) -> void:

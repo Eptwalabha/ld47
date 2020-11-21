@@ -6,6 +6,7 @@ signal dialog_ended(dialog_id)
 var dialogs := {}
 var dialog : Dialog
 var current_dialog_id: String = ''
+var ui : UI
 
 func _ready() -> void:
 	_build_dialogs()

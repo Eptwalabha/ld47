@@ -33,7 +33,7 @@ func _load_materials(dir: Directory) -> void:
 			materials.append(load(file_path))
 		file = dir.get_next()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	count += 1
 	if count > 10:
 		hide()

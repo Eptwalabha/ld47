@@ -12,6 +12,9 @@ onready var dot := $Dot as CenterContainer
 onready var pause := $PauseMenu as PauseMenu
 onready var options := $OptionsMenu as OptionsMenu
 
+var show_dialog_on_resume := false
+var show_context_on_resume := false
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -61,6 +64,11 @@ func quit_game() -> void:
 	get_tree().quit()
 
 func open_pause_menu() -> void:
+	show_dialog_on_resume = dialog.visible
+	show_context_on_resume = context.visible
+	dialog.visible = false
+	context.visible = false
+	blur(2.0)
 	emit_signal("game_paused")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	show_dot(false)
@@ -77,6 +85,9 @@ func is_menu_open() -> bool:
 func _on_PauseMenu_continue_clicked() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	show_dot(true)
+	blur(0.0)
+	context.visible = show_context_on_resume
+	dialog.visible = show_dialog_on_resume
 	pause.hide()
 	emit_signal("game_resumed")
 
@@ -90,3 +101,6 @@ func _on_OptionsMenu_back_clicked() -> void:
 func _on_PauseMenu_options_clicked() -> void:
 	pause.visible = false
 	options.open()
+
+func blur(amount: float) -> void:
+	$ColorRect.material.set_shader_param("amount", amount)

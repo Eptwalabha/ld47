@@ -8,7 +8,6 @@ func enter(p: Player) -> void:
 	p.can_control(false)
 	if p is FPSPlayer:
 		p.velocity = Vector3.ZERO
-	ui.hide_context()
 
 func exit(p: Player) -> void:
 	p.can_control(player_control_state)
