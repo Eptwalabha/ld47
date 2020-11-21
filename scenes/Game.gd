@@ -42,6 +42,7 @@ func _init_level() -> void:
 	Data.reset_game(Data.LEVEL.FLAT)
 	Data.reset_game(Data.LEVEL.BAR)
 	Data.reset_game(Data.LEVEL.ROAD)
+	Data.reset_game(Data.LEVEL.HOSPITAL)
 	ui.hide_context()
 	ui.hide_dialog()
 	current_state = 'move'

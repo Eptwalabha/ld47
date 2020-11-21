@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/ui/menus/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/font_title.tres" type="DynamicFont" id=2]
 
 [node name="PauseMenu" type="MarginContainer"]
 anchor_right = 1.0
@@ -33,10 +34,11 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 
 [node name="Label" type="Label" parent="Menu/Title"]
-margin_left = 406.0
-margin_top = 25.0
-margin_right = 537.0
-margin_bottom = 39.0
+margin_left = 374.0
+margin_top = 19.0
+margin_right = 569.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 2 )
 text = "ui_title_pause_menu"
 
 [node name="Container" type="MarginContainer" parent="Menu"]

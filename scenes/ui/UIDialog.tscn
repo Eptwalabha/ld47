@@ -25,16 +25,35 @@ margin_right = 1004.0
 margin_bottom = 80.0
 color = Color( 0.0627451, 0.0627451, 0.0627451, 0.45098 )
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Container" type="MarginContainer" parent="."]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
 margin_bottom = 80.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="Center"]
-margin_left = 492.0
-margin_top = 23.0
-margin_right = 492.0
-margin_bottom = 37.0
+[node name="Name" type="Label" parent="Container"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 979.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "name"
+
+[node name="Center" type="CenterContainer" parent="Container"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 979.0
+margin_bottom = 55.0
+
+[node name="Label" type="Label" parent="Container/Center"]
+margin_left = 487.0
+margin_top = 18.0
+margin_right = 487.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
