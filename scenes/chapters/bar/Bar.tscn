@@ -7,7 +7,6 @@
 [ext_resource path="res://scenes/core/DialogTriggerArea.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/props/Key.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/location/bar/BarStorageRoom.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/location/StartChapter.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/props/bar/PoolTable.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/characters/Dancer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/chapters/bar/Bar.gd" type="Script" id=14]
@@ -18,7 +17,7 @@
 [ext_resource path="res://assets/models/bar/restroom-sign.glb" type="PackedScene" id=28]
 [ext_resource path="res://scenes/location/bar/RestroomLocation.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/location/bar/BarLocation.tscn" type="PackedScene" id=30]
-
+[ext_resource path="res://scenes/chapters/GameChapter.tscn" type="PackedScene" id=31]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.2, 0.6, 0.02 )
@@ -26,14 +25,17 @@ extents = Vector3( 1.2, 0.6, 0.02 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.2, 0.6, 0.02 )
 
-[node name="Bar" type="Spatial"]
+[node name="Bar" instance=ExtResource( 31 )]
 script = ExtResource( 14 )
 
-[node name="BarStorageRoom" parent="." instance=ExtResource( 8 )]
+[node name="Start" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 
-[node name="RestroomLocation" parent="." instance=ExtResource( 29 )]
+[node name="BarStorageRoom" parent="." index="1" instance=ExtResource( 8 )]
 
-[node name="WindowGirl" parent="RestroomLocation" groups=[
+[node name="RestroomLocation" parent="." index="2" instance=ExtResource( 29 )]
+
+[node name="WindowGirl" parent="RestroomLocation" index="2" groups=[
 "bar-window",
 ] instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.6, 0 )
@@ -42,7 +44,7 @@ id = "bar-window_girl"
 [node name="Area" parent="RestroomLocation/WindowGirl" index="0"]
 shape = SubResource( 1 )
 
-[node name="WindowBoy" parent="RestroomLocation" groups=[
+[node name="WindowBoy" parent="RestroomLocation" index="3" groups=[
 "bar-window",
 ] instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06366, 1.6, 0 )
@@ -51,188 +53,185 @@ id = "bar-window_boy"
 [node name="Area" parent="RestroomLocation/WindowBoy" index="0"]
 shape = SubResource( 2 )
 
-[node name="RestroomLocationReverse" parent="." instance=ExtResource( 29 )]
+[node name="RestroomLocationReverse" parent="." index="3" instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
 
-[node name="Key" parent="." instance=ExtResource( 7 )]
+[node name="Key" parent="." index="4" instance=ExtResource( 7 )]
 transform = Transform( -0.897435, 0.0383794, -0.439473, 0, 0.996208, 0.0869993, 0.441146, 0.0780763, -0.894033, -0.662619, 1.1245, -8.70608 )
 
-[node name="Valve" parent="." instance=ExtResource( 3 )]
+[node name="Valve" parent="." index="5" instance=ExtResource( 3 )]
 transform = Transform( 1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 3.30344, 1.56921, 3.55222 )
 
-[node name="Pivot" type="Spatial" parent="."]
+[node name="Pivot" type="Spatial" parent="." index="6"]
 
-[node name="Door" parent="Pivot" instance=ExtResource( 26 )]
+[node name="Door" parent="Pivot" index="0" instance=ExtResource( 26 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3.9 )
 max_angle = -95
 
-[node name="ExitDoor" parent="Pivot" instance=ExtResource( 26 )]
+[node name="ExitDoor" parent="Pivot" index="1" instance=ExtResource( 26 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.30963, -9.53674e-07, -8.23337 )
 id = "exit-door"
 change_hint_state = false
 
-[node name="DoorItems" type="Spatial" parent="Pivot/ExitDoor"]
+[node name="DoorItems" type="Spatial" parent="Pivot/ExitDoor" index="4"]
 transform = Transform( 0.6, 0, 0, 0, 0.22557, -0.555984, 0, 0.555984, 0.22557, 0.438895, 0.74791, 0.146162 )
 
-[node name="key" parent="Pivot/ExitDoor/DoorItems" instance=ExtResource( 25 )]
+[node name="key" parent="Pivot/ExitDoor/DoorItems" index="0" instance=ExtResource( 25 )]
 transform = Transform( 0.364064, -0.931374, -1.77636e-14, 0.350149, 0.13687, 0.92664, -0.863049, -0.337357, 0.375949, 0.794388, -0.05056, -0.0967636 )
 
-[node name="valve" parent="Pivot/ExitDoor/DoorItems" instance=ExtResource( 24 )]
+[node name="valve" parent="Pivot/ExitDoor/DoorItems" index="1" instance=ExtResource( 24 )]
 transform = Transform( 1, -7.10543e-15, -3.55271e-15, 0, 1, -2.98023e-08, -1.77636e-15, 2.98023e-08, 1, 0, 0, 0 )
 
-[node name="BarLocation" parent="Pivot" instance=ExtResource( 30 )]
+[node name="BarLocation" parent="Pivot" index="2" instance=ExtResource( 30 )]
 
-[node name="BarCounter" parent="Pivot" instance=ExtResource( 1 )]
+[node name="BarCounter" parent="Pivot" index="3" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -10.35 )
 
-[node name="restroom-sign" parent="Pivot" instance=ExtResource( 28 )]
+[node name="restroom-sign" parent="Pivot" index="4" instance=ExtResource( 28 )]
 
-[node name="PoolTable1" parent="Pivot" instance=ExtResource( 10 )]
+[node name="PoolTable1" parent="Pivot" index="5" instance=ExtResource( 10 )]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -11.166 )
 
-[node name="PoolTable2" parent="Pivot" instance=ExtResource( 10 )]
+[node name="PoolTable2" parent="Pivot" index="6" instance=ExtResource( 10 )]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -5.349, 0, -6.344 )
 
-[node name="Bartender" parent="Pivot" instance=ExtResource( 2 )]
+[node name="Bartender" parent="Pivot" index="7" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 2.56521, 0.0873877, -8.91695 )
 
-[node name="Dialog" parent="Pivot/Bartender" groups=[
+[node name="Dialog" parent="Pivot/Bartender" index="2" groups=[
 "bar-dialog",
 ] instance=ExtResource( 6 )]
 transform = Transform( 1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0.0192394, 1.27463, 0.36555 )
 id = "bar-bartender"
 
-[node name="Drink" type="Spatial" parent="Pivot/Bartender"]
+[node name="Drink" type="Spatial" parent="Pivot/Bartender" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
 
-[node name="Friend" parent="Pivot" instance=ExtResource( 4 )]
+[node name="Friend" parent="Pivot" index="8" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.56302, 0, -7.49336 )
 default = "sit-stool-idle"
 
-[node name="Dialog" parent="Pivot/Friend" groups=[
+[node name="Dialog" parent="Pivot/Friend" index="2" groups=[
 "bar-dialog",
 ] instance=ExtResource( 6 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.36202, 0 )
 id = "bar-friend"
 
-[node name="Triggers" type="Spatial" parent="Pivot"]
+[node name="Triggers" type="Spatial" parent="Pivot" index="9"]
 
-[node name="Dancers" type="Spatial" parent="Pivot"]
+[node name="Dancers" type="Spatial" parent="Pivot" index="10"]
 
-[node name="Dancer01" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer01" parent="Pivot/Dancers" index="0" instance=ExtResource( 11 )]
 transform = Transform( -0.489397, 0, -0.872061, 0, 1, 0, 0.872061, 0, -0.489397, 8.02302, 0, -5.07806 )
 
-[node name="Dancer02" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer02" parent="Pivot/Dancers" index="1" instance=ExtResource( 11 )]
 transform = Transform( 0.444448, 0, 0.895805, 0, 1, 0, -0.895805, 0, 0.444448, 7.27619, 0, -8.43808 )
 
-[node name="Dancer03" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer03" parent="Pivot/Dancers" index="2" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19234, -4.76837e-07, -7.50803 )
 
-[node name="Dancer04" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer04" parent="Pivot/Dancers" index="3" instance=ExtResource( 11 )]
 transform = Transform( -0.647575, 0, -0.762002, 0, 1, 0, 0.762002, 0, -0.647575, 7.19164, 0, -6.26868 )
 
-[node name="Dancer05" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer05" parent="Pivot/Dancers" index="4" instance=ExtResource( 11 )]
 transform = Transform( -0.0528769, 0, 0.998601, 0, 1, 0, -0.998601, 0, -0.0528769, 5.62426, 0.0166478, -5.98288 )
 
-[node name="Dancer06" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer06" parent="Pivot/Dancers" index="5" instance=ExtResource( 11 )]
 transform = Transform( -0.0954121, 0, 0.995438, 0, 1, 0, -0.995438, 0, -0.0954121, 6.38549, 0.0166468, -4.85407 )
 
-[node name="Dancer07" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer07" parent="Pivot/Dancers" index="6" instance=ExtResource( 11 )]
 transform = Transform( 0.904582, 0, -0.4263, 0, 1, 0, 0.4263, 0, 0.904582, 8.24141, 0.0166468, -7.8331 )
 
-[node name="Dancer08" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer08" parent="Pivot/Dancers" index="7" instance=ExtResource( 11 )]
 transform = Transform( -0.489397, 0, -0.872061, 0, 1, 0, 0.872061, 0, -0.489397, 4.4687, -9.53674e-07, -4.84382 )
 
-[node name="Dancer09" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer09" parent="Pivot/Dancers" index="8" instance=ExtResource( 11 )]
 transform = Transform( 0.444448, 0, 0.895805, 0, 1, 0, -0.895805, 0, 0.444448, 1.58484, -9.53674e-07, -6.35473 )
 
-[node name="Dancer10" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer10" parent="Pivot/Dancers" index="9" instance=ExtResource( 11 )]
 transform = Transform( -0.762962, 0, 0.646443, 0, 1, 0, -0.646443, 0, -0.762962, 1.82726, -1.43051e-06, -4.79293 )
 
-[node name="Dancer11" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer11" parent="Pivot/Dancers" index="10" instance=ExtResource( 11 )]
 transform = Transform( -0.647575, 0, -0.762002, 0, 1, 0, 0.762002, 0, -0.647575, 4.39127, -9.53674e-07, -5.89727 )
 
-[node name="Dancer12" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer12" parent="Pivot/Dancers" index="11" instance=ExtResource( 11 )]
 transform = Transform( -0.464642, 0, 0.885499, 0, 1, 0, -0.885499, 0, -0.464642, 2.82696, 0.0166468, -4.98503 )
 
-[node name="Dancer13" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer13" parent="Pivot/Dancers" index="12" instance=ExtResource( 11 )]
 transform = Transform( -0.829126, 0, 0.559062, 0, 1, 0, -0.559062, 0, -0.829126, 3.38126, 0.0166458, -4.29133 )
 
-[node name="Dancer14" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer14" parent="Pivot/Dancers" index="13" instance=ExtResource( 11 )]
 transform = Transform( 0.904582, 0, -0.4263, 0, 1, 0, 0.4263, 0, 0.904582, 5.02781, 0.0166458, -7.27036 )
 
-[node name="Dancer15" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer15" parent="Pivot/Dancers" index="14" instance=ExtResource( 11 )]
 transform = Transform( -0.961406, 0, 0.275133, 0, 1, 0, -0.275133, 0, -0.961406, -2.98426, 9.53674e-07, -4.28237 )
 
-[node name="Dancer16" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer16" parent="Pivot/Dancers" index="15" instance=ExtResource( 11 )]
 transform = Transform( 0.974146, 0, -0.225921, 0, 1, 0, 0.225921, 0, 0.974146, 0.113016, 9.53674e-07, -5.78382 )
 
-[node name="Dancer17" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer17" parent="Pivot/Dancers" index="16" instance=ExtResource( 11 )]
 transform = Transform( 0.230576, 0, -0.973054, 0, 1, 0, 0.973054, 0, 0.230576, -1.04188, 4.76837e-07, -6.62402 )
 
-[node name="Dancer18" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer18" parent="Pivot/Dancers" index="17" instance=ExtResource( 11 )]
 transform = Transform( -0.890785, 0, 0.454426, 0, 1, 0, -0.454426, 0, -0.890785, -2.01742, 9.53674e-07, -5.36588 )
 
-[node name="Dancer19" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer19" parent="Pivot/Dancers" index="18" instance=ExtResource( 11 )]
 transform = Transform( 0.959501, 0, 0.281706, 0, 1, 0, -0.281706, 0, 0.959501, -2.65692, 0.0166488, -6.82513 )
 
-[node name="Dancer20" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer20" parent="Pivot/Dancers" index="19" instance=ExtResource( 11 )]
 transform = Transform( 0.946615, 0, 0.322365, 0, 1, 0, -0.322365, 0, 0.946615, -3.57979, 0.0166478, -5.82413 )
 
-[node name="Dancer21" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer21" parent="Pivot/Dancers" index="20" instance=ExtResource( 11 )]
 transform = Transform( -0.206238, 0, -0.978502, 0, 1, 0, 0.978502, 0, -0.206238, -0.253105, 0.0166478, -4.70511 )
 
-[node name="Dancer22" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer22" parent="Pivot/Dancers" index="21" instance=ExtResource( 11 )]
 transform = Transform( -0.961406, 0, 0.275133, 0, 1, 0, -0.275133, 0, -0.961406, -4.27282, 0, -7.27963 )
 
-[node name="Dancer23" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer23" parent="Pivot/Dancers" index="22" instance=ExtResource( 11 )]
 transform = Transform( 0.974146, 0, -0.225921, 0, 1, 0, 0.225921, 0, 0.974146, -3.22648, 0, -10.8414 )
 
-[node name="DancerToilet1" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="DancerToilet1" parent="Pivot/Dancers" index="23" instance=ExtResource( 11 )]
 transform = Transform( 0.766045, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766045, -3.99344, 0, -1.20981 )
 synchronized = true
 
-[node name="DancerToilet2" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="DancerToilet2" parent="Pivot/Dancers" index="24" instance=ExtResource( 11 )]
 transform = Transform( 0.766044, 0, 0.642788, 0, 1, 0, 0.642788, 0, -0.766044, -3.993, 0, 1.21 )
 synchronized = true
 
-[node name="Dancer24" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer24" parent="Pivot/Dancers" index="25" instance=ExtResource( 11 )]
 transform = Transform( 0.230576, 0, -0.973054, 0, 1, 0, 0.973054, 0, 0.230576, -2.33044, -4.76837e-07, -9.62127 )
 
-[node name="Dancer25" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer25" parent="Pivot/Dancers" index="26" instance=ExtResource( 11 )]
 transform = Transform( -0.890785, 0, 0.454426, 0, 1, 0, -0.454426, 0, -0.890785, -3.30598, 0, -8.36314 )
 
-[node name="Dancer26" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer26" parent="Pivot/Dancers" index="27" instance=ExtResource( 11 )]
 transform = Transform( 0.959501, 0, 0.281706, 0, 1, 0, -0.281706, 0, 0.959501, -3.94548, 0.0166478, -9.82238 )
 
-[node name="Dancer27" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer27" parent="Pivot/Dancers" index="28" instance=ExtResource( 11 )]
 transform = Transform( 0.946615, 0, 0.322365, 0, 1, 0, -0.322365, 0, 0.946615, -4.86835, 0.0166468, -8.82139 )
 
-[node name="Dancer28" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Dancer28" parent="Pivot/Dancers" index="29" instance=ExtResource( 11 )]
 transform = Transform( -0.206238, 0, -0.978502, 0, 1, 0, 0.978502, 0, -0.206238, -1.54166, 0.0166468, -7.70237 )
 
-[node name="Drinker1" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Drinker1" parent="Pivot/Dancers" index="30" instance=ExtResource( 11 )]
 transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, -0.411223, 0.0166468, -7.49696 )
 default = "sleep"
 
-[node name="Drinker2" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Drinker2" parent="Pivot/Dancers" index="31" instance=ExtResource( 11 )]
 transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, 0.60626, 0.0166468, -7.49696 )
 default = "sit-stool-drink"
 
-[node name="Drinker3" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Drinker3" parent="Pivot/Dancers" index="32" instance=ExtResource( 11 )]
 transform = Transform( -0.985381, 0, 0.170364, 0, 1, 0, -0.170364, 0, -0.985381, 1.57442, 0.0166468, -7.49696 )
 default = "sit-stool-drink"
 
-[node name="Drinker4" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Drinker4" parent="Pivot/Dancers" index="33" instance=ExtResource( 11 )]
 transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5.56417, 0.0166468, -8.0863 )
 default = "sleep"
 
-[node name="Drinker5" parent="Pivot/Dancers" instance=ExtResource( 11 )]
+[node name="Drinker5" parent="Pivot/Dancers" index="34" instance=ExtResource( 11 )]
 transform = Transform( -0.128345, 0, -0.99173, 0, 1, 0, 0.99173, 0, -0.128345, 5.56417, 0.0166468, -9.0717 )
 default = "sit-stool-drink"
-
-[node name="StartPoint" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 [connection signal="went_through" from="RestroomLocation/WindowGirl" to="." method="_on_ToiletWindow_went_through"]
 [connection signal="went_through" from="RestroomLocation/WindowBoy" to="." method="_on_ToiletWindow_went_through"]
 [connection signal="picked_up" from="Key" to="." method="_on_Key_picked_up"]

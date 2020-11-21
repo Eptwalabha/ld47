@@ -9,6 +9,8 @@ signal window_triggered(window_trigger)
 signal item_picked_up(item)
 signal night_environment(is_night)
 
+onready var start := $Start as Spatial
+
 func reset() -> void:
 	pass
 

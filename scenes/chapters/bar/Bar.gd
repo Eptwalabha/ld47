@@ -1,8 +1,6 @@
 class_name Bar
 extends GameChapter
 
-onready var start := $StartPoint as Spatial
-
 onready var pivot := $Pivot as Spatial
 onready var restroom_door := $Pivot/Door as Door
 onready var exit_door := $Pivot/ExitDoor as Door

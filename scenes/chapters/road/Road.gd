@@ -4,7 +4,6 @@ extends GameChapter
 signal car_crashed
 signal car_bounced(left)
 
-onready var start := $StartPoint as Spatial
 onready var road := $Pivot as Spatial
 onready var line_a := $Pivot/LineA as Spatial
 onready var line_b := $Pivot/LineB as Spatial

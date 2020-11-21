@@ -3,8 +3,6 @@ extends GameChapter
 
 signal phone_picked_up
 
-onready var start := $StartPoint as Spatial
-
 onready var phone := $Appartment/Phone as Phone
 onready var appartment_door := $Door as Door
 onready var appartment_window := $Appartment/Window as WindowTrigger

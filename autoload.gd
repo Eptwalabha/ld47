@@ -12,7 +12,7 @@ enum PLAYER {
 	CAR,
 }
 
-const DEBUG : bool = true
+const DEBUG : bool = false
 const DEBUG_GAME_LEVEL = LEVEL.FLAT
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 const DEBUG_ENVIRONMENT : bool = true
