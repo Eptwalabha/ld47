@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui/menus/UIMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/font_title.tres" type="DynamicFont" id=2]
+
+[node name="UIMenu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 128
+custom_constants/margin_top = 64
+custom_constants/margin_left = 128
+custom_constants/margin_bottom = 64
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 896.0
+margin_bottom = 536.0
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 896.0
+margin_bottom = 536.0
+
+[node name="Title" type="CenterContainer" parent="Menu"]
+margin_right = 768.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 128 )
+
+[node name="Label" type="Label" parent="Menu/Title"]
+margin_left = 346.0
+margin_top = 47.0
+margin_right = 421.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 2 )
+text = "TITLE"
+
+[node name="Container" type="MarginContainer" parent="Menu"]
+margin_top = 132.0
+margin_right = 768.0
+margin_bottom = 404.0
+size_flags_vertical = 3
+
+[node name="Footer" type="MarginContainer" parent="Menu"]
+margin_top = 408.0
+margin_right = 768.0
+margin_bottom = 472.0
+rect_min_size = Vector2( 0, 64 )

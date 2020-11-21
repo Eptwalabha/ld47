@@ -1,160 +1,115 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/ui/menus/OptionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/menus/UIMenu.tscn" type="PackedScene" id=2]
 
-[node name="OptionsMenu" type="MarginContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 40
-custom_constants/margin_top = 40
-custom_constants/margin_left = 40
-custom_constants/margin_bottom = 40
+[node name="OptionsMenu" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Background" type="ColorRect" parent="."]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 984.0
-margin_bottom = 560.0
-color = Color( 0, 0, 0, 0.188235 )
-
-[node name="Menu" type="VBoxContainer" parent="."]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 984.0
-margin_bottom = 560.0
-
-[node name="Title" type="CenterContainer" parent="Menu"]
-margin_right = 944.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 0, 64 )
-
-[node name="Label" type="Label" parent="Menu/Title"]
-margin_left = 401.0
-margin_top = 25.0
-margin_right = 542.0
-margin_bottom = 39.0
+[node name="Label" parent="Menu/Title" index="0"]
+margin_left = 242.0
+margin_right = 525.0
 text = "ui_title_options_menu"
 
-[node name="Container" type="MarginContainer" parent="Menu"]
-margin_top = 68.0
-margin_right = 944.0
-margin_bottom = 424.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_right = 30
-custom_constants/margin_top = 30
-custom_constants/margin_left = 30
-custom_constants/margin_bottom = 30
-
-[node name="Options" type="CenterContainer" parent="Menu/Container"]
-margin_left = 30.0
-margin_top = 30.0
-margin_right = 914.0
-margin_bottom = 326.0
+[node name="Options" type="CenterContainer" parent="Menu/Container" index="0"]
+margin_right = 768.0
+margin_bottom = 272.0
 size_flags_vertical = 3
 
-[node name="List" type="VBoxContainer" parent="Menu/Container/Options"]
-margin_left = 192.0
-margin_top = 102.0
-margin_right = 692.0
-margin_bottom = 194.0
+[node name="List" type="VBoxContainer" parent="Menu/Container/Options" index="0"]
+margin_left = 134.0
+margin_top = 90.0
+margin_right = 634.0
+margin_bottom = 182.0
 custom_constants/separation = 20
 
-[node name="Sound" type="HBoxContainer" parent="Menu/Container/Options/List"]
+[node name="Sound" type="HBoxContainer" parent="Menu/Container/Options/List" index="0"]
 margin_right = 500.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 500, 0 )
+custom_constants/separation = 14
 
-[node name="Label" type="Label" parent="Menu/Container/Options/List/Sound"]
+[node name="Label" type="Label" parent="Menu/Container/Options/List/Sound" index="0"]
 margin_top = 1.0
-margin_right = 165.0
+margin_right = 194.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 text = "ui_slider_music_volume"
+align = 2
 
-[node name="HSlider" type="HSlider" parent="Menu/Container/Options/List/Sound"]
-margin_left = 169.0
+[node name="HSlider" type="HSlider" parent="Menu/Container/Options/List/Sound" index="1"]
+margin_left = 208.0
 margin_right = 500.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.5
 max_value = 1.0
 step = 0.01
 
-[node name="Mouse" type="HBoxContainer" parent="Menu/Container/Options/List"]
+[node name="Mouse" type="HBoxContainer" parent="Menu/Container/Options/List" index="1"]
 margin_top = 36.0
 margin_right = 500.0
 margin_bottom = 52.0
 rect_min_size = Vector2( 500, 0 )
+custom_constants/separation = 14
 
-[node name="Label" type="Label" parent="Menu/Container/Options/List/Mouse"]
+[node name="Label" type="Label" parent="Menu/Container/Options/List/Mouse" index="0"]
 margin_top = 1.0
-margin_right = 176.0
+margin_right = 194.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 text = "ui_slider_mouse_sensitivity"
+align = 2
 
-[node name="HSlider" type="HSlider" parent="Menu/Container/Options/List/Mouse"]
-margin_left = 180.0
+[node name="HSlider" type="HSlider" parent="Menu/Container/Options/List/Mouse" index="1"]
+margin_left = 208.0
 margin_right = 500.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.5
 max_value = 1.0
 step = 0.01
 
-[node name="Locales" type="HBoxContainer" parent="Menu/Container/Options/List"]
+[node name="Locales" type="HBoxContainer" parent="Menu/Container/Options/List" index="2"]
 margin_top = 72.0
 margin_right = 500.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 500, 0 )
+custom_constants/separation = 14
 
-[node name="Label" type="Label" parent="Menu/Container/Options/List/Locales"]
+[node name="Label" type="Label" parent="Menu/Container/Options/List/Locales" index="0"]
 margin_top = 3.0
-margin_right = 422.0
+margin_right = 194.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "ui_select_lang"
+align = 2
 
-[node name="OptionButton" type="OptionButton" parent="Menu/Container/Options/List/Locales"]
-margin_left = 426.0
-margin_right = 500.0
+[node name="OptionButton" type="OptionButton" parent="Menu/Container/Options/List/Locales" index="1"]
+margin_left = 208.0
+margin_right = 282.0
 margin_bottom = 20.0
-grow_vertical = 0
+size_flags_horizontal = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
 text = "English"
 
-[node name="Back" type="MarginContainer" parent="Menu"]
-margin_top = 428.0
-margin_right = 944.0
-margin_bottom = 520.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 30
-custom_constants/margin_top = 30
-custom_constants/margin_left = 30
-custom_constants/margin_bottom = 30
-
-[node name="CenterContainer" type="CenterContainer" parent="Menu/Back"]
-margin_left = 30.0
-margin_top = 30.0
-margin_right = 914.0
-margin_bottom = 62.0
+[node name="CenterContainer" type="CenterContainer" parent="Menu/Footer" index="0"]
+margin_right = 768.0
+margin_bottom = 64.0
 size_flags_vertical = 3
 
-[node name="Back" type="Button" parent="Menu/Back/CenterContainer"]
-margin_left = 399.0
-margin_right = 485.0
-margin_bottom = 32.0
+[node name="Back" type="Button" parent="Menu/Footer/CenterContainer" index="0"]
+margin_left = 341.0
+margin_top = 16.0
+margin_right = 427.0
+margin_bottom = 48.0
 rect_min_size = Vector2( 0, 32 )
 text = "ui_btn_back"
 flat = true
 [connection signal="value_changed" from="Menu/Container/Options/List/Sound/HSlider" to="." method="_on_Music_Slider_value_changed"]
 [connection signal="value_changed" from="Menu/Container/Options/List/Mouse/HSlider" to="." method="_on_Mouse_Slider_value_changed"]
 [connection signal="item_selected" from="Menu/Container/Options/List/Locales/OptionButton" to="." method="_on_MenuButton_item_selected"]
-[connection signal="pressed" from="Menu/Back/CenterContainer/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Menu/Footer/CenterContainer/Back" to="." method="_on_Back_pressed"]
