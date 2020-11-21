@@ -105,3 +105,15 @@ func _on_Key_picked_up() -> void:
 
 func get_start_origin() -> Vector3:
 	return start.global_transform.origin
+
+func pause() -> void:
+	bartender.pause()
+	friend.pause()
+	for dancer in dancers.get_children():
+		dancer.pause()
+
+func resume() -> void:
+	bartender.resume()
+	friend.resume()
+	for dancer in dancers.get_children():
+		dancer.resume()

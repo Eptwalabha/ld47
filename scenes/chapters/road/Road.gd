@@ -35,7 +35,7 @@ func get_start_origin() -> Vector3:
 	return start.global_transform.origin
 
 func process(delta : float) -> void:
-	if Data.road_car_crashed:
+	if Data.road_car_crashed or chapter_paused:
 		return
 	var s := 0.0
 	if Data.DEBUG and Data.DEBUG_ROAD_CONTROL:

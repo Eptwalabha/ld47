@@ -10,6 +10,7 @@ signal item_picked_up(item)
 signal night_environment(is_night)
 
 onready var start := $Start as Spatial
+var chapter_paused = false
 
 func reset() -> void:
 	pass
@@ -38,3 +39,17 @@ func process(_delta: float) -> void:
 
 func get_start_origin() -> Vector3:
 	return Vector3.ZERO
+
+func _pause() -> void:
+	chapter_paused = true
+	pause()
+
+func pause() -> void:
+	pass
+
+func _resume() -> void:
+	chapter_paused = false
+	resume()
+
+func resume() -> void:
+	pass

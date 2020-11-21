@@ -15,3 +15,9 @@ func play(animation: String) -> void:
 	$AnimationPlayer.play(animation)
 	if not synchronized:
 		$AnimationPlayer.advance(randi() * $AnimationPlayer.current_animation_length)
+
+func pause() -> void:
+	$AnimationPlayer.stop(false)
+
+func resume() -> void:
+	$AnimationPlayer.play()

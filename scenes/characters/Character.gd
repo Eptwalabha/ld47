@@ -21,3 +21,9 @@ func play(animation: String) -> void:
 	animation = animation + ("" if animation.ends_with("-loop") else "-loop")
 	glass.visible = (animation == "sit-stool-drink-loop")
 	$AnimationPlayer.play(animation)
+
+func pause() -> void:
+	$AnimationPlayer.stop(false)
+
+func resume() -> void:
+	$AnimationPlayer.play()

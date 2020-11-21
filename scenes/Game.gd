@@ -66,8 +66,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset_level") and Data.DEBUG:
 		_init_level()
 	player_states[current_state].process(current_player, delta)
+	maps[current_map].process(delta)
 	if not game_paused:
-		maps[current_map].process(delta)
 		_check_triggers_orientation()
 		_trigger_hint()
 
@@ -324,8 +324,10 @@ func _on_MoveDrink_drink_timeout() -> void:
 
 func _on_UI_game_resumed() -> void:
 	game_paused = false
+	maps[current_map]._resume()
 	pop_player_state()
 
 func _on_UI_game_paused() -> void:
 	game_paused = true
+	maps[current_map]._pause()
 	push_player_state('pause-menu')
