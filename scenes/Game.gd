@@ -40,6 +40,9 @@ func _ready() -> void:
 			if state is PlayerStateDialog:
 				state.ui = ui
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
+	for map in maps:
+		maps[map].connect("fade_in_requested", self, "_on_Map_ui_fade_requested", [true])
+		maps[map].connect("fade_out_requested", self, "_on_Map_ui_fade_requested", [false])
 
 func _init_level() -> void:
 	Data.reset_game(CHAPTER.FLAT)
@@ -92,6 +95,8 @@ func _trigger_hint() -> void:
 					elif Data.key_inserted and not Data.valve_found:
 						collider_id = "bartender_ask_handle"
 			ui.show_context("hover_%s" % collider_id)
+	else:
+		ui.hide_context()
 
 func _on_Flat_door_interacted_with(door: Door) -> void:
 	if not Data.phone_picked_up:
@@ -261,6 +266,8 @@ func _on_Dialog_dialog_ended(dialog_id) -> void:
 			Data.valve_inserted = true
 
 func drink() -> void:
+	ui.blink()
+	yield(ui, "blink")
 	push_player_state(GAME_STATE.MOVE_DRINK)
 	push_player_state(GAME_STATE.ANIMATION)
 	current_player.force_move_to(bar.drink)
@@ -306,7 +313,12 @@ func _on_Night_environment(is_night: bool) -> void:
 	else:
 		$AnimationPlayer.play("sunrise")
 
+func _on_Map_ui_fade_requested(fade_in: bool) -> void:
+	ui.fade(fade_in)
+
 func _on_MoveDrink_drink_timeout() -> void:
+	ui.blink()
+	yield(ui, "blink")
 	current_player.force_move_to(bar.drink)
 	push_player_state(GAME_STATE.ANIMATION)
 	current_player.drink()

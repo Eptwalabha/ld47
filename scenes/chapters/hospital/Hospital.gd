@@ -1,0 +1,2 @@
+class_name Hospital
+extends GameChapter

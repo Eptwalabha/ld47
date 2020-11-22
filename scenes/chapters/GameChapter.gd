@@ -8,6 +8,8 @@ signal dialog_triggered(dialog_trigger)
 signal window_triggered(window_trigger)
 signal item_picked_up(item)
 signal night_environment(is_night)
+signal fade_in_requested
+signal fade_out_requested
 
 onready var start := $Start as Spatial
 var chapter_paused = false
