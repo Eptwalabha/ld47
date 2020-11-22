@@ -10,23 +10,26 @@ onready var bar := $Map/Bar as Bar
 onready var flat := $Map/Flat as Flat
 onready var road := $Map/Road as Road
 
+const CHAPTER = Data.CHAPTER
+const GAME_STATE = Data.GAME_STATE
+
 onready var player_states := {
-	'pause-menu': $GameStates/PauseMenu,
-	'move': $GameStates/Move,
-	'move-drink': $GameStates/MoveDrink,
-	'dialog': $GameStates/Dialog,
-	'move-through': $GameStates/MoveThrough,
-	'animation': $GameStates/Animation,
+	GAME_STATE.PAUSE: $GameStates/PauseMenu,
+	GAME_STATE.MOVE: $GameStates/Move,
+	GAME_STATE.MOVE_DRINK: $GameStates/MoveDrink,
+	GAME_STATE.DIALOG: $GameStates/Dialog,
+	GAME_STATE.MOVE_THROUGH: $GameStates/MoveThrough,
+	GAME_STATE.ANIMATION: $GameStates/Animation,
 }
 onready var maps := {
-	Data.LEVEL.FLAT: flat,
-	Data.LEVEL.BAR: bar,
-	Data.LEVEL.ROAD: road,
+	CHAPTER.FLAT: flat,
+	CHAPTER.BAR: bar,
+	CHAPTER.ROAD: road,
 }
 
-var current_state := 'move'
+var current_state : int = GAME_STATE.MOVE
 var states_queue := []
-var current_map : int = Data.LEVEL.FLAT
+var current_map : int = CHAPTER.FLAT
 var triggers := {}
 var game_paused := false
 
@@ -40,24 +43,24 @@ func _ready() -> void:
 			state.connect("state_ended", self, "_on_PlayerState_ended", [state_name])
 
 func _init_level() -> void:
-	Data.reset_game(Data.LEVEL.FLAT)
-	Data.reset_game(Data.LEVEL.BAR)
-	Data.reset_game(Data.LEVEL.ROAD)
-	Data.reset_game(Data.LEVEL.HOSPITAL)
+	Data.reset_game(CHAPTER.FLAT)
+	Data.reset_game(CHAPTER.BAR)
+	Data.reset_game(CHAPTER.ROAD)
+	Data.reset_game(CHAPTER.HOSPITAL)
 	ui.hide_context()
 	ui.hide_dialog()
-	current_state = 'move'
-	states_queue = ['move']
-	var level_id = Data.LEVEL.FLAT
+	current_state = GAME_STATE.MOVE
+	states_queue = [GAME_STATE.MOVE]
+	var level_id = CHAPTER.FLAT
 	if Data.DEBUG:
 		level_id = Data.DEBUG_GAME_LEVEL
 	current_map = level_id
-	game_paused = (current_state == 'pause-menu')
+	game_paused = (current_state == GAME_STATE.PAUSE)
 	change_map(level_id)
 	if Data.DEBUG:
 		current_player.global_transform.origin = maps[current_map].get_start_origin()
 		current_player.reset()
-		if level_id == Data.LEVEL.ROAD and Data.DEBUG_ENVIRONMENT:
+		if level_id == CHAPTER.ROAD and Data.DEBUG_ENVIRONMENT:
 			$AnimationPlayer.play("sunset")
 
 func _physics_process(delta: float) -> void:
@@ -122,13 +125,13 @@ func active_tp(trigger: TPTrigger) -> void:
 	var tp_translation = trigger.destination_translation()
 	if trigger.id == 'bar-tp':
 		tp_translation = bar.start.global_transform.origin - trigger.global_transform.origin
-		current_map = Data.LEVEL.BAR
+		current_map = CHAPTER.BAR
 	current_player.force_move(tp_translation)
 
 func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar-tp":
-			change_map(Data.LEVEL.BAR)
+			change_map(CHAPTER.BAR)
 #			bar.reset()
 		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
@@ -181,7 +184,7 @@ func _on_Bar_door_interacted_with(door: Door) -> void:
 				current_player.show_item('key', false)
 				display_dialog('valve_inserted')
 			else:
-				change_map(Data.LEVEL.ROAD)
+				change_map(CHAPTER.ROAD)
 		_:
 			door.toggle()
 
@@ -189,7 +192,7 @@ func _on_window_triggered(window_trigger: WindowTrigger) -> void:
 	move_through(window_trigger)
 	window_trigger.through()
 
-func _on_PlayerState_ended(_state_name: String) -> void:
+func _on_PlayerState_ended(_state_name: int) -> void:
 	pop_player_state()
 
 func pop_player_state() -> void:
@@ -200,7 +203,7 @@ func pop_player_state() -> void:
 		current_state = old_state
 		player_states[current_state].resume(current_player, previous_state)
 
-func push_player_state(next_state: String) -> void:
+func push_player_state(next_state: int) -> void:
 	if current_state != next_state:
 		states_queue.push_back(current_state)
 		player_states[current_state].pause(current_player, next_state)
@@ -221,15 +224,15 @@ func change_map(new_map) -> void:
 	current_map = new_map
 	var new_origin = maps[current_map].get_start_origin()
 	match current_map:
-		Data.LEVEL.FLAT:
+		CHAPTER.FLAT:
 			maps[current_map].reset()
 			change_current_player(Data.PLAYER.FPS)
 			current_player.global_transform.origin = new_origin
 			current_player.reset()
-		Data.LEVEL.BAR:
+		CHAPTER.BAR:
 			maps[current_map].reset()
 			change_current_player(Data.PLAYER.FPS)
-		Data.LEVEL.ROAD:
+		CHAPTER.ROAD:
 			maps[current_map].reset()
 			change_current_player(Data.PLAYER.CAR)
 			current_player.global_transform.origin = new_origin
@@ -239,12 +242,12 @@ func change_map(new_map) -> void:
 
 func move_through(window: WindowTrigger) -> void:
 	var path = window.get_path_points(current_player.global_transform.origin, .3)
-	player_states['move-through'].set_route(path)
-	push_player_state('move-through')
+	player_states[GAME_STATE.MOVE_THROUGH].set_route(path)
+	push_player_state(GAME_STATE.MOVE_THROUGH)
 
 func display_dialog(dialog_id: String) -> void:
-	player_states['dialog'].set_dialog(dialog_id)
-	push_player_state('dialog')
+	player_states[GAME_STATE.DIALOG].set_dialog(dialog_id)
+	push_player_state(GAME_STATE.DIALOG)
 
 func _on_Flat_phone_picked_up() -> void:
 	display_dialog("flat-phone")
@@ -277,8 +280,8 @@ func _on_Dialog_dialog_ended(dialog_id) -> void:
 			Data.valve_inserted = true
 
 func drink() -> void:
-	push_player_state('move-drink')
-	push_player_state('animation')
+	push_player_state(GAME_STATE.MOVE_DRINK)
+	push_player_state(GAME_STATE.ANIMATION)
 	current_player.force_move_to(bar.drink)
 	current_player.drink()
 
@@ -308,11 +311,11 @@ func _on_Bar_item_picked_up(item) -> void:
 func _on_Road_car_crashed() -> void:
 #	ui.black()
 #	ui.show_dot(false)
-	change_map(Data.LEVEL.FLAT)
+	change_map(CHAPTER.FLAT)
 
 func _on_Road_car_bounced(left: bool) -> void:
 	if current_player is CarPlayer:
-		push_player_state('animation')
+		push_player_state(GAME_STATE.ANIMATION)
 		current_player.bounce(left)
 
 func _on_Night_environment(is_night: bool) -> void:
@@ -324,7 +327,7 @@ func _on_Night_environment(is_night: bool) -> void:
 
 func _on_MoveDrink_drink_timeout() -> void:
 	current_player.force_move_to(bar.drink)
-	push_player_state('animation')
+	push_player_state(GAME_STATE.ANIMATION)
 	current_player.drink()
 
 func _on_UI_game_resumed() -> void:
@@ -335,4 +338,4 @@ func _on_UI_game_resumed() -> void:
 func _on_UI_game_paused() -> void:
 	game_paused = true
 	maps[current_map]._pause()
-	push_player_state('pause-menu')
+	push_player_state(GAME_STATE.PAUSE)

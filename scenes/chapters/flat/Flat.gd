@@ -17,7 +17,7 @@ func reset() -> void:
 		show()
 	phone.set_active(true)
 	appartment_door.set_state(false)
-	Data.reset_game(Data.LEVEL.FLAT)
+	Data.reset_game(Data.CHAPTER.FLAT)
 	set_level(Data.flat_level)
 	emit_signal("night_environment", false)
 

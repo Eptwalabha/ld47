@@ -49,7 +49,7 @@ func reset() -> void:
 	dancers.visible = true
 	set_character_animation(CHARACTERS.FRIEND, 'sit-stool-idle')
 	pivot.scale.z = 1
-	Data.reset_game(Data.LEVEL.BAR)
+	Data.reset_game(Data.CHAPTER.BAR)
 
 func enable_dialog(who: int, enable: bool) -> void:
 	match who:

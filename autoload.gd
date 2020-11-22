@@ -1,10 +1,20 @@
 extends Node
 
-enum LEVEL {
+enum CHAPTER {
 	FLAT,
 	BAR,
 	ROAD,
 	HOSPITAL
+}
+
+enum GAME_STATE {
+	MOVE,
+	MOVE_DRINK,
+	MOVE_THROUGH,
+	DRIVE,
+	ANIMATION,
+	PAUSE,
+	DIALOG,
 }
 
 enum PLAYER {
@@ -13,7 +23,7 @@ enum PLAYER {
 }
 
 const DEBUG : bool = true
-const DEBUG_GAME_LEVEL = LEVEL.BAR
+const DEBUG_GAME_LEVEL = CHAPTER.BAR
 const DEBUG_FLAT_INITIAL_LEVEL : int = 2
 const DEBUG_ENVIRONMENT : bool = true
 const DEBUG_ROAD_CONTROL : bool = false
@@ -61,12 +71,12 @@ var road_car_drag := 0.01
 
 func reset_game(level) -> void:
 	match level:
-		LEVEL.FLAT:
+		CHAPTER.FLAT:
 			phone_picked_up = false
 			flat_level = FLAT_INITIAL_LEVEL
 			if DEBUG:
 				flat_level = DEBUG_FLAT_INITIAL_LEVEL
-		LEVEL.BAR:
+		CHAPTER.BAR:
 			drinking = false
 			friend_intro_bar = false
 			friend_wants_to_go_home = false
@@ -75,7 +85,7 @@ func reset_game(level) -> void:
 			key_inserted = false
 			valve_found = false
 			valve_inserted = false
-		LEVEL.ROAD:
+		CHAPTER.ROAD:
 			road_tutorial = false
 			road_car_crashed = false
 			road_car_speed = 0.0

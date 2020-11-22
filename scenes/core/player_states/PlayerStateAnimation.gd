@@ -12,8 +12,8 @@ func enter(p: Player) -> void:
 func exit(p: Player) -> void:
 	p.can_control(player_control_state)
 
-func pause(player: Player, _state: String) -> void:
+func pause(player: Player, _state: int) -> void:
 	player.pause_animation()
 
-func resume(player: Player, _state: String) -> void:
+func resume(player: Player, _state: int) -> void:
 	player.resume_animation()

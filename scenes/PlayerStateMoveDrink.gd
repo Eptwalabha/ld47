@@ -24,7 +24,7 @@ func is_hint_activated() -> bool:
 func is_drinking() -> bool:
 	return false
 
-func resume(player: Player, from_state: String) -> void:
+func resume(player: Player, from_state: int) -> void:
 	call = false
-	if from_state == 'animation':
+	if from_state == Data.GAME_STATE.ANIMATION:
 		next_drinking = Data.BAR_DRINK_DELAY_SECOND
