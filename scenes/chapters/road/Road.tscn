@@ -113,3 +113,4 @@ bus = "sound"
 [connection signal="body_entered" from="Start/Right" to="." method="_on_Right_body_entered"]
 [connection signal="body_entered" from="Start/Left" to="." method="_on_Left_body_entered"]
 [connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]
+[connection signal="finished" from="CarCrash" to="." method="_on_CarCrash_finished"]

@@ -10,6 +10,7 @@ signal item_picked_up(item)
 signal night_environment(is_night)
 signal fade_in_requested
 signal fade_out_requested
+signal black_requested
 
 onready var start := $Start as Spatial
 var chapter_paused = false

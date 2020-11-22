@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/chapters/GameChapter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/chapters/hospital/Hospital.gd" type="Script" id=2]
+[ext_resource path="res://assets/models/hospital/hospital-corridor.glb" type="PackedScene" id=3]
+[ext_resource path="res://scenes/props/road/Car.tscn" type="PackedScene" id=4]
 
 [node name="Hospital" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="hospital-corridor" parent="." index="1" instance=ExtResource( 3 )]
+
+[node name="Camera" type="Camera" parent="." index="2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+
+[node name="Spatial" type="Spatial" parent="." index="4"]
+
+[node name="Car" parent="Spatial" index="0" instance=ExtResource( 4 )]
+transform = Transform( 0.3, 0, 0, 0, -0.3, 4.52987e-08, 0, -4.52987e-08, -0.3, 1.22533, 2.03724, 0.201984 )

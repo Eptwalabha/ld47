@@ -43,6 +43,7 @@ func _ready() -> void:
 	for map in maps:
 		maps[map].connect("fade_in_requested", self, "_on_Map_ui_fade_requested", [true])
 		maps[map].connect("fade_out_requested", self, "_on_Map_ui_fade_requested", [false])
+		maps[map].connect("black_requested", self, "_on_Map_ui_black_requested")
 
 func _init_level() -> void:
 	Data.reset_game(CHAPTER.FLAT)
@@ -209,6 +210,7 @@ func change_current_player(player: int) -> void:
 func change_map(new_map) -> void:
 	current_map = new_map
 	var new_origin = maps[current_map].get_start_origin()
+	ui.show_dot(current_map != CHAPTER.HOSPITAL)
 	match current_map:
 		CHAPTER.FLAT:
 			maps[current_map].reset()
@@ -297,8 +299,6 @@ func _on_Bar_item_picked_up(item) -> void:
 			bar.close_bar()
 
 func _on_Road_car_crashed() -> void:
-#	ui.black()
-#	ui.show_dot(false)
 	change_map(CHAPTER.FLAT)
 
 func _on_Road_car_bounced(left: bool) -> void:
@@ -315,6 +315,10 @@ func _on_Night_environment(is_night: bool) -> void:
 
 func _on_Map_ui_fade_requested(fade_in: bool) -> void:
 	ui.fade(fade_in)
+
+func _on_Map_ui_black_requested() -> void:
+	ui.show_dot(false)
+	ui.black()
 
 func _on_MoveDrink_drink_timeout() -> void:
 	ui.blink()

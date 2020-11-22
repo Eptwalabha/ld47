@@ -54,8 +54,8 @@ func process(delta : float) -> void:
 	line_b.rotate_y(+.2 * delta)
 
 func crash_car() -> void:
-	emit_signal("car_crashed")
 	Data.road_car_crashed = true
+	emit_signal("black_requested")
 	$CarCrash.play()
 	$CarEngine.stop()
 
@@ -75,3 +75,6 @@ func _on_Left_body_entered(body: Node) -> void:
 func side_road_body_entered(body: Node, left: bool) -> void:
 	if body.is_in_group('player'):
 		emit_signal("car_bounced", left)
+
+func _on_CarCrash_finished() -> void:
+	emit_signal("car_crashed")

@@ -46,7 +46,6 @@ func hide_dialog() -> void:
 	dialog.hide()
 
 func blink() -> void:
-	$Black.visible = true
 	$AnimationPlayer.play("blink")
 
 func fade(fade_in: bool) -> void:
@@ -56,7 +55,7 @@ func fade(fade_in: bool) -> void:
 		$AnimationPlayer.play("fade-out")
 
 func black() -> void:
-	$Black.color.a = 1.0
+	$Black.modulate = Color.black
 
 func show_dot(is_dot_visible: bool) -> void:
 	dot.visible = is_dot_visible

@@ -19,6 +19,7 @@ func reset() -> void:
 	appartment_door.set_state(false)
 	Data.reset_game(Data.CHAPTER.FLAT)
 	set_level(Data.flat_level)
+	emit_signal("fade_in_requested")
 	emit_signal("night_environment", false)
 
 func set_level(level: int) -> void:
