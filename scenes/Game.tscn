@@ -238,7 +238,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2 )
 
 [node name="CarPlayer" parent="Player" instance=ExtResource( 2 )]
-visible = false
 
 [node name="GameStates" type="Node" parent="."]
 
@@ -279,7 +278,6 @@ anims/sunset = SubResource( 2 )
 [connection signal="night_environment" from="Map/Flat" to="." method="_on_Night_environment"]
 [connection signal="phone_picked_up" from="Map/Flat" to="." method="_on_Flat_phone_picked_up"]
 [connection signal="tp_entered" from="Map/Flat" to="." method="_on_Flat_tp_entered"]
-[connection signal="tp_exited" from="Map/Flat" to="." method="_on_Flat_tp_exited"]
 [connection signal="window_triggered" from="Map/Flat" to="." method="_on_window_triggered"]
 [connection signal="dialog_triggered" from="Map/Bar" to="." method="_on_dialog_triggered"]
 [connection signal="door_interacted_with" from="Map/Bar" to="." method="_on_Bar_door_interacted_with"]

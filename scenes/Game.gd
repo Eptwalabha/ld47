@@ -30,7 +30,6 @@ onready var maps := {
 var current_state : int = GAME_STATE.MOVE
 var states_queue := []
 var current_map : int = CHAPTER.FLAT
-var triggers := {}
 var game_paused := false
 
 func _ready() -> void:
@@ -72,19 +71,10 @@ func _process(delta: float) -> void:
 	player_states[current_state].process(current_player, delta)
 	maps[current_map].process(delta)
 	if not game_paused:
-		_check_triggers_orientation()
 		_trigger_hint()
 
 func _input(event: InputEvent) -> void:
 	player_states[current_state].input(current_player, event)
-
-func _check_triggers_orientation() -> void:
-	for trigger_id in triggers:
-		var trigger = triggers[trigger_id]
-		if trigger.is_well_oriented(current_player.head.global_transform.basis):
-			active_tp(trigger)
-			triggers = {}
-			break
 
 func _trigger_hint() -> void:
 	if player_states[current_state].is_hint_activated():
@@ -110,15 +100,7 @@ func _on_Flat_door_interacted_with(door: Door) -> void:
 		door.toggle()
 
 func _on_Flat_tp_entered(trigger: TPTrigger) -> void:
-	if trigger.is_well_oriented(current_player.head.global_transform.basis):
-		active_tp(trigger)
-	else:
-		triggers[trigger.id] = trigger
-
-func _on_Flat_tp_exited(trigger) -> void:
-	if triggers.has(trigger.id):
-		# warning-ignore:return_value_discarded
-		triggers.erase(trigger.id)
+	active_tp(trigger)
 
 func active_tp(trigger: TPTrigger) -> void:
 	_before_tp(trigger)
@@ -132,7 +114,6 @@ func _before_tp(trigger: TPTrigger) -> void:
 	match trigger.id:
 		"bar-tp":
 			change_map(CHAPTER.BAR)
-#			bar.reset()
 		"flat-stairs-up":
 			Data.flat_level = int(clamp(Data.flat_level + 1, -4, 2))
 			flat.set_level(Data.flat_level)
