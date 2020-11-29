@@ -7,6 +7,7 @@ onready var phone := $Appartment/Phone as Phone
 onready var appartment_door := $Door as Door
 onready var appartment_window := $Appartment/Window as WindowTrigger
 onready var backstreet_building := $BackStreetBuilding as BackStreetBuilding
+onready var appartment := $Appartment as Appartment
 
 func _ready() -> void:
 	_connect_triggers('flat')
@@ -26,6 +27,7 @@ func set_level(level: int) -> void:
 	var delta_elevation : float = level * 2.5 - backstreet_building.global_transform.origin.y
 	backstreet_building.translate(Vector3(0, delta_elevation, 0))
 	appartment_window.set_active(level == 0 || level == 2)
+	appartment.set_level(level)
 
 func _on_Door_interacted_with(door: Door) -> void:
 	emit_signal("door_interacted_with", door)
