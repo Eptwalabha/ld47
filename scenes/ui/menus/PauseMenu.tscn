@@ -27,22 +27,22 @@ margin_bottom = 296.0
 size_flags_vertical = 3
 
 [node name="Buttons" type="VBoxContainer" parent="Menu/Container/Menus" index="0"]
-margin_left = 327.0
+margin_left = 331.0
 margin_top = 111.0
-margin_right = 440.0
+margin_right = 437.0
 margin_bottom = 185.0
 custom_constants/separation = 10
 
-[node name="Continue" type="Button" parent="Menu/Container/Menus/Buttons" index="0"]
-margin_right = 113.0
+[node name="Resume" type="Button" parent="Menu/Container/Menus/Buttons" index="0"]
+margin_right = 106.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
-text = "ui_btn_continue"
+text = "ui_btn_resume"
 flat = true
 
 [node name="Options" type="Button" parent="Menu/Container/Menus/Buttons" index="1"]
 margin_top = 42.0
-margin_right = 113.0
+margin_right = 106.0
 margin_bottom = 74.0
 rect_min_size = Vector2( 0, 32 )
 text = "ui_btn_options"
@@ -70,6 +70,6 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 text = "ui_btn_quit"
 flat = true
-[connection signal="pressed" from="Menu/Container/Menus/Buttons/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="Menu/Container/Menus/Buttons/Resume" to="." method="_on_Continue_pressed"]
 [connection signal="pressed" from="Menu/Container/Menus/Buttons/Options" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="Menu/Footer/CenterContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

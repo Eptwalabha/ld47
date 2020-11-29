@@ -75,7 +75,7 @@ pick_up_phone_first	I can't leave without my phone	Je ne peux pas sortir sans mo
 hover_bar-window_girl	Look at your reflection	Regarder son reflet
 hover_bar-window_boy	Look at your reflection	Regarder son reflet
 ui_btn_quit	Quit game	Quitter le jeu
-ui_btn_continue	Continue	Retour au jeu
+ui_btn_resume	Resume	Continuer
 ui_btn_options	Options	Options
 ui_btn_back	Back	Retour
 ui_title_pause_menu	Pause	Pause

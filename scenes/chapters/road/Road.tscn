@@ -40,35 +40,51 @@ shape = SubResource( 1 )
 
 [node name="LineA" type="Spatial" parent="Pivot" index="1"]
 
-[node name="LA2" parent="Pivot/LineA" index="0" instance=ExtResource( 4 )]
+[node name="LA2" parent="Pivot/LineA" index="0" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( 0.0889112, 0, 0.99604, 0, 1, 0, -0.99604, 0, 0.0889112, -6.66723, 0, 74.6903 )
 
-[node name="LA1" parent="Pivot/LineA" index="1" instance=ExtResource( 4 )]
+[node name="LA1" parent="Pivot/LineA" index="1" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( -0.999999, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -0.999999, 73.403, 0, 0 )
 turn_before_active = 2
 
-[node name="LA4" parent="Pivot/LineA" index="2" instance=ExtResource( 4 )]
+[node name="LA4" parent="Pivot/LineA" index="2" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( -0.672302, 0, -0.740277, 0, 1, 0, 0.740277, 0, -0.672302, 52.6681, 0, -57.9932 )
 turn_before_active = 2
 
-[node name="LA3" parent="Pivot/LineA" index="3" instance=ExtResource( 4 )]
+[node name="LA3" parent="Pivot/LineA" index="3" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( 0.895214, 0, 0.445636, 0, 1, 0, -0.445636, 0, 0.895214, -68.6737, 0, 34.1856 )
 
 [node name="LineB" type="Spatial" parent="Pivot" index="2"]
 
-[node name="LB1" parent="Pivot/LineB" index="0" instance=ExtResource( 4 )]
+[node name="LB1" parent="Pivot/LineB" index="0" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( 0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 56.8951, 0, -56.8951 )
 turn_before_active = 1
 
-[node name="LB2" parent="Pivot/LineB" index="1" instance=ExtResource( 4 )]
+[node name="LB2" parent="Pivot/LineB" index="1" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -58.0112, 0, -58.0112 )
 turn_before_active = 2
 
-[node name="LB4" parent="Pivot/LineB" index="2" instance=ExtResource( 4 )]
+[node name="LB4" parent="Pivot/LineB" index="2" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.73059e-06, 0, 85.3459 )
 turn_before_active = 3
 
-[node name="LB3" parent="Pivot/LineB" index="3" instance=ExtResource( 4 )]
+[node name="LB3" parent="Pivot/LineB" index="3" groups=[
+"road-car",
+] instance=ExtResource( 4 )]
 transform = Transform( 0.707106, 0, -0.707106, 0, 1, 0, 0.707106, 0, 0.707106, 59.0464, 0, 59.0464 )
 turn_before_active = 1
 

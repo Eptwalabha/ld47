@@ -13,9 +13,9 @@ var initial_road_rotation : Vector3
 
 func _ready() -> void:
 	initial_road_rotation = road.rotation
-	for car in get_tree().get_nodes_in_group("cars"):
+	for car in get_tree().get_nodes_in_group("road-car"):
 		if car is Car:
-			car.connect("crashed_on_player", self, "crash_car")
+			car.connect("crashed_on_player", self, "_on_Car_crash", [car])
 	$CarEngine.stop()
 	$CarCrash.stop()
 #	reset()
@@ -59,7 +59,7 @@ func crash_car() -> void:
 	$CarCrash.play()
 	$CarEngine.stop()
 
-func _on_Car_crash() -> void:
+func _on_Car_crash(_car: Car) -> void:
 	crash_car()
 
 func _on_Area_area_entered(area: Area) -> void:
