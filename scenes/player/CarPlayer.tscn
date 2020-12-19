@@ -48,7 +48,7 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0 )
 
 [node name="Camera" parent="Head" index="0"]
-far = 200.0
+far = 300.0
 
 [node name="car_inside" parent="." index="1" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.4, 0, 0 )

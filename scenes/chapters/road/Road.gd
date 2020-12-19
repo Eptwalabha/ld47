@@ -9,9 +9,12 @@ onready var line_a := $Pivot/LineA as Spatial
 onready var line_b := $Pivot/LineB as Spatial
 onready var car_engine_sound := $CarEngine as AudioStreamPlayer
 
+var sky_shader : Material
 var initial_road_rotation : Vector3
+var sky_angle := 0.0;
 
 func _ready() -> void:
+	sky_shader = $Sky.get_surface_material(0);
 	initial_road_rotation = road.rotation
 	for car in get_tree().get_nodes_in_group("road-car"):
 		if car is Car:
@@ -50,6 +53,8 @@ func process(delta : float) -> void:
 		car_engine_sound.pitch_scale = 1.0 + Data.road_car_speed
 		s = (.4 + Data.road_car_speed) * delta
 	road.rotate_y(s)
+	sky_angle += s * -.8;
+	sky_shader.set_shader_param("angle", sky_angle);
 	line_a.rotate_y(-.2 * delta)
 	line_b.rotate_y(+.2 * delta)
 
